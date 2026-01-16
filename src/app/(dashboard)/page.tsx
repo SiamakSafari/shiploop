@@ -1,6 +1,6 @@
 "use client";
 
-import { DollarSign, Users, Zap, Trophy } from "lucide-react";
+import { DollarSign, Users, Zap, Trophy, Sparkles } from "lucide-react";
 import {
   ShipScoreCard,
   StatCard,
@@ -29,25 +29,29 @@ export default function DashboardPage() {
       : 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Page header */}
-      <div>
-        <h1 className="text-2xl font-bold">
-          Welcome back, {user?.name.split(" ")[0]}
-        </h1>
-        <p className="text-muted-foreground">
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Sparkles className="h-6 w-6 text-purple-400" />
+          <h1 className="text-3xl font-bold text-gradient">
+            Welcome back, {user?.name.split(" ")[0]}
+          </h1>
+        </div>
+        <p className="text-white/60 text-lg">
           Here&apos;s how your indie hacker journey is going.
         </p>
       </div>
 
-      {/* Stats row */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Stats row - Bento grid style */}
+      <div className="bento-grid">
         <StatCard
           title="Total MRR"
           value={totalMRR}
           icon={DollarSign}
           format="currency"
           trend={mockAnalytics.overview.avgGrowth}
+          accentColor="emerald"
         />
         <StatCard
           title="Total Users"
@@ -55,6 +59,7 @@ export default function DashboardPage() {
           icon={Users}
           format="number"
           trend={8.2}
+          accentColor="cyan"
         />
         <StatCard
           title="Ship Velocity"
@@ -62,6 +67,7 @@ export default function DashboardPage() {
           icon={Zap}
           format="number"
           trend={12.5}
+          accentColor="purple"
         />
         <StatCard
           title="Global Rank"
@@ -69,6 +75,7 @@ export default function DashboardPage() {
           icon={Trophy}
           format="number"
           trend={user?.rank.percentile ? -(100 - user.rank.percentile) / 10 : 0}
+          accentColor="pink"
         />
       </div>
 

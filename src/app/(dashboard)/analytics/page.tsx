@@ -14,23 +14,27 @@ export default function AnalyticsPage() {
   const { revenue, traffic, overview } = mockAnalytics;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Page header */}
-      <div>
-        <h1 className="text-2xl font-bold">Analytics</h1>
-        <p className="text-muted-foreground">
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <BarChart3 className="h-6 w-6 text-emerald-400" />
+          <h1 className="text-3xl font-bold text-gradient">Analytics</h1>
+        </div>
+        <p className="text-white/60 text-lg">
           Track your revenue, traffic, and growth across all products.
         </p>
       </div>
 
       {/* Overview stats */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="bento-grid">
         <StatCard
           title="Total MRR"
           value={overview.totalMRR}
           icon={DollarSign}
           format="currency"
           trend={overview.avgGrowth}
+          accentColor="emerald"
         />
         <StatCard
           title="Total Users"
@@ -38,6 +42,7 @@ export default function AnalyticsPage() {
           icon={Users}
           format="number"
           trend={8.2}
+          accentColor="cyan"
         />
         <StatCard
           title="Total Revenue"
@@ -45,6 +50,7 @@ export default function AnalyticsPage() {
           icon={BarChart3}
           format="currency"
           trend={revenue.growth}
+          accentColor="purple"
         />
         <StatCard
           title="Conversion Rate"
@@ -56,6 +62,7 @@ export default function AnalyticsPage() {
           icon={TrendingUp}
           format="percent"
           trend={2.1}
+          accentColor="pink"
         />
       </div>
 

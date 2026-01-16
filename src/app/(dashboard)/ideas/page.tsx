@@ -1,7 +1,6 @@
 "use client";
 
-import { Lightbulb } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Lightbulb, Sparkles } from "lucide-react";
 import { IdeaInput, IdeaCard, ValidationScores } from "@/components/ideas";
 import { useIdeasStore } from "@/stores";
 
@@ -32,11 +31,14 @@ export default function IdeasPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Page header */}
-      <div>
-        <h1 className="text-2xl font-bold">Idea Validator</h1>
-        <p className="text-muted-foreground">
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Lightbulb className="h-6 w-6 text-yellow-400" />
+          <h1 className="text-3xl font-bold text-gradient">Idea Validator</h1>
+        </div>
+        <p className="text-white/60 text-lg">
           Validate your ideas before you build. Get instant market analysis.
         </p>
       </div>
@@ -49,7 +51,10 @@ export default function IdeasPage() {
 
           {/* Ideas list */}
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold">Your Ideas</h2>
+            <h2 className="flex items-center gap-2 text-lg font-semibold text-white">
+              <Sparkles className="h-4 w-4 text-purple-400" />
+              Your Ideas
+            </h2>
             {ideas.length > 0 ? (
               <div className="grid gap-4 sm:grid-cols-2">
                 {ideas.map((idea) => (
@@ -65,15 +70,17 @@ export default function IdeasPage() {
                 ))}
               </div>
             ) : (
-              <Card>
-                <CardContent className="flex flex-col items-center justify-center py-12">
-                  <Lightbulb className="h-12 w-12 text-muted-foreground" />
-                  <h3 className="mt-4 text-lg font-semibold">No Ideas Yet</h3>
-                  <p className="mt-2 text-center text-sm text-muted-foreground">
+              <div className="glass rounded-2xl">
+                <div className="flex flex-col items-center justify-center py-12">
+                  <div className="rounded-2xl bg-yellow-500/20 p-4">
+                    <Lightbulb className="h-12 w-12 text-yellow-400" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold text-white">No Ideas Yet</h3>
+                  <p className="mt-2 text-center text-sm text-white/50">
                     Enter an idea above to get started with validation.
                   </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -81,33 +88,33 @@ export default function IdeasPage() {
         {/* Right column - Selected idea details */}
         <div>
           {selectedIdea ? (
-            <Card className="sticky top-20">
-              <CardHeader>
-                <CardTitle className="text-base">{selectedIdea.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">
+            <div className="glass hover-lift sticky top-20 rounded-2xl overflow-hidden">
+              <div className="p-4 border-b border-white/10">
+                <h3 className="text-base font-semibold text-white">{selectedIdea.title}</h3>
+              </div>
+              <div className="p-4 space-y-4">
+                <p className="text-sm text-white/60">
                   {selectedIdea.description}
                 </p>
                 <ValidationScores scores={selectedIdea.scores} />
                 {selectedIdea.notes && (
-                  <div className="rounded-lg bg-muted/50 p-3">
-                    <p className="text-xs font-medium text-muted-foreground">
+                  <div className="rounded-xl bg-white/5 p-3">
+                    <p className="text-xs font-medium text-white/40">
                       Notes
                     </p>
-                    <p className="mt-1 text-sm">{selectedIdea.notes}</p>
+                    <p className="mt-1 text-sm text-white/80">{selectedIdea.notes}</p>
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ) : (
-            <Card>
-              <CardContent className="flex flex-col items-center justify-center py-12">
-                <p className="text-center text-sm text-muted-foreground">
+            <div className="glass rounded-2xl">
+              <div className="flex flex-col items-center justify-center py-12">
+                <p className="text-center text-sm text-white/50">
                   Select an idea to view detailed validation scores
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           )}
         </div>
       </div>
