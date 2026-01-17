@@ -3,6 +3,8 @@
 import { LucideIcon, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { cn, formatCurrency, formatNumber, formatPercent } from "@/lib/utils";
 import { statCardColors, type StatCardType } from "@/lib/design-system";
+import { Caption, NumberDisplay } from "@/components/ui/typography";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface StatCardProps {
   title: string;
@@ -11,31 +13,27 @@ interface StatCardProps {
   trend?: number;
   format?: "currency" | "number" | "percent";
   className?: string;
-  emoji?: string;
   statType?: StatCardType;
-  accentColor?: "purple" | "cyan" | "pink" | "emerald";
+  accentColor?: "teal" | "black" | "gray1" | "gray2";
+  isLoading?: boolean;
 }
 
 const accentStyles = {
-  purple: {
-    bg: "from-purple-500/20 to-purple-500/5",
-    icon: "bg-purple-500/20 text-purple-400",
-    glow: "shadow-purple-500/20",
+  teal: {
+    border: "card-accent-teal",
+    icon: "text-primary",
   },
-  cyan: {
-    bg: "from-cyan-500/20 to-cyan-500/5",
-    icon: "bg-cyan-500/20 text-cyan-400",
-    glow: "shadow-cyan-500/20",
+  black: {
+    border: "card-accent-black",
+    icon: "text-black dark:text-white",
   },
-  pink: {
-    bg: "from-pink-500/20 to-pink-500/5",
-    icon: "bg-pink-500/20 text-pink-400",
-    glow: "shadow-pink-500/20",
+  gray1: {
+    border: "card-accent-gray-1",
+    icon: "text-slate-700 dark:text-slate-200",
   },
-  emerald: {
-    bg: "from-emerald-500/20 to-emerald-500/5",
-    icon: "bg-emerald-500/20 text-emerald-400",
-    glow: "shadow-emerald-500/20",
+  gray2: {
+    border: "card-accent-gray-2",
+    icon: "text-slate-500 dark:text-slate-400",
   },
 };
 
@@ -46,10 +44,25 @@ export function StatCard({
   trend,
   format = "number",
   className,
-  emoji,
   statType,
-  accentColor = "purple",
+  accentColor = "teal",
+  isLoading = false,
 }: StatCardProps) {
+  if (isLoading) {
+    return (
+      <div className={cn("glass rounded-xl p-5", className)}>
+        <div className="flex items-start justify-between">
+          <div className="space-y-2">
+            <Skeleton variant="shimmer" className="h-4 w-20" />
+            <Skeleton variant="shimmer" className="h-8 w-24" />
+            <Skeleton variant="shimmer" className="h-4 w-16" />
+          </div>
+          <Skeleton variant="shimmer" className="h-12 w-12 rounded-xl" />
+        </div>
+      </div>
+    );
+  }
+
   const formattedValue = (() => {
     switch (format) {
       case "currency":
@@ -64,59 +77,45 @@ export function StatCard({
   const TrendIcon = trend === undefined || trend === 0 ? Minus : trend > 0 ? TrendingUp : TrendingDown;
   const trendColor =
     trend === undefined || trend === 0
-      ? "text-white/40"
+      ? "text-slate-400 dark:text-slate-500"
       : trend > 0
-      ? "text-emerald-400"
-      : "text-red-400";
+      ? "text-emerald-600"
+      : "text-red-600";
 
   // Use statType for specific styling if provided
   const accent = statType ? {
-    bg: "from-current/20 to-current/5",
+    border: "",
     icon: "text-current",
-    glow: "hover-glow",
     tint: statCardColors[statType].tint,
-  } : accentStyles[accentColor];
+  } : (accentStyles[accentColor] || accentStyles.teal);
 
   return (
     <div
       className={cn(
-        "glass hover-lift relative overflow-hidden rounded-xl p-5 group transition-all duration-300",
-        statType ? statCardColors[statType].tint : accent.glow,
+        "glass hover-lift relative overflow-hidden rounded-xl p-5 group transition-all duration-250",
+        statType ? statCardColors[statType].tint : accent.border,
         className
       )}
       style={statType ? {
         '--glow-color': statCardColors[statType].glow,
       } as React.CSSProperties : undefined}
     >
-      {/* Gradient overlay */}
-      <div
-        className={cn(
-          "absolute inset-0 bg-gradient-to-br opacity-50",
-          statType ? "opacity-0" : accent.bg
-        )}
-      />
-
-      <div className="relative flex items-start justify-between">
+      <div className="flex items-start justify-between">
         <div className="space-y-2">
-          <p className="text-sm text-white/60 font-medium">{title}</p>
-          <p className="text-3xl font-bold text-white stat-number">{formattedValue}</p>
+          <Caption className="text-slate-600 dark:text-slate-400">{title}</Caption>
+          <NumberDisplay variant="medium" className="text-slate-900 dark:text-slate-50 stat-number">{formattedValue}</NumberDisplay>
           {trend !== undefined && (
-            <div className={cn("flex items-center gap-1.5 text-sm font-medium", trendColor)}>
+            <Caption as="div" className={cn("flex items-center gap-1.5", trendColor)}>
               <TrendIcon className="h-4 w-4" />
               <span>{formatPercent(trend)}</span>
-            </div>
+            </Caption>
           )}
         </div>
-        <div className="flex flex-col items-center gap-2">
-          {emoji && (
-            <div className="text-2xl hover-wiggle cursor-default">
-              {emoji}
-            </div>
-          )}
+        <div className="flex flex-col items-center">
           <div
             className={cn(
-              "rounded-xl p-3 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3",
-              statType ? "bg-white/5" : accent.icon
+              "rounded-xl p-3 bg-slate-50 dark:bg-slate-800 transition-all duration-250 group-hover:scale-110 group-hover:rotate-3",
+              statType ? "" : accent.icon
             )}
             style={statType ? {
               color: statCardColors[statType].primary,

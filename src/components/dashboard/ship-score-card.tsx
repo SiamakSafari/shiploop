@@ -3,11 +3,58 @@
 import { Flame, TrendingUp, Trophy, Sparkles } from "lucide-react";
 import { useAppStore } from "@/stores";
 import { cn, getTierColor } from "@/lib/utils";
+import { Heading, Caption, Micro, NumberDisplay } from "@/components/ui/typography";
+import { Skeleton } from "@/components/ui/skeleton";
+
+function ShipScoreCardSkeleton() {
+  return (
+    <div className="glass rounded-2xl p-6">
+      {/* Header skeleton */}
+      <div className="mb-4 flex items-center justify-between">
+        <Skeleton variant="shimmer" className="h-6 w-28" />
+        <Skeleton variant="shimmer" className="h-8 w-20 rounded-full" />
+      </div>
+
+      <div className="flex items-center gap-8">
+        {/* Circular progress skeleton */}
+        <Skeleton variant="shimmer" className="h-36 w-36 rounded-full" />
+
+        {/* Score bars skeleton */}
+        <div className="flex-1 space-y-3">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="space-y-1.5">
+              <div className="flex justify-between">
+                <Skeleton variant="shimmer" className="h-3 w-16" />
+                <Skeleton variant="shimmer" className="h-3 w-10" />
+              </div>
+              <Skeleton variant="shimmer" className="h-2.5 w-full rounded-full" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom stats skeleton */}
+      <div className="mt-6 flex items-center justify-between rounded-xl bg-slate-50 dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700">
+        <div className="flex items-center gap-3">
+          <Skeleton variant="shimmer" className="h-6 w-6 rounded" />
+          <div>
+            <Skeleton variant="shimmer" className="h-5 w-20 mb-1" />
+            <Skeleton variant="shimmer" className="h-3 w-24" />
+          </div>
+        </div>
+        <div className="text-right">
+          <Skeleton variant="shimmer" className="h-5 w-20 mb-1 ml-auto" />
+          <Skeleton variant="shimmer" className="h-3 w-28" />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function ShipScoreCard() {
   const user = useAppStore((state) => state.user);
 
-  if (!user) return null;
+  if (!user) return <ShipScoreCardSkeleton />;
 
   const { shipScore, rank } = user;
   const circumference = 2 * Math.PI * 52; // radius = 52
@@ -15,34 +62,25 @@ export function ShipScoreCard() {
   const offset = circumference - progress;
 
   return (
-    <div className="glass hover-lift animate-glow-pulse-rainbow relative overflow-hidden rounded-2xl p-6">
-      {/* Animated gradient border */}
-      <div className="gradient-border" />
-
-      {/* Inner glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-cyan-500/5" />
-
+    <div className="glass hover-lift relative overflow-hidden rounded-2xl p-6">
       {/* Header */}
-      <div className="relative mb-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-purple-400 animate-pulse" />
-          <h3 className="text-lg font-semibold text-gradient">🚀 Ship Score</h3>
+          <Sparkles className="h-5 w-5 text-primary animate-pulse" />
+          <Heading level={3} className="text-primary">Ship Score</Heading>
         </div>
-        <div className="flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-sm hover-wiggle cursor-default border border-white/10">
+        <Caption as="div" className="flex items-center gap-1.5 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1.5 hover-wiggle cursor-default border border-slate-200 dark:border-slate-700">
           <Trophy className={cn("h-4 w-4", getTierColor(rank.tier))} />
           <span className={getTierColor(rank.tier)}>
             {rank.tier.charAt(0).toUpperCase() + rank.tier.slice(1)}
           </span>
-        </div>
+        </Caption>
       </div>
 
       <div className="relative flex items-center gap-8">
-        {/* Circular progress with glow */}
+        {/* Circular progress */}
         <div className="relative">
-          {/* Outer glow ring */}
-          <div className="absolute inset-0 rounded-full blur-xl bg-gradient-to-r from-purple-500/30 to-cyan-500/30" />
-
-          <svg className="h-36 w-36 -rotate-90 transform relative z-10">
+          <svg className="h-36 w-36 -rotate-90 transform">
             {/* Background circle */}
             <circle
               cx="72"
@@ -51,20 +89,7 @@ export function ShipScoreCard() {
               fill="none"
               stroke="currentColor"
               strokeWidth="8"
-              className="text-white/10"
-            />
-            {/* Glow behind progress */}
-            <circle
-              cx="72"
-              cy="72"
-              r="52"
-              fill="none"
-              stroke="url(#scoreGlow)"
-              strokeWidth="12"
-              strokeLinecap="round"
-              strokeDasharray={circumference}
-              strokeDashoffset={offset}
-              className="blur-sm opacity-50"
+              className="text-slate-200 dark:text-slate-700"
             />
             {/* Progress circle */}
             <circle
@@ -72,33 +97,20 @@ export function ShipScoreCard() {
               cy="72"
               r="52"
               fill="none"
-              stroke="url(#scoreGradient)"
               strokeWidth="8"
               strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={offset}
-              className="transition-all duration-1000 ease-out drop-shadow-lg"
+              className="stroke-primary transition-all duration-700 ease-out"
             />
-            {/* Gradient definitions */}
-            <defs>
-              <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#8b5cf6" />
-                <stop offset="50%" stopColor="#06b6d4" />
-                <stop offset="100%" stopColor="#ec4899" />
-              </linearGradient>
-              <linearGradient id="scoreGlow" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#8b5cf6" />
-                <stop offset="100%" stopColor="#06b6d4" />
-              </linearGradient>
-            </defs>
           </svg>
 
           {/* Score number in center */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-5xl font-bold text-gradient animate-score-up font-space-grotesk tracking-tight">
+            <NumberDisplay variant="large" className="text-slate-900 dark:text-slate-50 animate-score-up">
               {shipScore.total}
-            </span>
-            <span className="text-xs text-white/50 font-medium">/ 100</span>
+            </NumberDisplay>
+            <Micro className="text-slate-500 dark:text-slate-400 font-medium">/ 100</Micro>
           </div>
         </div>
 
@@ -108,56 +120,55 @@ export function ShipScoreCard() {
             label="Commits"
             value={shipScore.breakdown.commits}
             max={25}
-            gradient="from-purple-500 via-purple-400 to-fuchsia-500"
+            color="#404040"
           />
           <ScoreBar
             label="Launches"
             value={shipScore.breakdown.launches}
             max={25}
-            gradient="from-cyan-500 via-sky-400 to-blue-500"
+            color="#0f766e"
           />
           <ScoreBar
             label="Revenue"
             value={shipScore.breakdown.revenue}
             max={25}
-            gradient="from-emerald-500 via-green-400 to-teal-500"
+            color="#0f766e"
           />
           <ScoreBar
             label="Growth"
             value={shipScore.breakdown.growth}
             max={25}
-            gradient="from-orange-500 via-amber-400 to-yellow-500"
+            color="#737373"
           />
         </div>
       </div>
 
       {/* Bottom stats */}
-      <div className="relative mt-6 flex items-center justify-between rounded-xl bg-white/5 p-4">
+      <div className="mt-6 flex items-center justify-between rounded-xl bg-slate-50 dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700">
         {/* Streak */}
         <div className="flex items-center gap-3">
           {shipScore.streak.isOnFire && (
             <div className="relative">
-              <Flame className="h-6 w-6 text-orange-500 animate-fire-pulse" />
-              <div className="absolute inset-0 blur-md bg-orange-500/50 animate-fire-pulse" />
+              <Flame className="h-6 w-6 text-primary animate-fire-pulse" />
             </div>
           )}
           <div>
-            <div className="text-xl font-bold text-gradient-fire">
+            <NumberDisplay variant="small" className="text-primary">
               {shipScore.streak.currentStreak} days
-            </div>
-            <div className="text-xs text-white/50">Current streak</div>
+            </NumberDisplay>
+            <Micro className="text-slate-500">Current streak</Micro>
           </div>
         </div>
 
         {/* Rank */}
         <div className="text-right">
-          <div className="flex items-center justify-end gap-1.5 text-xl font-bold">
-            <TrendingUp className="h-5 w-5 text-emerald-400" />
-            <span className="text-gradient">Top {rank.percentile}%</span>
-          </div>
-          <div className="text-xs text-white/50">
+          <NumberDisplay variant="small" as="div" className="flex items-center justify-end gap-1.5">
+            <TrendingUp className="h-5 w-5 text-success" />
+            <span className="text-primary">Top {rank.percentile}%</span>
+          </NumberDisplay>
+          <Micro className="text-slate-500">
             #{rank.position.toLocaleString()} of {rank.totalUsers.toLocaleString()}
-          </div>
+          </Micro>
         </div>
       </div>
     </div>
@@ -168,39 +179,31 @@ function ScoreBar({
   label,
   value,
   max,
-  gradient,
+  color,
 }: {
   label: string;
   value: number;
   max: number;
-  gradient: string;
+  color: string;
 }) {
   const percentage = (value / max) * 100;
 
   return (
     <div className="space-y-1.5 group">
-      <div className="flex justify-between text-xs">
-        <span className="text-white/60 font-medium">{label}</span>
-        <span className="font-semibold text-white/80 font-space-grotesk">
+      <div className="flex justify-between">
+        <Micro className="text-slate-600 dark:text-slate-300 font-medium">{label}</Micro>
+        <Micro className="font-semibold text-slate-700 dark:text-slate-200 font-space-grotesk">
           {value}/{max}
-        </span>
+        </Micro>
       </div>
-      <div className="relative h-2.5 overflow-hidden rounded-full bg-white/10 border border-white/5">
-        {/* Glow effect behind bar */}
+      <div className="relative h-2.5 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600">
+        {/* Actual bar with solid color */}
         <div
-          className={cn("absolute inset-0 h-full rounded-full bg-gradient-to-r blur-sm opacity-50", gradient)}
-          style={{ width: `${percentage}%` }}
-        />
-        {/* Actual bar with shimmer */}
-        <div
-          className={cn(
-            "relative h-full rounded-full bg-gradient-to-r transition-all duration-700 ease-out overflow-hidden",
-            gradient
-          )}
-          style={{ width: `${percentage}%` }}
+          className="relative h-full rounded-full transition-all duration-700 ease-out overflow-hidden"
+          style={{ width: `${percentage}%`, backgroundColor: color }}
         >
           {/* Shimmer effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
         </div>
       </div>
     </div>

@@ -7,40 +7,32 @@ import { cn } from "@/lib/utils";
 const actions = [
   {
     label: "New Project",
-    emoji: "✨",
     icon: Plus,
     href: "/projects",
     shortcut: "N",
-    gradient: "from-purple-500 to-pink-500",
-    glow: "shadow-purple-500/30",
+    color: "#0f766e",
     isPrimary: true,
   },
   {
     label: "New Idea",
-    emoji: "💡",
     icon: Lightbulb,
     href: "/ideas",
     shortcut: "I",
-    gradient: "from-yellow-500 to-orange-500",
-    glow: "shadow-yellow-500/30",
+    color: "#737373",
   },
   {
     label: "Log Revenue",
-    emoji: "💰",
     icon: DollarSign,
     href: "/analytics",
     shortcut: "R",
-    gradient: "from-emerald-500 to-teal-500",
-    glow: "shadow-emerald-500/30",
+    color: "#0f766e",
   },
   {
     label: "Prep Launch",
-    emoji: "🚀",
     icon: Rocket,
     href: "/launch-hub",
     shortcut: "L",
-    gradient: "from-cyan-500 to-blue-500",
-    glow: "shadow-cyan-500/30",
+    color: "#404040",
   },
 ];
 
@@ -49,10 +41,10 @@ export function QuickActions() {
 
   return (
     <div className="glass hover-lift rounded-2xl overflow-hidden">
-      <div className="p-4 border-b border-white/10">
-        <h3 className="flex items-center gap-2 text-base font-semibold text-white">
-          <Zap className="h-5 w-5 text-yellow-400 animate-pulse" />
-          ⚡ Quick Actions
+      <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+        <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
+          <Zap className="h-5 w-5 text-primary animate-pulse" />
+          Quick Actions
         </h3>
       </div>
       <div className="p-4">
@@ -63,35 +55,30 @@ export function QuickActions() {
               onClick={() => router.push(action.href)}
               className={cn(
                 "group relative flex flex-col items-center gap-3 rounded-xl p-4",
-                "bg-white/5 hover:bg-white/10 transition-all duration-300",
-                "hover-bounce hover:shadow-xl border border-white/10",
-                action.glow,
-                action.isPrimary && "ring-2 ring-purple-500/20"
+                "bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-300",
+                "hover-bounce hover:shadow-md border border-slate-200 dark:border-slate-700",
+                "active:scale-[0.97] active:shadow-sm",
+                action.isPrimary && "ring-2 ring-primary/30"
               )}
             >
-              {/* Icon with gradient background */}
+              {/* Icon with solid color background */}
               <div className="relative">
-                <div className={cn(
-                  "flex h-12 w-12 items-center justify-center rounded-xl",
-                  "bg-gradient-to-br shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 overflow-hidden",
-                  action.gradient
-                )}>
+                <div
+                  className="flex h-12 w-12 items-center justify-center rounded-xl shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 overflow-hidden"
+                  style={{ backgroundColor: action.color }}
+                >
                   <action.icon className="h-6 w-6 text-white relative z-10" />
                   {/* Shimmer effect on primary action */}
                   {action.isPrimary && (
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
                   )}
                 </div>
-                {/* Floating emoji */}
-                <div className="absolute -top-2 -right-2 text-xl animate-float-emoji">
-                  {action.emoji}
-                </div>
               </div>
-              <span className="text-sm font-semibold text-white/80 group-hover:text-white transition-colors">
+              <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-slate-50 transition-colors">
                 {action.label}
               </span>
               {/* Keyboard shortcut */}
-              <span className="absolute top-2 right-2 text-[10px] text-white/30 bg-white/10 px-1.5 py-0.5 rounded border border-white/10 font-mono">
+              <span className="absolute top-2 right-2 text-[10px] text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-600 font-mono">
                 {action.shortcut}
               </span>
             </button>
