@@ -4,6 +4,12 @@ export * from "./project";
 export * from "./idea";
 export * from "./analytics";
 export * from "./leaderboard";
+export * from "./directory";
+export * from "./financial";
+export * from "./goals";
+export * from "./feedback";
+export * from "./pricing";
+export * from "./build-public";
 
 // Activity types
 export type ActivityType =

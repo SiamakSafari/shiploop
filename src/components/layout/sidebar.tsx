@@ -13,6 +13,12 @@ import {
   ChevronLeft,
   Flame,
   Sparkles,
+  Globe,
+  DollarSign,
+  Target,
+  MessageSquare,
+  FlaskConical,
+  Megaphone,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -25,6 +31,12 @@ const navItems = [
   { href: "/ideas", icon: Lightbulb, label: "Ideas", shortcut: "G I" },
   { href: "/analytics", icon: BarChart3, label: "Analytics", shortcut: "G A" },
   { href: "/projects", icon: FolderKanban, label: "Projects", shortcut: "G P" },
+  { href: "/directories", icon: Globe, label: "Directories", shortcut: "G R" },
+  { href: "/financial", icon: DollarSign, label: "Financial", shortcut: "G F" },
+  { href: "/goals", icon: Target, label: "Goals", shortcut: "G O" },
+  { href: "/feedback", icon: MessageSquare, label: "Feedback", shortcut: "G E" },
+  { href: "/pricing", icon: FlaskConical, label: "Pricing", shortcut: "G X" },
+  { href: "/build-public", icon: Megaphone, label: "Build Public", shortcut: "G U" },
 ];
 
 export function Sidebar() {

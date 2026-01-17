@@ -3,39 +3,35 @@
  * Helpers for managing colors, animations, and gamification elements
  */
 
-// Color Variants - Maps to CSS variables in globals.css
+// Color Variants - Monochrome + Teal Palette
 export const colors = {
-  purpleVivid: 'var(--color-purple-vivid)',
-  cyanVivid: 'var(--color-cyan-vivid)',
-  pinkVivid: 'var(--color-pink-vivid)',
-  orangeVivid: 'var(--color-orange-vivid)',
-  emeraldVivid: 'var(--color-emerald-vivid)',
-  sunshineYellow: 'var(--color-sunshine-yellow)',
-  coral: 'var(--color-coral)',
-  peach: 'var(--color-peach)',
-  hotPink: 'var(--color-hot-pink)',
-  skyBlue: 'var(--color-sky-blue)',
-  mint: 'var(--color-mint)',
-  lavender: 'var(--color-lavender)',
-  aqua: 'var(--color-aqua)',
-  lime: 'var(--color-lime)',
-  rose: 'var(--color-rose)',
-  indigo: 'var(--color-indigo)',
-  teal: 'var(--color-teal)',
-  gold: 'var(--color-gold)',
-  silver: 'var(--color-silver)',
-  bronze: 'var(--color-bronze)',
-  xpBlue: 'var(--color-xp-blue)',
+  // Grayscale
+  black: '#000000',
+  gray1: '#171717',
+  gray2: '#404040',
+  gray3: '#737373',
+  gray4: '#a3a3a3',
+  gray5: '#d4d4d4',
+  gray6: '#e5e5e5',
+  gray7: '#f5f5f5',
+  white: '#ffffff',
+
+  // Teal Accent
+  primary: '#0f766e',
+
+  // Functional (minimal use)
+  success: '#22c55e',
+  warning: '#f59e0b',
+  error: '#ef4444',
+  info: '#06b6d4',
 } as const
 
-// Card Tint Classes
+// Card Tint Classes - Monochrome + Teal
 export const cardTints = [
-  'card-tint-purple',
-  'card-tint-cyan',
-  'card-tint-pink',
-  'card-tint-emerald',
-  'card-tint-gold',
-  'card-tint-coral',
+  'card-tint-teal',
+  'card-tint-gray',
+  'card-tint-gray-light',
+  'card-tint-white',
 ] as const
 
 export type CardTint = typeof cardTints[number]
@@ -45,108 +41,78 @@ export function getCardTint(index: number): CardTint {
   return cardTints[index % cardTints.length]
 }
 
-// Stat Card Color Assignments
+// Stat Card Color Assignments - Monochrome + Teal
 export const statCardColors = {
   mrr: {
-    primary: colors.emeraldVivid,
-    secondary: colors.gold,
-    tint: 'card-tint-emerald' as const,
-    glow: 'rgba(52, 211, 153, 0.3)',
+    primary: colors.primary,      // Teal for revenue
+    secondary: colors.gray7,
+    tint: 'card-tint-gray' as const,
+    glow: 'rgba(15, 118, 110, 0.3)',
   },
   users: {
-    primary: colors.cyanVivid,
-    secondary: colors.skyBlue,
-    tint: 'card-tint-cyan' as const,
-    glow: 'rgba(34, 211, 238, 0.3)',
+    primary: colors.gray2,        // Dark gray
+    secondary: colors.gray7,
+    tint: 'card-tint-gray' as const,
+    glow: 'rgba(64, 64, 64, 0.3)',
   },
   velocity: {
-    primary: colors.purpleVivid,
-    secondary: colors.lavender,
-    tint: 'card-tint-purple' as const,
-    glow: 'rgba(167, 139, 250, 0.3)',
+    primary: colors.gray3,        // Medium gray
+    secondary: colors.gray7,
+    tint: 'card-tint-gray' as const,
+    glow: 'rgba(115, 115, 115, 0.3)',
   },
   rank: {
-    primary: colors.pinkVivid,
-    secondary: colors.hotPink,
-    tint: 'card-tint-pink' as const,
-    glow: 'rgba(244, 114, 182, 0.3)',
+    primary: colors.primary,      // Teal for rank
+    secondary: colors.gray7,
+    tint: 'card-tint-gray' as const,
+    glow: 'rgba(15, 118, 110, 0.3)',
   },
 } as const
 
 export type StatCardType = keyof typeof statCardColors
 
-// Activity Feed Color Mapping
+// Activity Feed Color Mapping - Monochrome + Purple
 export const activityColors = {
   commit: {
-    color: colors.indigo,
-    emoji: '💻',
+    color: colors.gray2,
     label: 'Commit',
   },
   revenue: {
-    color: colors.mint,
-    emoji: '💰',
+    color: colors.primary,
     label: 'Revenue',
   },
   launch: {
-    color: colors.coral,
-    emoji: '🚀',
+    color: colors.primary,
     label: 'Launch',
   },
   milestone: {
-    color: colors.hotPink,
-    emoji: '🎉',
+    color: colors.primary,
     label: 'Milestone',
   },
   idea: {
-    color: colors.sunshineYellow,
-    emoji: '💡',
+    color: colors.gray3,
     label: 'Idea',
   },
   user: {
-    color: colors.skyBlue,
-    emoji: '👥',
+    color: colors.gray2,
     label: 'User',
   },
 } as const
 
 export type ActivityType = keyof typeof activityColors
 
-// Project Gradient Pairs (6 unique combinations that cycle)
-export const projectGradients = [
-  {
-    from: colors.purpleVivid,
-    to: colors.cyanVivid,
-    class: 'from-purple-500 to-cyan-500',
-  },
-  {
-    from: colors.pinkVivid,
-    to: colors.orangeVivid,
-    class: 'from-pink-500 to-orange-500',
-  },
-  {
-    from: colors.emeraldVivid,
-    to: colors.teal,
-    class: 'from-emerald-500 to-teal-500',
-  },
-  {
-    from: colors.indigo,
-    to: colors.purpleVivid,
-    class: 'from-indigo-500 to-purple-500',
-  },
-  {
-    from: colors.coral,
-    to: colors.hotPink,
-    class: 'from-red-500 to-pink-500',
-  },
-  {
-    from: colors.sunshineYellow,
-    to: colors.orangeVivid,
-    class: 'from-yellow-500 to-orange-500',
-  },
+// Project Solid Colors - Monochrome + Teal
+export const projectColors = [
+  { color: '#0f766e', bg: '#fafafa', name: 'teal' },     // Teal accent
+  { color: '#404040', bg: '#fafafa', name: 'gray1' },    // Dark gray
+  { color: '#737373', bg: '#fafafa', name: 'gray2' },    // Medium gray
+  { color: '#000000', bg: '#fafafa', name: 'black' },    // Black
+  { color: '#a3a3a3', bg: '#fafafa', name: 'gray3' },    // Light gray
+  { color: '#14b8a6', bg: '#f5f5f5', name: 'teal2' },    // Teal alternate (teal-500)
 ] as const
 
-export function getProjectGradient(index: number) {
-  return projectGradients[index % projectGradients.length]
+export function getProjectColor(index: number) {
+  return projectColors[index % projectColors.length]
 }
 
 // Badge Tier System
@@ -154,27 +120,27 @@ export type BadgeTier = 'bronze' | 'silver' | 'gold' | 'platinum'
 
 export const badgeTierConfig = {
   bronze: {
-    color: colors.bronze,
-    gradient: 'from-amber-700 to-orange-600',
-    glow: 'rgba(205, 127, 50, 0.5)',
+    color: colors.gray4,
+    glow: 'rgba(163, 163, 163, 0.4)',
+    gradient: 'from-gray-400 to-gray-500',
     icon: '🥉',
   },
   silver: {
-    color: colors.silver,
-    gradient: 'from-gray-400 to-gray-300',
-    glow: 'rgba(192, 192, 192, 0.5)',
+    color: colors.gray3,
+    glow: 'rgba(115, 115, 115, 0.4)',
+    gradient: 'from-gray-300 to-gray-400',
     icon: '🥈',
   },
   gold: {
-    color: colors.gold,
-    gradient: 'from-yellow-400 to-yellow-300',
-    glow: 'rgba(255, 215, 0, 0.5)',
+    color: colors.warning,
+    glow: 'rgba(245, 158, 11, 0.4)',
+    gradient: 'from-amber-400 to-amber-500',
     icon: '🥇',
   },
   platinum: {
-    color: colors.aqua,
-    gradient: 'from-cyan-300 to-blue-300',
-    glow: 'rgba(94, 234, 212, 0.5)',
+    color: colors.primary,
+    glow: 'rgba(15, 118, 110, 0.4)',
+    gradient: 'from-teal-500 to-teal-600',
     icon: '💎',
   },
 } as const
@@ -184,34 +150,79 @@ export type BadgeCategory = 'streak' | 'revenue' | 'launch' | 'community' | 'vel
 
 export const badgeCategoryConfig = {
   streak: {
-    gradient: 'from-orange-500 to-red-500',
-    color: colors.orangeVivid,
-    emoji: '🔥',
+    color: colors.primary,
+    gradient: 'from-teal-500 to-teal-600',
   },
   revenue: {
-    gradient: 'from-emerald-500 to-yellow-500',
-    color: colors.emeraldVivid,
-    emoji: '💰',
+    color: colors.success,
+    gradient: 'from-emerald-500 to-emerald-600',
   },
   launch: {
-    gradient: 'from-cyan-500 to-blue-500',
-    color: colors.cyanVivid,
-    emoji: '🚀',
+    color: colors.primary,
+    gradient: 'from-teal-400 to-teal-500',
   },
   community: {
-    gradient: 'from-pink-500 to-purple-500',
-    color: colors.pinkVivid,
-    emoji: '👥',
+    color: colors.info,
+    gradient: 'from-cyan-500 to-cyan-600',
   },
   velocity: {
-    gradient: 'from-yellow-500 to-orange-500',
-    color: colors.sunshineYellow,
-    emoji: '⚡',
+    color: colors.gray2,
+    gradient: 'from-gray-600 to-gray-700',
   },
+} as const
+
+// Typography System
+export const typography = {
+  display: { size: 'text-5xl', weight: 'font-bold', lineHeight: 'leading-tight', letterSpacing: 'tracking-tight' },
+  h1: { size: 'text-3xl', weight: 'font-bold', lineHeight: 'leading-tight', letterSpacing: 'tracking-tight' },
+  h2: { size: 'text-2xl', weight: 'font-semibold', lineHeight: 'leading-snug', letterSpacing: 'tracking-tight' },
+  h3: { size: 'text-lg', weight: 'font-semibold', lineHeight: 'leading-snug' },
+  h4: { size: 'text-base', weight: 'font-semibold', lineHeight: 'leading-normal' },
+  body: { size: 'text-base', weight: 'font-normal', lineHeight: 'leading-relaxed' },
+  bodySmall: { size: 'text-sm', weight: 'font-normal', lineHeight: 'leading-relaxed' },
+  caption: { size: 'text-sm', weight: 'font-medium', lineHeight: 'leading-normal' },
+  overline: { size: 'text-xs', weight: 'font-medium', lineHeight: 'leading-tight', letterSpacing: 'tracking-wide', transform: 'uppercase' },
+  micro: { size: 'text-xs', weight: 'font-normal', lineHeight: 'leading-tight' },
+  numberLarge: { size: 'text-5xl', weight: 'font-bold', family: 'font-space-grotesk', lineHeight: 'leading-none', letterSpacing: 'tracking-tight' },
+  numberMedium: { size: 'text-3xl', weight: 'font-bold', family: 'font-space-grotesk', lineHeight: 'leading-none' },
+  numberSmall: { size: 'text-xl', weight: 'font-bold', family: 'font-space-grotesk', lineHeight: 'leading-none' },
+} as const
+
+export function getTypography(variant: keyof typeof typography): string {
+  const style = typography[variant]
+  return Object.values(style).join(' ')
+}
+
+// Spacing System
+export const spacing = {
+  component: {
+    padding: { xs: 'p-3', sm: 'p-4', md: 'p-5', lg: 'p-6' },
+    gap: { xs: 'gap-2', sm: 'gap-3', md: 'gap-4', lg: 'gap-6' },
+  },
+  layout: {
+    section: 'space-y-6',
+    page: 'space-y-4',
+    card: 'space-y-3',
+  },
+  grid: {
+    tight: 'gap-4',
+    normal: 'gap-6',
+    loose: 'gap-8',
+  },
+} as const
+
+// Icon Sizes
+export const iconSizes = {
+  xs: 'h-3 w-3',   // 12px - Tiny indicators
+  sm: 'h-4 w-4',   // 16px - Inline with text, buttons
+  md: 'h-5 w-5',   // 20px - Section headers
+  lg: 'h-6 w-6',   // 24px - Card icons, emphasis
+  xl: 'h-8 w-8',   // 32px - Large actions
 } as const
 
 // Animation Utilities
 export const animations = {
+  // Existing keyframe animations
   firePulse: 'animate-fire-pulse',
   pulseGlow: 'animate-pulse-glow',
   shimmer: 'animate-shimmer',
@@ -220,10 +231,21 @@ export const animations = {
   fadeIn: 'animate-fade-in',
   bounceGentle: 'animate-bounce-gentle',
   wiggle: 'animate-wiggle',
-  shimmerRainbow: 'animate-shimmer-rainbow',
+  shimmerTeal: 'animate-shimmer-teal',
   scalePop: 'animate-scale-pop',
-  glowPulseRainbow: 'animate-glow-pulse-rainbow',
-  floatEmoji: 'animate-float-emoji',
+  glowPulseTeal: 'animate-glow-pulse-teal',
+
+  // Duration utilities
+  duration: { fast: 'duration-150', normal: 'duration-250', slow: 'duration-400' },
+
+  // Easing utilities
+  ease: { default: 'ease-out', bounce: 'ease-in-out' },
+
+  // Transition presets
+  hover: 'transition-all duration-150 ease-out',
+  fade: 'transition-opacity duration-250 ease-out',
+  slide: 'transition-transform duration-250 ease-out',
+  scale: 'transition-transform duration-150 ease-out',
 } as const
 
 // Shape Utilities
@@ -301,24 +323,42 @@ export function formatCurrency(amount: number): string {
   }).format(amount)
 }
 
+// Confetti Colors - Monochrome + Teal
+export const confettiColors = [
+  '#0f766e', // Dark teal
+  '#14b8a6', // Teal-500
+  '#5eead4', // Light teal
+  '#404040', // Dark gray
+  '#737373', // Medium gray
+  '#a3a3a3', // Light gray
+  '#d4d4d4', // Lighter gray
+  '#000000', // Black
+]
+
 // Generate Random Confetti Colors
 export function getConfettiColors(count: number = 5): string[] {
-  const colorValues = [
-    '#a78bfa', // purple
-    '#22d3ee', // cyan
-    '#f472b6', // pink
-    '#fb923c', // orange
-    '#34d399', // emerald
-    '#fbbf24', // yellow
-    '#ff6b6b', // coral
-    '#7dd3fc', // sky blue
-  ]
-
   // Return random selection
-  return colorValues.sort(() => Math.random() - 0.5).slice(0, count)
+  return confettiColors.sort(() => Math.random() - 0.5).slice(0, count)
 }
 
 // Stagger Animation Delay
 export function getStaggerDelay(index: number, baseDelay: number = 50): string {
   return `${index * baseDelay}ms`
 }
+
+// Consolidated Design System Export
+export const designSystem = {
+  typography,
+  spacing,
+  animations,
+  iconSizes,
+  colors,
+  cardTints,
+  statCardColors,
+  activityColors,
+  projectColors,
+  badgeTierConfig,
+  badgeCategoryConfig,
+  shapes,
+  hoverEffects,
+} as const
