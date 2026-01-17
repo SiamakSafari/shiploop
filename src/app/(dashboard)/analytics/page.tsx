@@ -18,10 +18,10 @@ export default function AnalyticsPage() {
       {/* Page header */}
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <BarChart3 className="h-6 w-6 text-emerald-400" />
-          <h1 className="text-3xl font-bold text-gradient">Analytics</h1>
+          <BarChart3 className="h-6 w-6 text-primary" />
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-50">Analytics</h1>
         </div>
-        <p className="text-white/60 text-lg">
+        <p className="text-slate-500 dark:text-slate-400 text-lg">
           Track your revenue, traffic, and growth across all products.
         </p>
       </div>
@@ -34,7 +34,7 @@ export default function AnalyticsPage() {
           icon={DollarSign}
           format="currency"
           trend={overview.avgGrowth}
-          accentColor="emerald"
+          accentColor="teal"
         />
         <StatCard
           title="Total Users"
@@ -42,7 +42,7 @@ export default function AnalyticsPage() {
           icon={Users}
           format="number"
           trend={8.2}
-          accentColor="cyan"
+          accentColor="gray1"
         />
         <StatCard
           title="Total Revenue"
@@ -50,7 +50,7 @@ export default function AnalyticsPage() {
           icon={BarChart3}
           format="currency"
           trend={revenue.growth}
-          accentColor="purple"
+          accentColor="teal"
         />
         <StatCard
           title="Conversion Rate"
@@ -62,7 +62,7 @@ export default function AnalyticsPage() {
           icon={TrendingUp}
           format="percent"
           trend={2.1}
-          accentColor="pink"
+          accentColor="gray2"
         />
       </div>
 

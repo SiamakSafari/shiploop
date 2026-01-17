@@ -23,55 +23,55 @@ export default function SettingsPage() {
       {/* Page header */}
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Settings className="h-6 w-6 text-purple-400" />
-          <h1 className="text-3xl font-bold text-gradient">Settings</h1>
+          <Settings className="h-6 w-6 text-primary" />
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-50">Settings</h1>
         </div>
-        <p className="text-white/60 text-lg">
+        <p className="text-slate-500 dark:text-slate-400 text-lg">
           Manage your account and preferences.
         </p>
       </div>
 
       {/* Profile section */}
       <div className="glass hover-lift rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-white/10">
-          <h3 className="flex items-center gap-2 text-base font-semibold text-white">
-            <User className="h-4 w-4 text-cyan-400" />
+        <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
+            <User className="h-4 w-4 text-primary" />
             Profile
           </h3>
-          <p className="text-sm text-white/50 mt-1">Your public profile information.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Your public profile information.</p>
         </div>
         <div className="p-6 space-y-6">
           <div className="flex items-center gap-4">
-            <Avatar className="h-16 w-16 ring-2 ring-purple-500/30">
+            <Avatar className="h-16 w-16 ring-2 ring-primary/30">
               <AvatarImage src={user?.avatar} alt={user?.name} />
-              <AvatarFallback className="bg-gradient-to-br from-purple-500 to-cyan-500 text-white text-lg font-medium">
+              <AvatarFallback className="bg-primary text-white text-lg font-medium">
                 {user?.name
                   .split(" ")
                   .map((n) => n[0])
                   .join("")}
               </AvatarFallback>
             </Avatar>
-            <button className="rounded-xl bg-white/5 px-4 py-2 text-sm text-white/70 transition-all hover:bg-white/10 hover:text-white">
+            <button className="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm text-slate-600 dark:text-slate-300 transition-all hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-50 border border-slate-200 dark:border-slate-700">
               Change Avatar
             </button>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-white/60">Name</label>
-              <Input defaultValue={user?.name} className="glass border-white/10 bg-white/5 text-white placeholder:text-white/30" />
+              <label className="text-sm font-medium text-slate-600 dark:text-slate-300">Name</label>
+              <Input defaultValue={user?.name} className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-white/60">Username</label>
-              <Input defaultValue={user?.username} className="glass border-white/10 bg-white/5 text-white placeholder:text-white/30" />
+              <label className="text-sm font-medium text-slate-600 dark:text-slate-300">Username</label>
+              <Input defaultValue={user?.username} className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
             </div>
             <div className="space-y-2 sm:col-span-2">
-              <label className="text-sm font-medium text-white/60">Email</label>
-              <Input type="email" defaultValue={user?.email} className="glass border-white/10 bg-white/5 text-white placeholder:text-white/30" />
+              <label className="text-sm font-medium text-slate-600 dark:text-slate-300">Email</label>
+              <Input type="email" defaultValue={user?.email} className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
             </div>
           </div>
 
-          <button className="rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 px-5 py-2.5 font-medium text-white shadow-lg shadow-purple-500/25 transition-all hover:shadow-purple-500/40">
+          <button className="rounded-xl bg-primary px-5 py-2.5 font-medium text-white shadow-md transition-all hover:bg-primary/90 active:scale-[0.97]">
             Save Changes
           </button>
         </div>
@@ -79,12 +79,12 @@ export default function SettingsPage() {
 
       {/* Theme section */}
       <div className="glass hover-lift rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-white/10">
-          <h3 className="flex items-center gap-2 text-base font-semibold text-white">
-            <Sun className="h-4 w-4 text-yellow-400" />
+        <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
+            <Sun className="h-4 w-4 text-amber-500" />
             Appearance
           </h3>
-          <p className="text-sm text-white/50 mt-1">Customize how ShipLoop looks.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Customize how ShipLoop looks.</p>
         </div>
         <div className="p-6">
           <div className="grid grid-cols-3 gap-4">
@@ -95,12 +95,12 @@ export default function SettingsPage() {
                 className={cn(
                   "flex flex-col items-center gap-3 rounded-xl border-2 p-4 transition-all",
                   theme === t.value
-                    ? "border-purple-500 bg-purple-500/10 shadow-lg shadow-purple-500/20"
-                    : "border-white/10 hover:border-white/30 hover:bg-white/5"
+                    ? "border-primary bg-teal-50 dark:bg-teal-900/30 shadow-md"
+                    : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800"
                 )}
               >
-                <t.icon className={cn("h-6 w-6", theme === t.value ? "text-purple-400" : "text-white/60")} />
-                <span className={cn("text-sm font-medium", theme === t.value ? "text-white" : "text-white/60")}>{t.label}</span>
+                <t.icon className={cn("h-6 w-6", theme === t.value ? "text-primary" : "text-slate-400 dark:text-slate-500")} />
+                <span className={cn("text-sm font-medium", theme === t.value ? "text-slate-900 dark:text-slate-50" : "text-slate-500 dark:text-slate-400")}>{t.label}</span>
               </button>
             ))}
           </div>
@@ -109,12 +109,12 @@ export default function SettingsPage() {
 
       {/* Notifications section */}
       <div className="glass hover-lift rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-white/10">
-          <h3 className="flex items-center gap-2 text-base font-semibold text-white">
-            <Bell className="h-4 w-4 text-pink-400" />
+        <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
+            <Bell className="h-4 w-4 text-primary" />
             Notifications
           </h3>
-          <p className="text-sm text-white/50 mt-1">Configure your notification preferences.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Configure your notification preferences.</p>
         </div>
         <div className="p-6 space-y-4">
           <ToggleItem
@@ -137,12 +137,12 @@ export default function SettingsPage() {
 
       {/* Public profile section */}
       <div className="glass hover-lift rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-white/10">
-          <h3 className="flex items-center gap-2 text-base font-semibold text-white">
-            <Globe className="h-4 w-4 text-emerald-400" />
+        <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
+            <Globe className="h-4 w-4 text-emerald-600" />
             Public Profile
           </h3>
-          <p className="text-sm text-white/50 mt-1">Manage your public presence.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage your public presence.</p>
         </div>
         <div className="p-6 space-y-4">
           <ToggleItem
@@ -165,12 +165,12 @@ export default function SettingsPage() {
 
       {/* Keyboard shortcuts */}
       <div className="glass hover-lift rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-white/10">
-          <h3 className="flex items-center gap-2 text-base font-semibold text-white">
-            <Keyboard className="h-4 w-4 text-orange-400" />
+        <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
+            <Keyboard className="h-4 w-4 text-slate-600 dark:text-slate-400" />
             Keyboard Shortcuts
           </h3>
-          <p className="text-sm text-white/50 mt-1">Quick navigation and actions.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Quick navigation and actions.</p>
         </div>
         <div className="p-6">
           <div className="grid gap-3 sm:grid-cols-2">
@@ -199,10 +199,10 @@ function ToggleItem({
   defaultChecked?: boolean;
 }) {
   return (
-    <div className="flex items-center justify-between rounded-xl bg-white/5 p-4 hover:bg-white/10 transition-colors">
+    <div className="flex items-center justify-between rounded-xl bg-slate-50 dark:bg-slate-800/50 p-4 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700">
       <div className="space-y-0.5">
-        <p className="font-medium text-white">{title}</p>
-        <p className="text-sm text-white/50">{description}</p>
+        <p className="font-medium text-slate-900 dark:text-slate-50">{title}</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">{description}</p>
       </div>
       <Switch defaultChecked={defaultChecked} />
     </div>
@@ -217,9 +217,9 @@ function ShortcutItem({
   description: string;
 }) {
   return (
-    <div className="flex items-center justify-between rounded-xl bg-white/5 p-3 hover:bg-white/10 transition-colors">
-      <span className="text-sm text-white/60">{description}</span>
-      <kbd className="rounded-lg bg-white/10 px-2.5 py-1 font-mono text-xs text-white/70">
+    <div className="flex items-center justify-between rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700">
+      <span className="text-sm text-slate-600 dark:text-slate-300">{description}</span>
+      <kbd className="rounded-lg bg-slate-200 dark:bg-slate-700 px-2.5 py-1 font-mono text-xs text-slate-600 dark:text-slate-300">
         {shortcut}
       </kbd>
     </div>

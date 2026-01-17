@@ -35,10 +35,10 @@ export default function IdeasPage() {
       {/* Page header */}
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Lightbulb className="h-6 w-6 text-yellow-400" />
-          <h1 className="text-3xl font-bold text-gradient">Idea Validator</h1>
+          <Lightbulb className="h-6 w-6 text-amber-500" />
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-50">Idea Validator</h1>
         </div>
-        <p className="text-white/60 text-lg">
+        <p className="text-slate-500 dark:text-slate-400 text-lg">
           Validate your ideas before you build. Get instant market analysis.
         </p>
       </div>
@@ -51,8 +51,8 @@ export default function IdeasPage() {
 
           {/* Ideas list */}
           <div className="space-y-4">
-            <h2 className="flex items-center gap-2 text-lg font-semibold text-white">
-              <Sparkles className="h-4 w-4 text-purple-400" />
+            <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-slate-50">
+              <Sparkles className="h-4 w-4 text-primary" />
               Your Ideas
             </h2>
             {ideas.length > 0 ? (
@@ -72,11 +72,11 @@ export default function IdeasPage() {
             ) : (
               <div className="glass rounded-2xl">
                 <div className="flex flex-col items-center justify-center py-12">
-                  <div className="rounded-2xl bg-yellow-500/20 p-4">
-                    <Lightbulb className="h-12 w-12 text-yellow-400" />
+                  <div className="rounded-2xl bg-amber-100 dark:bg-amber-900/30 p-4">
+                    <Lightbulb className="h-12 w-12 text-amber-500" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-white">No Ideas Yet</h3>
-                  <p className="mt-2 text-center text-sm text-white/50">
+                  <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-slate-50">No Ideas Yet</h3>
+                  <p className="mt-2 text-center text-sm text-slate-500 dark:text-slate-400">
                     Enter an idea above to get started with validation.
                   </p>
                 </div>
@@ -89,20 +89,20 @@ export default function IdeasPage() {
         <div>
           {selectedIdea ? (
             <div className="glass hover-lift sticky top-20 rounded-2xl overflow-hidden">
-              <div className="p-4 border-b border-white/10">
-                <h3 className="text-base font-semibold text-white">{selectedIdea.title}</h3>
+              <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+                <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50">{selectedIdea.title}</h3>
               </div>
               <div className="p-4 space-y-4">
-                <p className="text-sm text-white/60">
+                <p className="text-sm text-slate-600 dark:text-slate-300">
                   {selectedIdea.description}
                 </p>
                 <ValidationScores scores={selectedIdea.scores} />
                 {selectedIdea.notes && (
-                  <div className="rounded-xl bg-white/5 p-3">
-                    <p className="text-xs font-medium text-white/40">
+                  <div className="rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3 border border-slate-200 dark:border-slate-700">
+                    <p className="text-xs font-medium text-slate-400 dark:text-slate-500">
                       Notes
                     </p>
-                    <p className="mt-1 text-sm text-white/80">{selectedIdea.notes}</p>
+                    <p className="mt-1 text-sm text-slate-700 dark:text-slate-200">{selectedIdea.notes}</p>
                   </div>
                 )}
               </div>
@@ -110,7 +110,7 @@ export default function IdeasPage() {
           ) : (
             <div className="glass rounded-2xl">
               <div className="flex flex-col items-center justify-center py-12">
-                <p className="text-center text-sm text-white/50">
+                <p className="text-center text-sm text-slate-500 dark:text-slate-400">
                   Select an idea to view detailed validation scores
                 </p>
               </div>
