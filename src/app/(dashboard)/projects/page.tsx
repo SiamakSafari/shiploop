@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Plus, FolderKanban, Lightbulb, Target } from "lucide-react";
+import { toast } from "sonner";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { StatBox } from "@/components/ui/stat-box";
 import { ProjectCard } from "@/components/projects";
@@ -69,10 +70,21 @@ export default function ProjectsPage() {
   const handlePause = (id: string) => {
     const project = projects.find((p) => p.id === id);
     if (project) {
-      updateProject(id, {
-        status: project.status === "paused" ? "building" : "paused",
-      });
+      const newStatus = project.status === "paused" ? "building" : "paused";
+      updateProject(id, { status: newStatus });
+      toast.success(
+        newStatus === "paused" ? "Project paused" : "Project resumed",
+        { description: project.name }
+      );
     }
+  };
+
+  const handleDelete = (id: string) => {
+    const project = projects.find((p) => p.id === id);
+    deleteProject(id);
+    toast.success("Project deleted", {
+      description: project?.name || "Project removed successfully",
+    });
   };
 
   const handleIdeaSubmit = (title: string, description: string) => {
@@ -82,10 +94,23 @@ export default function ProjectsPage() {
       scores: { demand: 0, competition: 0, feasibility: 0, overall: 0 },
       status: "pending",
     });
+    toast.success("Idea added!", {
+      description: title,
+    });
+  };
+
+  const handleDeleteIdea = (id: string) => {
+    const idea = ideas.find((i) => i.id === id);
+    deleteIdea(id);
+    toast.success("Idea deleted", {
+      description: idea?.title || "Idea removed",
+    });
   };
 
   const handleConvert = (ideaId: string) => {
-    alert("This would create a new project from the idea!");
+    toast.success("Converting to project...", {
+      description: "This feature is coming soon!",
+    });
   };
 
   // Goal stats
@@ -168,7 +193,7 @@ export default function ProjectsPage() {
                 >
                   <ProjectCard
                     project={project}
-                    onDelete={deleteProject}
+                    onDelete={handleDelete}
                     onPause={handlePause}
                   />
                 </div>
@@ -214,7 +239,7 @@ export default function ProjectsPage() {
                       <IdeaCard
                         key={idea.id}
                         idea={idea}
-                        onDelete={deleteIdea}
+                        onDelete={handleDeleteIdea}
                         onRevalidate={validateIdea}
                         onConvert={handleConvert}
                         isSelected={selectedIdeaId === idea.id}

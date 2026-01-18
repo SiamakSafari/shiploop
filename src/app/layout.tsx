@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const inter = Inter({
@@ -32,6 +33,18 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              classNames: {
+                toast: "bg-background border-border text-foreground shadow-lg",
+                title: "text-foreground font-medium",
+                description: "text-muted-foreground",
+                success: "!bg-emerald-50 dark:!bg-emerald-950/50 !border-emerald-200 dark:!border-emerald-800",
+                error: "!bg-red-50 dark:!bg-red-950/50 !border-red-200 dark:!border-red-800",
+              },
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

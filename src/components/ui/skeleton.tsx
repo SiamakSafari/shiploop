@@ -9,9 +9,9 @@ function Skeleton({ className, variant = "default", ...props }: SkeletonProps) {
     <div
       data-slot="skeleton"
       className={cn(
-        "rounded-md bg-gray-100",
+        "rounded-md bg-gray-200 dark:bg-gray-800",
         variant === "default" && "animate-pulse",
-        variant === "shimmer" && "relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1.5s_infinite] before:bg-gradient-to-r before:from-transparent before:via-gray-200/60 before:to-transparent",
+        variant === "shimmer" && "relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1.5s_infinite] before:bg-gradient-to-r before:from-transparent before:via-gray-300/40 dark:before:via-gray-600/40 before:to-transparent",
         className
       )}
       {...props}
