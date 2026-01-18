@@ -12,10 +12,7 @@ export default function DashboardLayout({
   const { sidebarCollapsed } = useUIStore();
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Clean background - no mesh gradient or orbs */}
-      <div className="mesh-gradient" />
-
+    <div className="min-h-screen relative">
       {/* Sidebar - hidden on mobile */}
       <div className="hidden md:block relative z-20">
         <Sidebar />
@@ -35,7 +32,7 @@ export default function DashboardLayout({
         )}
       >
         <Header />
-        <main className="flex-1 p-4 md:p-6 bg-gray-50 dark:bg-background">{children}</main>
+        <main className="flex-1 p-4 md:p-6">{children}</main>
       </div>
     </div>
   );

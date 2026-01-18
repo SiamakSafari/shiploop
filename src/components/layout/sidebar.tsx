@@ -19,11 +19,11 @@ import { useUIStore, useAppStore } from "@/stores";
 import { useAnimatedCounter } from "@/hooks";
 
 const navItems = [
-  { href: "/", icon: LayoutDashboard, label: "Home", shortcut: "G H" },
-  { href: "/projects", icon: FolderKanban, label: "Projects", shortcut: "G P" },
-  { href: "/revenue", icon: DollarSign, label: "Revenue", shortcut: "G R" },
-  { href: "/launch", icon: Rocket, label: "Launch", shortcut: "G L" },
-  { href: "/engage", icon: MessageSquare, label: "Engage", shortcut: "G E" },
+  { href: "/dashboard", icon: LayoutDashboard, label: "Home", shortcut: "G H" },
+  { href: "/dashboard/projects", icon: FolderKanban, label: "Projects", shortcut: "G P" },
+  { href: "/dashboard/revenue", icon: DollarSign, label: "Revenue", shortcut: "G R" },
+  { href: "/dashboard/launch", icon: Rocket, label: "Launch", shortcut: "G L" },
+  { href: "/dashboard/engage", icon: MessageSquare, label: "Engage", shortcut: "G E" },
 ];
 
 export function Sidebar() {
@@ -46,7 +46,7 @@ export function Sidebar() {
       {/* Logo with enhanced styling */}
       <div className="flex h-16 items-center justify-between border-b border-border px-4">
         {!sidebarCollapsed && (
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href="/dashboard" className="flex items-center gap-2 group">
             <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/20">
               <Rocket className="h-5 w-5 text-primary-foreground transition-transform group-hover:rotate-12" />
               <Sparkles className="absolute -top-1 -right-1 h-3 w-3 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -171,11 +171,11 @@ export function Sidebar() {
       {/* Settings with enhanced styling */}
       <div className="border-t border-border p-3">
         <Link
-          href="/settings"
+          href="/dashboard/settings"
           className={cn(
             "nav-item-enhanced group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground hover:bg-muted/50",
             sidebarCollapsed && "justify-center px-2",
-            pathname === "/settings" && "active bg-gradient-to-r from-primary/15 to-primary/5 text-primary"
+            pathname === "/dashboard/settings" && "active bg-gradient-to-r from-primary/15 to-primary/5 text-primary"
           )}
         >
           <div className="relative transition-transform duration-200 group-hover:scale-110 group-hover:rotate-45">

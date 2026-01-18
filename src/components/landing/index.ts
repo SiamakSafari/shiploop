@@ -1,0 +1,14 @@
+export { LandingHeader } from "./landing-header";
+export { LandingFooter } from "./landing-footer";
+export { HeroSection } from "./hero-section";
+export { ShipScorePreview } from "./ship-score-preview";
+export { SocialProofBar } from "./social-proof-bar";
+export { FeatureCard } from "./feature-card";
+export { FeaturesGrid } from "./features-grid";
+export { HowItWorks } from "./how-it-works";
+export { TestimonialCard } from "./testimonial-card";
+export { TestimonialsSection } from "./testimonials-section";
+export { LeaderboardPreview } from "./leaderboard-preview";
+export { WaitlistSection } from "./waitlist-section";
+export { FAQSection } from "./faq-section";
+export { FinalCTA } from "./final-cta";

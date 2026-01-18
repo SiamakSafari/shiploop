@@ -38,7 +38,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           The project you&apos;re looking for doesn&apos;t exist.
         </p>
         <Button asChild className="mt-4">
-          <Link href="/projects">Back to Projects</Link>
+          <Link href="/dashboard/projects">Back to Projects</Link>
         </Button>
       </div>
     );
@@ -58,7 +58,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {/* Back button and header */}
       <div className="flex items-center gap-4">
         <Button variant="ghost" size="icon" asChild>
-          <Link href="/projects">
+          <Link href="/dashboard/projects">
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>

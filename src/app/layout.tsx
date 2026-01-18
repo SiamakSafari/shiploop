@@ -32,6 +32,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          {/* Global background */}
+          <div className="fixed inset-0 bg-background -z-50" />
+          <div className="fixed inset-0 bg-gradient-to-br from-background via-background to-muted/30 -z-40" />
+          <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent -z-40" />
+          <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent -z-40" />
+          <div className="fixed inset-0 pattern-grid -z-30" />
+
           {children}
           <Toaster
             position="bottom-right"

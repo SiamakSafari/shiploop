@@ -34,7 +34,7 @@ export function useAnimatedCounter(
   const [displayValue, setDisplayValue] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const previousValue = useRef(0);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | undefined>(undefined);
   const hasAnimated = useRef(false);
 
   useEffect(() => {

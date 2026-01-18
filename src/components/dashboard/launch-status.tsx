@@ -43,7 +43,7 @@ export function LaunchStatus() {
           <div className="py-4 text-center">
             <p className="text-sm text-gray-500 mb-2">No projects ready for launch.</p>
             <Link
-              href="/projects"
+              href="/dashboard/projects"
               className="text-sm text-primary hover:text-gray-800 transition-colors"
             >
               Start building
