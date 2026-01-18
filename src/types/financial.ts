@@ -27,8 +27,8 @@ export interface FinancialHealth {
 }
 
 export const METRIC_CATEGORY_CONFIG: Record<MetricCategory, { icon: string; label: string; color: string }> = {
-  revenue: { icon: "💰", label: "Revenue", color: "text-emerald-600 dark:text-emerald-400" },
-  expenses: { icon: "📉", label: "Expenses", color: "text-red-600 dark:text-red-400" },
-  runway: { icon: "🛫", label: "Runway", color: "text-blue-600 dark:text-blue-400" },
-  growth: { icon: "📈", label: "Growth", color: "text-purple-600 dark:text-purple-400" },
+  revenue: { icon: "dollar-sign", label: "Revenue", color: "text-emerald-600 dark:text-emerald-400" },
+  expenses: { icon: "trending-down", label: "Expenses", color: "text-red-600 dark:text-red-400" },
+  runway: { icon: "plane", label: "Runway", color: "text-blue-600 dark:text-blue-400" },
+  growth: { icon: "trending-up", label: "Growth", color: "text-purple-600 dark:text-purple-400" },
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { Icon } from "@/components/ui/icon";
 
 export type MiniBadgeVariant = "new" | "hot" | "fire" | "star" | "crown" | "rocket";
 
@@ -12,43 +13,43 @@ interface MiniBadgeProps {
 
 const badgeConfig: Record<MiniBadgeVariant, {
   label: string;
-  emoji: string;
+  icon: string;
   gradient: string;
   textColor: string;
 }> = {
   new: {
     label: "NEW",
-    emoji: "✨",
+    icon: "sparkles",
     gradient: "from-lime-500 to-emerald-500",
     textColor: "text-emerald-950",
   },
   hot: {
     label: "HOT",
-    emoji: "🔥",
+    icon: "flame",
     gradient: "from-coral-500 to-orange-500",
     textColor: "text-white",
   },
   fire: {
     label: "FIRE",
-    emoji: "🔥",
+    icon: "flame",
     gradient: "from-orange-500 to-red-500",
     textColor: "text-white",
   },
   star: {
     label: "STAR",
-    emoji: "⭐",
+    icon: "star",
     gradient: "from-yellow-400 to-yellow-300",
     textColor: "text-yellow-950",
   },
   crown: {
     label: "TOP",
-    emoji: "👑",
+    icon: "crown",
     gradient: "from-gold-500 to-yellow-500",
     textColor: "text-yellow-950",
   },
   rocket: {
     label: "SHIP",
-    emoji: "🚀",
+    icon: "rocket",
     gradient: "from-gray-600 to-gray-800",
     textColor: "text-white",
   },
@@ -75,7 +76,7 @@ export function MiniBadge({ variant, className, position = "top-right" }: MiniBa
         className
       )}
     >
-      <span className="text-xs">{config.emoji}</span>
+      <Icon name={config.icon} size={12} />
       <span className="text-[10px] font-bold uppercase tracking-wide">{config.label}</span>
     </div>
   );
@@ -144,7 +145,7 @@ export function FloatingBadge({ icon, text, color = "purple", className }: Float
         className
       )}
     >
-      <span>{icon}</span>
+      <Icon name={icon} size={14} />
       <span>{text}</span>
     </div>
   );

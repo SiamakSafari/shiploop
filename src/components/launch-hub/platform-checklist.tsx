@@ -6,15 +6,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Icon } from "@/components/ui/icon";
 import { cn, getPlatformDisplayName } from "@/lib/utils";
 import { LaunchPlatformStatus, LaunchPlatform } from "@/types";
 
-const platformEmojis: Record<LaunchPlatform, string> = {
-  product_hunt: "🚀",
-  indie_hackers: "💡",
-  hacker_news: "📰",
-  reddit: "🔗",
-  twitter: "🐦",
+const platformIcons: Record<LaunchPlatform, string> = {
+  product_hunt: "rocket",
+  indie_hackers: "lightbulb",
+  hacker_news: "newspaper",
+  reddit: "link",
+  twitter: "twitter",
 };
 
 interface PlatformChecklistProps {
@@ -35,7 +36,7 @@ export function PlatformChecklist({
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2 text-lg">
-            <span className="text-xl">{platformEmojis[platform.platform]}</span>
+            <Icon name={platformIcons[platform.platform]} size={20} className="text-primary" />
             {getPlatformDisplayName(platform.platform)}
           </CardTitle>
           <Badge

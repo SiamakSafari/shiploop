@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Rocket, Globe, Plus, Sparkles } from "lucide-react";
+import { Rocket, Globe, Plus } from "lucide-react";
 import {
   CountdownTimer,
   PlatformCard,
@@ -121,7 +121,7 @@ export default function LaunchPage() {
   if (launchableProjects.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
-        <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-6">
+        <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-6 animate-bounce-gentle">
           <Rocket className="h-12 w-12 text-primary" />
         </div>
         <h2 className="mt-4 text-xl font-semibold text-gray-900 dark:text-gray-50">No Projects to Launch</h2>
@@ -137,11 +137,8 @@ export default function LaunchPage() {
       {/* Page header with project selector */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            <Rocket className="h-6 w-6 text-primary" />
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50">Launch</h1>
-          </div>
-          <p className="text-gray-500 dark:text-gray-400 text-lg">
+          <h1 className="text-3xl font-display font-semibold tracking-tight text-foreground">Launch</h1>
+          <p className="text-muted-foreground">
             Prepare and track your product launches across all platforms.
           </p>
         </div>
@@ -169,12 +166,12 @@ export default function LaunchPage() {
             />
           </div>
           <div className="glass rounded-2xl p-6">
-            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Overall Readiness</h3>
+            <h3 className="text-sm font-medium text-muted-foreground">Overall Readiness</h3>
             <div className="mt-2 flex items-end gap-2">
-              <span className="text-4xl font-bold text-primary font-space-grotesk">
+              <span className="text-4xl number-display text-primary">
                 {calculateReadiness()}%
               </span>
-              <span className="text-gray-500 dark:text-gray-400 mb-1">complete</span>
+              <span className="text-muted-foreground mb-1">complete</span>
             </div>
             <div className="mt-4 h-2 rounded-full bg-gray-200 dark:bg-gray-700">
               <div
@@ -189,8 +186,7 @@ export default function LaunchPage() {
       {/* Section B: Platform Checklists */}
       {selectedProject && (
         <div className="space-y-4">
-          <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50">
-            <Sparkles className="h-4 w-4 text-primary" />
+          <h2 className="text-lg font-display font-medium text-foreground">
             Platform Checklists
           </h2>
           <div className="grid gap-6 lg:grid-cols-2">
@@ -234,8 +230,7 @@ export default function LaunchPage() {
       {/* Section C: Directory Submissions */}
       <div className="space-y-4">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50">
-            <Globe className="h-4 w-4 text-primary" />
+          <h2 className="text-lg font-display font-medium text-foreground">
             Directory Submissions
           </h2>
           <div className="flex items-center gap-3">
@@ -358,7 +353,7 @@ export default function LaunchPage() {
             ) : (
               <div className="glass rounded-2xl">
                 <div className="flex flex-col items-center justify-center py-12">
-                  <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-4">
+                  <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-4 animate-bounce-gentle">
                     <Globe className="h-12 w-12 text-primary" />
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-gray-50">

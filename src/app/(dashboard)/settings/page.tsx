@@ -22,11 +22,8 @@ export default function SettingsPage() {
     <div className="space-y-8">
       {/* Page header */}
       <div className="space-y-2">
-        <div className="flex items-center gap-2">
-          <Settings className="h-6 w-6 text-primary" />
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50">Settings</h1>
-        </div>
-        <p className="text-gray-500 dark:text-gray-400 text-lg">
+        <h1 className="text-3xl font-display font-semibold tracking-tight text-foreground">Settings</h1>
+        <p className="text-muted-foreground">
           Manage your account and preferences.
         </p>
       </div>

@@ -40,9 +40,9 @@ export interface AccountabilityCheckIn {
 }
 
 export const GOAL_STATUS_CONFIG: Record<GoalStatus, { icon: string; label: string; color: string }> = {
-  active: { icon: "🎯", label: "Active", color: "text-blue-600 dark:text-blue-400" },
-  on_track: { icon: "✅", label: "On Track", color: "text-emerald-600 dark:text-emerald-400" },
-  at_risk: { icon: "⚠️", label: "At Risk", color: "text-amber-600 dark:text-amber-400" },
-  completed: { icon: "🏆", label: "Completed", color: "text-primary" },
-  failed: { icon: "❌", label: "Failed", color: "text-red-600 dark:text-red-400" },
+  active: { icon: "target", label: "Active", color: "text-blue-600 dark:text-blue-400" },
+  on_track: { icon: "check-circle", label: "On Track", color: "text-emerald-600 dark:text-emerald-400" },
+  at_risk: { icon: "alert-triangle", label: "At Risk", color: "text-amber-600 dark:text-amber-400" },
+  completed: { icon: "trophy", label: "Completed", color: "text-primary" },
+  failed: { icon: "x-circle", label: "Failed", color: "text-red-600 dark:text-red-400" },
 };

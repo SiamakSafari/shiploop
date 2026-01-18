@@ -3,24 +3,32 @@
  * Helpers for managing colors, animations, and gamification elements
  */
 
-// Color Variants - Pure Monochrome Palette
+// Color Variants - Charcoal & Gold (Elegant Gaming)
 export const colors = {
   // Grayscale (10 shades)
   gray950: '#0a0a0a',
   gray900: '#171717',
   gray800: '#262626',
-  gray700: '#404040',
-  gray600: '#525252',
-  gray500: '#737373',
-  gray400: '#a3a3a3',
-  gray300: '#d4d4d4',
-  gray200: '#e5e5e5',
-  gray100: '#f5f5f5',
-  gray50: '#fafafa',
+  gray700: '#374151',
+  gray600: '#4b5563',
+  gray500: '#6b7280',
+  gray400: '#9ca3af',
+  gray300: '#d1d5db',
+  gray200: '#e5e7eb',
+  gray100: '#f3f4f6',
+  gray50: '#f9fafb',
   white: '#ffffff',
 
-  // Primary is now dark gray
-  primary: '#171717',
+  // Primary - Gold accent
+  primary: '#C9A66B',
+  primaryDark: '#A8864F',
+
+  // Supporting elegant tones
+  charcoal: '#374151',
+  charcoalDark: '#1f2937',
+  gold: '#C9A66B',
+  goldLight: '#DEC9A3',
+  goldLighter: '#EBD9BC',
 
   // Functional (minimal use)
   success: '#16a34a',
@@ -43,52 +51,52 @@ export function getCardTint(index: number): CardTint {
   return cardTints[index % cardTints.length]
 }
 
-// Stat Card Color Assignments - Pure Monochrome
+// Stat Card Color Assignments - Elegant Palette
 export const statCardColors = {
   mrr: {
-    primary: colors.gray900,
+    primary: colors.primary,
     secondary: colors.gray100,
     tint: 'card-tint-dark' as const,
-    glow: 'rgba(23, 23, 23, 0.15)',
+    glow: 'rgba(201, 166, 107, 0.15)',
   },
   users: {
-    primary: colors.gray700,
+    primary: colors.charcoal,
     secondary: colors.gray100,
     tint: 'card-tint-gray' as const,
-    glow: 'rgba(64, 64, 64, 0.15)',
+    glow: 'rgba(55, 65, 81, 0.15)',
   },
   velocity: {
-    primary: colors.gray500,
+    primary: colors.goldLight,
     secondary: colors.gray100,
     tint: 'card-tint-light' as const,
-    glow: 'rgba(115, 115, 115, 0.15)',
+    glow: 'rgba(222, 201, 163, 0.15)',
   },
   rank: {
-    primary: colors.gray900,
+    primary: colors.charcoalDark,
     secondary: colors.gray100,
     tint: 'card-tint-dark' as const,
-    glow: 'rgba(23, 23, 23, 0.15)',
+    glow: 'rgba(31, 41, 55, 0.15)',
   },
 } as const
 
 export type StatCardType = keyof typeof statCardColors
 
-// Activity Feed Color Mapping - Pure Monochrome
+// Activity Feed Color Mapping - Charcoal & Gold Palette
 export const activityColors = {
   commit: {
-    color: colors.gray700,
+    color: colors.charcoal,
     label: 'Commit',
   },
   revenue: {
-    color: colors.gray900,
+    color: colors.primary,
     label: 'Revenue',
   },
   launch: {
-    color: colors.gray900,
+    color: colors.gold,
     label: 'Launch',
   },
   milestone: {
-    color: colors.gray800,
+    color: colors.goldLight,
     label: 'Milestone',
   },
   idea: {
@@ -96,21 +104,21 @@ export const activityColors = {
     label: 'Idea',
   },
   user: {
-    color: colors.gray600,
+    color: colors.charcoalDark,
     label: 'User',
   },
 } as const
 
 export type ActivityType = keyof typeof activityColors
 
-// Project Solid Colors - Pure Monochrome
+// Project Solid Colors - Charcoal & Gold Palette
 export const projectColors = [
-  { color: '#171717', bg: '#fafafa', name: 'dark' },
-  { color: '#404040', bg: '#fafafa', name: 'gray700' },
-  { color: '#525252', bg: '#fafafa', name: 'gray600' },
-  { color: '#737373', bg: '#fafafa', name: 'gray500' },
-  { color: '#a3a3a3', bg: '#f5f5f5', name: 'gray400' },
-  { color: '#0a0a0a', bg: '#fafafa', name: 'black' },
+  { color: '#C9A66B', bg: '#fafafa', name: 'gold' },
+  { color: '#374151', bg: '#fafafa', name: 'charcoal' },
+  { color: '#DEC9A3', bg: '#fafafa', name: 'goldLight' },
+  { color: '#1f2937', bg: '#fafafa', name: 'charcoalDark' },
+  { color: '#6b7280', bg: '#f5f5f5', name: 'gray' },
+  { color: '#A8864F', bg: '#fafafa', name: 'goldDark' },
 ] as const
 
 export function getProjectColor(index: number) {
@@ -122,27 +130,27 @@ export type BadgeTier = 'bronze' | 'silver' | 'gold' | 'platinum'
 
 export const badgeTierConfig = {
   bronze: {
-    color: colors.gray400,
-    glow: 'rgba(163, 163, 163, 0.2)',
-    gradient: 'from-gray-400 to-gray-500',
+    color: colors.gray500,
+    glow: 'rgba(107, 114, 128, 0.2)',
+    gradient: 'from-[#6b7280] to-[#4b5563]',
     icon: '3',
   },
   silver: {
-    color: colors.gray500,
-    glow: 'rgba(115, 115, 115, 0.2)',
-    gradient: 'from-gray-300 to-gray-400',
+    color: colors.gray400,
+    glow: 'rgba(156, 163, 175, 0.2)',
+    gradient: 'from-[#9ca3af] to-[#6b7280]',
     icon: '2',
   },
   gold: {
-    color: colors.gray700,
-    glow: 'rgba(64, 64, 64, 0.2)',
-    gradient: 'from-gray-600 to-gray-700',
+    color: colors.gold,
+    glow: 'rgba(201, 166, 107, 0.2)',
+    gradient: 'from-[#DEC9A3] to-[#C9A66B]',
     icon: '1',
   },
   platinum: {
-    color: colors.gray900,
-    glow: 'rgba(23, 23, 23, 0.2)',
-    gradient: 'from-gray-800 to-gray-900',
+    color: colors.primary,
+    glow: 'rgba(201, 166, 107, 0.3)',
+    gradient: 'from-[#C9A66B] to-[#A8864F]',
     icon: '*',
   },
 } as const
@@ -152,42 +160,42 @@ export type BadgeCategory = 'streak' | 'revenue' | 'launch' | 'community' | 'vel
 
 export const badgeCategoryConfig = {
   streak: {
-    color: colors.gray900,
-    gradient: 'from-gray-800 to-gray-900',
+    color: colors.gold,
+    gradient: 'from-[#DEC9A3] to-[#C9A66B]',
   },
   revenue: {
-    color: colors.gray800,
-    gradient: 'from-gray-700 to-gray-800',
+    color: colors.primary,
+    gradient: 'from-[#C9A66B] to-[#A8864F]',
   },
   launch: {
-    color: colors.gray700,
-    gradient: 'from-gray-600 to-gray-700',
+    color: colors.goldLight,
+    gradient: 'from-[#EBD9BC] to-[#DEC9A3]',
   },
   community: {
-    color: colors.gray600,
-    gradient: 'from-gray-500 to-gray-600',
+    color: colors.charcoal,
+    gradient: 'from-[#4b5563] to-[#374151]',
   },
   velocity: {
-    color: colors.gray500,
-    gradient: 'from-gray-400 to-gray-500',
+    color: colors.charcoalDark,
+    gradient: 'from-[#374151] to-[#1f2937]',
   },
 } as const
 
-// Typography System
+// Typography System - Clash Display for headlines, Inter for body
 export const typography = {
-  display: { size: 'text-5xl', weight: 'font-bold', lineHeight: 'leading-tight', letterSpacing: 'tracking-tight' },
-  h1: { size: 'text-3xl', weight: 'font-bold', lineHeight: 'leading-tight', letterSpacing: 'tracking-tight' },
-  h2: { size: 'text-2xl', weight: 'font-semibold', lineHeight: 'leading-snug', letterSpacing: 'tracking-tight' },
-  h3: { size: 'text-lg', weight: 'font-semibold', lineHeight: 'leading-snug' },
-  h4: { size: 'text-base', weight: 'font-semibold', lineHeight: 'leading-normal' },
+  display: { size: 'text-5xl', weight: 'font-semibold', family: 'font-display', lineHeight: 'leading-tight', letterSpacing: 'tracking-tight' },
+  h1: { size: 'text-3xl', weight: 'font-semibold', family: 'font-display', lineHeight: 'leading-tight', letterSpacing: 'tracking-tight' },
+  h2: { size: 'text-2xl', weight: 'font-medium', family: 'font-display', lineHeight: 'leading-snug', letterSpacing: 'tracking-tight' },
+  h3: { size: 'text-lg', weight: 'font-medium', family: 'font-display', lineHeight: 'leading-snug' },
+  h4: { size: 'text-base', weight: 'font-medium', family: 'font-display', lineHeight: 'leading-normal' },
   body: { size: 'text-base', weight: 'font-normal', lineHeight: 'leading-relaxed' },
   bodySmall: { size: 'text-sm', weight: 'font-normal', lineHeight: 'leading-relaxed' },
   caption: { size: 'text-sm', weight: 'font-medium', lineHeight: 'leading-normal' },
   overline: { size: 'text-xs', weight: 'font-medium', lineHeight: 'leading-tight', letterSpacing: 'tracking-wide', transform: 'uppercase' },
   micro: { size: 'text-xs', weight: 'font-normal', lineHeight: 'leading-tight' },
-  numberLarge: { size: 'text-5xl', weight: 'font-bold', family: 'font-space-grotesk', lineHeight: 'leading-none', letterSpacing: 'tracking-tight' },
-  numberMedium: { size: 'text-3xl', weight: 'font-bold', family: 'font-space-grotesk', lineHeight: 'leading-none' },
-  numberSmall: { size: 'text-xl', weight: 'font-bold', family: 'font-space-grotesk', lineHeight: 'leading-none' },
+  numberLarge: { size: 'text-5xl', weight: 'font-bold', family: 'number-display', lineHeight: 'leading-none', letterSpacing: 'tracking-tight' },
+  numberMedium: { size: 'text-3xl', weight: 'font-bold', family: 'number-display', lineHeight: 'leading-none' },
+  numberSmall: { size: 'text-xl', weight: 'font-bold', family: 'number-display', lineHeight: 'leading-none' },
 } as const
 
 export function getTypography(variant: keyof typeof typography): string {
@@ -325,16 +333,16 @@ export function formatCurrency(amount: number): string {
   }).format(amount)
 }
 
-// Confetti Colors - Pure Monochrome
+// Confetti Colors - Charcoal & Gold Palette
 export const confettiColors = [
-  '#171717',
-  '#262626',
-  '#404040',
-  '#525252',
-  '#737373',
-  '#a3a3a3',
-  '#d4d4d4',
-  '#e5e5e5',
+  '#C9A66B', // gold
+  '#374151', // charcoal
+  '#DEC9A3', // gold light
+  '#1f2937', // charcoal dark
+  '#EBD9BC', // gold lighter
+  '#6b7280', // gray
+  '#A8864F', // gold dark
+  '#4b5563', // charcoal light
 ]
 
 // Generate Random Confetti Colors

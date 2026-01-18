@@ -1,5 +1,6 @@
 "use client";
 
+import { Medal } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn, formatCurrency } from "@/lib/utils";
 import { LeaderboardEntry } from "@/types";
@@ -19,28 +20,28 @@ export function Podium({ top3 }: PodiumProps) {
         return {
           height: "h-32",
           gradient: "from-yellow-500/20 via-yellow-500/10 to-transparent",
-          medal: "🥇",
+          medalColor: "text-yellow-500",
           ring: "ring-yellow-500",
         };
       case 2:
         return {
           height: "h-24",
           gradient: "from-gray-400/20 via-gray-400/10 to-transparent",
-          medal: "🥈",
+          medalColor: "text-gray-400",
           ring: "ring-gray-400",
         };
       case 3:
         return {
           height: "h-20",
           gradient: "from-orange-600/20 via-orange-600/10 to-transparent",
-          medal: "🥉",
+          medalColor: "text-orange-600",
           ring: "ring-orange-600",
         };
       default:
         return {
           height: "h-16",
           gradient: "from-muted/20 to-transparent",
-          medal: "",
+          medalColor: "text-muted-foreground",
           ring: "ring-muted",
         };
     }
@@ -73,9 +74,11 @@ export function Podium({ top3 }: PodiumProps) {
                       .join("")}
                   </AvatarFallback>
                 </Avatar>
-                <span className="absolute -bottom-1 -right-1 text-lg">
-                  {style.medal}
-                </span>
+                {entry.rank <= 3 && (
+                  <span className={cn("absolute -bottom-1 -right-1", style.medalColor)}>
+                    <Medal className="h-5 w-5" />
+                  </span>
+                )}
               </div>
               <span
                 className={cn(

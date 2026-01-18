@@ -2,16 +2,39 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+interface CardProps extends React.ComponentProps<"div"> {
+  animated?: boolean
+  hoverLift?: boolean
+  shine?: boolean
+}
+
+function Card({
+  className,
+  animated = false,
+  hoverLift = true,
+  shine = false,
+  ...props
+}: CardProps) {
   return (
     <div
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-md transition-shadow hover:shadow-lg",
+        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-md transition-all duration-300 group relative overflow-hidden",
+        hoverLift && "hover:shadow-lg hover:-translate-y-1",
+        animated && "animate-card-enter",
+        shine && "animate-shine-sweep",
         className
       )}
       {...props}
-    />
+    >
+      {/* Shine sweep effect on hover */}
+      {shine && (
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+        </div>
+      )}
+      {props.children}
+    </div>
   )
 }
 

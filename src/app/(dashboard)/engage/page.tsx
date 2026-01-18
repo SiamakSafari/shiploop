@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MessageSquare, Megaphone, Plus, Sparkles, Filter } from "lucide-react";
+import { MessageSquare, Megaphone, Plus, Filter } from "lucide-react";
 import { FeedbackCard, FeedbackDetail } from "@/components/feedback";
 import { PostCard, PostDetail } from "@/components/build-public";
 import { useFeedbackStore, useBuildPublicStore } from "@/stores";
@@ -12,6 +12,7 @@ import {
   PLATFORM_CONFIG,
 } from "@/types";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { StatBox } from "@/components/ui/stat-box";
 import {
   Select,
   SelectContent,
@@ -19,7 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 
 const feedbackStatusFilters: { value: string; label: string }[] = [
   { value: "all", label: "All" },
@@ -116,11 +116,8 @@ export default function EngagePage() {
     <div className="space-y-8">
       {/* Page header */}
       <div className="space-y-2">
-        <div className="flex items-center gap-2">
-          <MessageSquare className="h-6 w-6 text-primary" />
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50">Engage</h1>
-        </div>
-        <p className="text-gray-500 dark:text-gray-400 text-lg">
+        <h1 className="text-3xl font-display font-semibold tracking-tight text-foreground">Engage</h1>
+        <p className="text-muted-foreground">
           Manage customer feedback and build in public content.
         </p>
       </div>
@@ -148,10 +145,10 @@ export default function EngagePage() {
         <TabsContent value="feedback" className="space-y-6 mt-6">
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <StatBox label="Total" value={feedbackStats.total.toString()} color="text-gray-900 dark:text-gray-50" />
-            <StatBox label="Positive" value={`${feedbackStats.positiveRate}%`} color="text-emerald-600 dark:text-emerald-400" />
-            <StatBox label="Feature Requests" value={feedbackStats.featureRequests.toString()} color="text-blue-600 dark:text-blue-400" />
-            <StatBox label="Bug Reports" value={feedbackStats.bugs.toString()} color="text-red-600 dark:text-red-400" />
+            <StatBox label="Total" value={feedbackStats.total} variant="default" staggerIndex={1} />
+            <StatBox label="Positive" value={feedbackStats.positiveRate} format="percent" variant="success" staggerIndex={2} />
+            <StatBox label="Feature Requests" value={feedbackStats.featureRequests} variant="info" staggerIndex={3} />
+            <StatBox label="Bug Reports" value={feedbackStats.bugs} variant="danger" staggerIndex={4} />
           </div>
 
           {/* Filters */}
@@ -206,8 +203,7 @@ export default function EngagePage() {
           {/* Content */}
           <div className="grid gap-6 lg:grid-cols-2">
             <div className="space-y-4">
-              <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50">
-                <Sparkles className="h-4 w-4 text-primary" />
+              <h2 className="text-lg font-display font-medium text-foreground">
                 Feedback ({filteredFeedbacks.length})
               </h2>
               {filteredFeedbacks.length > 0 ? (
@@ -224,7 +220,7 @@ export default function EngagePage() {
               ) : (
                 <div className="glass rounded-2xl">
                   <div className="flex flex-col items-center justify-center py-12">
-                    <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-4">
+                    <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-4 animate-bounce-gentle">
                       <MessageSquare className="h-12 w-12 text-primary" />
                     </div>
                     <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-gray-50">
@@ -267,10 +263,10 @@ export default function EngagePage() {
         <TabsContent value="build-public" className="space-y-6 mt-6">
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <StatBox label="Drafts" value={postStats.drafts.toString()} color="text-gray-900 dark:text-gray-50" />
-            <StatBox label="Scheduled" value={postStats.scheduled.toString()} color="text-blue-600 dark:text-blue-400" />
-            <StatBox label="Published" value={postStats.published.toString()} color="text-emerald-600 dark:text-emerald-400" />
-            <StatBox label="Avg Engagement" value={postStats.avgEngagement.toString()} color="text-primary" />
+            <StatBox label="Drafts" value={postStats.drafts} variant="default" staggerIndex={1} />
+            <StatBox label="Scheduled" value={postStats.scheduled} variant="info" staggerIndex={2} />
+            <StatBox label="Published" value={postStats.published} variant="success" staggerIndex={3} />
+            <StatBox label="Avg Engagement" value={postStats.avgEngagement} color="text-primary" staggerIndex={4} />
           </div>
 
           {/* Filters */}
@@ -325,8 +321,7 @@ export default function EngagePage() {
           {/* Content */}
           <div className="grid gap-6 lg:grid-cols-2">
             <div className="space-y-4">
-              <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50">
-                <Sparkles className="h-4 w-4 text-primary" />
+              <h2 className="text-lg font-display font-medium text-foreground">
                 Posts ({filteredPosts.length})
               </h2>
               {filteredPosts.length > 0 ? (
@@ -343,7 +338,7 @@ export default function EngagePage() {
               ) : (
                 <div className="glass rounded-2xl">
                   <div className="flex flex-col items-center justify-center py-12">
-                    <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-4">
+                    <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-4 animate-bounce-gentle">
                       <Megaphone className="h-12 w-12 text-primary" />
                     </div>
                     <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-gray-50">
@@ -382,25 +377,6 @@ export default function EngagePage() {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
-  );
-}
-
-function StatBox({
-  label,
-  value,
-  color,
-}: {
-  label: string;
-  value: string;
-  color: string;
-}) {
-  return (
-    <div className="glass rounded-xl p-4">
-      <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
-      <p className={cn("text-2xl font-bold font-space-grotesk", color)}>
-        {value}
-      </p>
     </div>
   );
 }

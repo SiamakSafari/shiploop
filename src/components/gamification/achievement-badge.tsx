@@ -2,13 +2,14 @@
 
 import { cn } from "@/lib/utils";
 import { badgeTierConfig, badgeCategoryConfig, type BadgeTier, type BadgeCategory } from "@/lib/design-system";
-import { Lock, Sparkles } from "lucide-react";
+import { Lock, Sparkles, Check } from "lucide-react";
+import { Icon } from "@/components/ui/icon";
 
 export interface Badge {
   id: string;
   name: string;
   description: string;
-  icon: string; // emoji
+  icon: string; // Lucide icon name
   tier: BadgeTier;
   category: BadgeCategory;
   unlocked: boolean;
@@ -79,7 +80,11 @@ export function AchievementBadge({
         {/* Icon */}
         <div className="relative z-10 flex flex-col items-center justify-center">
           {badge.unlocked ? (
-            <span className="font-fredoka">{badge.icon}</span>
+            <Icon
+              name={badge.icon}
+              size={size === "sm" ? 24 : size === "md" ? 32 : 40}
+              className="text-white"
+            />
           ) : (
             <Lock className={cn(
               "text-white/40",
@@ -133,7 +138,7 @@ export function AchievementBadge({
       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-50 animate-scale-pop">
         <div className="glass rounded-lg p-3 shadow-xl border border-white/20 min-w-[200px]">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-lg">{badge.icon}</span>
+            <Icon name={badge.icon} size={18} className="text-white" />
             <div className="flex items-center gap-1">
               <span className="text-sm font-bold text-white font-fredoka">{badge.name}</span>
               <span className="text-xs">{tierConfig.icon}</span>
@@ -143,7 +148,8 @@ export function AchievementBadge({
 
           {badge.unlocked ? (
             <div className="flex items-center gap-1.5 text-xs text-emerald-400">
-              <span className="font-semibold">✓ Unlocked</span>
+              <Check className="h-3 w-3" />
+              <span className="font-semibold">Unlocked</span>
               {badge.unlockedAt && (
                 <span className="text-white/40">
                   {new Date(badge.unlockedAt).toLocaleDateString()}

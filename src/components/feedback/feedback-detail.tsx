@@ -11,6 +11,7 @@ import {
   FeedbackStatus,
   FeedbackCategory,
 } from "@/types";
+import { Icon } from "@/components/ui/icon";
 
 interface FeedbackDetailProps {
   feedback: CustomerFeedback;
@@ -62,7 +63,10 @@ export function FeedbackDetail({
                 {feedback.customerName || "Anonymous"}
               </h2>
               <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                <span>{sourceConfig.icon} {sourceConfig.label}</span>
+                <span className="flex items-center gap-1">
+                  <Icon name={sourceConfig.icon} size={14} />
+                  {sourceConfig.label}
+                </span>
                 <span>from {feedback.projectName}</span>
               </div>
             </div>

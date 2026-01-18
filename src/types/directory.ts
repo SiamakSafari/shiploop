@@ -63,7 +63,7 @@ export const DIRECTORIES: DirectoryInfo[] = [
     displayName: "Product Hunt",
     description: "The best place to launch new products",
     url: "https://producthunt.com",
-    icon: "🚀",
+    icon: "rocket",
     category: "launch",
     avgReviewTime: "1-2 days",
     requirements: [
@@ -81,7 +81,7 @@ export const DIRECTORIES: DirectoryInfo[] = [
     displayName: "BetaList",
     description: "Discover and get early access to startups",
     url: "https://betalist.com",
-    icon: "🎯",
+    icon: "target",
     category: "beta",
     avgReviewTime: "3-5 days",
     requirements: [
@@ -97,7 +97,7 @@ export const DIRECTORIES: DirectoryInfo[] = [
     displayName: "Indie Hackers",
     description: "Community of founders building profitable businesses",
     url: "https://indiehackers.com",
-    icon: "💻",
+    icon: "cpu",
     category: "general",
     avgReviewTime: "Instant",
     requirements: [
@@ -113,7 +113,7 @@ export const DIRECTORIES: DirectoryInfo[] = [
     displayName: "Hacker News",
     description: "Tech community for Show HN launches",
     url: "https://news.ycombinator.com",
-    icon: "📰",
+    icon: "newspaper",
     category: "launch",
     avgReviewTime: "Instant",
     requirements: [
@@ -128,7 +128,7 @@ export const DIRECTORIES: DirectoryInfo[] = [
     displayName: "Futurepedia",
     description: "Largest AI tools directory",
     url: "https://futurepedia.io",
-    icon: "🤖",
+    icon: "bot",
     category: "ai",
     avgReviewTime: "5-7 days",
     requirements: [
@@ -144,7 +144,7 @@ export const DIRECTORIES: DirectoryInfo[] = [
     displayName: "There's An AI For That",
     description: "Comprehensive AI tools database",
     url: "https://theresanaiforthat.com",
-    icon: "🧠",
+    icon: "brain",
     category: "ai",
     avgReviewTime: "3-5 days",
     requirements: [
@@ -159,7 +159,7 @@ export const DIRECTORIES: DirectoryInfo[] = [
     displayName: "AlternativeTo",
     description: "Crowdsourced software recommendations",
     url: "https://alternativeto.net",
-    icon: "🔄",
+    icon: "refresh-cw",
     category: "general",
     avgReviewTime: "1-3 days",
     requirements: [
@@ -174,7 +174,7 @@ export const DIRECTORIES: DirectoryInfo[] = [
     displayName: "SaaSHub",
     description: "Software alternatives and reviews",
     url: "https://saashub.com",
-    icon: "☁️",
+    icon: "cloud",
     category: "saas",
     avgReviewTime: "2-4 days",
     requirements: [
@@ -189,7 +189,7 @@ export const DIRECTORIES: DirectoryInfo[] = [
     displayName: "Launching Next",
     description: "Startup launch platform",
     url: "https://launchingnext.com",
-    icon: "🎬",
+    icon: "clapperboard",
     category: "launch",
     avgReviewTime: "1-2 days",
     requirements: [
@@ -204,7 +204,7 @@ export const DIRECTORIES: DirectoryInfo[] = [
     displayName: "BetaPage",
     description: "Community for beta testers",
     url: "https://betapage.co",
-    icon: "🧪",
+    icon: "flask-conical",
     category: "beta",
     avgReviewTime: "2-3 days",
     requirements: [

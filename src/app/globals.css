@@ -6,9 +6,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-space-grotesk: var(--font-space-grotesk);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Clash Display Variable", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   /* Override Tailwind's gray with pure grays (no blue tint) */
   --color-gray-50: #fafafa;
@@ -63,29 +62,29 @@
 :root {
   --radius: 0.625rem; /* 10px - soft corners */
 
-  /* Base - Pure Monochrome */
-  --background: #ffffff;
+  /* Base - Light Mode */
+  --background: #fafafa;
   --foreground: #0a0a0a;
 
   /* Card colors */
   --card: #ffffff;
   --card-foreground: #0a0a0a;
 
-  /* UI colors - All Monochrome */
+  /* UI colors - Light Mode: Charcoal & Rose Gold (Elegant Gaming) */
   --popover: #ffffff;
   --popover-foreground: #0a0a0a;
-  --primary: #171717; /* Near black - the new accent */
+  --primary: #374151; /* Dark charcoal */
   --primary-foreground: #fafafa;
-  --secondary: #f5f5f5;
+  --secondary: #f9fafb;
   --secondary-foreground: #171717;
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
-  --accent: #f5f5f5;
-  --accent-foreground: #171717;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --accent: #C9A66B; /* Gold */
+  --accent-foreground: #ffffff;
   --destructive: #dc2626;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #171717;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #C9A66B; /* Gold ring */
 
   /* Animation timing */
   --duration-fast: 150ms;
@@ -95,22 +94,30 @@
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-  /* Chart colors - Monochrome Only */
-  --chart-1: #171717;
-  --chart-2: #404040;
-  --chart-3: #737373;
-  --chart-4: #a3a3a3;
-  --chart-5: #d4d4d4;
+  /* Chart colors - Charcoal & Gold palette */
+  --chart-1: #374151;
+  --chart-2: #6b7280;
+  --chart-3: #C9A66B;
+  --chart-4: #9ca3af;
+  --chart-5: #DEC9A3;
 
-  /* Sidebar - Monochrome */
+  /* Sidebar - Light Mode */
   --sidebar: #fafafa;
   --sidebar-foreground: #0a0a0a;
-  --sidebar-primary: #171717;
+  --sidebar-primary: #374151;
   --sidebar-primary-foreground: #fafafa;
-  --sidebar-accent: #f5f5f5;
+  --sidebar-accent: #f9fafb;
   --sidebar-accent-foreground: #171717;
-  --sidebar-border: #e5e5e5;
-  --sidebar-ring: #171717;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #C9A66B;
+
+  /* Elegant Gaming Colors */
+  --color-charcoal: #374151;
+  --color-charcoal-dark: #1f2937;
+  --color-gold: #C9A66B;
+  --color-gold-light: #DEC9A3;
+  --color-silver: #9ca3af;
+  --color-slate: #64748b;
 
   /* Grayscale Palette */
   --color-gray-1: #171717;
@@ -121,9 +128,9 @@
   --color-gray-6: #e5e5e5;
   --color-gray-7: #f5f5f5;
 
-  /* Primary is now black */
-  --color-primary: #171717;
-  --color-accent: #171717;
+  /* Primary charcoal, accent gold */
+  --color-primary: #374151;
+  --color-accent: #C9A66B;
 
   /* Functional Colors (minimal use) */
   --color-success: #16a34a;
@@ -144,42 +151,50 @@
 }
 
 .dark {
-  /* Pure Monochrome Dark Theme */
+  /* Dark Theme - Charcoal & Gold */
   --background: #0a0a0a;
   --foreground: #fafafa;
-  --card: #171717;
+  --card: #141414;
   --card-foreground: #fafafa;
-  --popover: #171717;
+  --popover: #141414;
   --popover-foreground: #fafafa;
-  --primary: #fafafa;
-  --primary-foreground: #0a0a0a;
-  --secondary: #262626;
+  --primary: #C9A66B; /* Gold for dark mode */
+  --primary-foreground: #ffffff;
+  --secondary: #1f2937;
   --secondary-foreground: #fafafa;
   --muted: #262626;
-  --muted-foreground: #a3a3a3;
-  --accent: #262626;
-  --accent-foreground: #fafafa;
+  --muted-foreground: #9ca3af;
+  --accent: #DEC9A3; /* Light gold */
+  --accent-foreground: #0a0a0a;
   --destructive: #ef4444;
-  --border: #262626;
+  --border: #374151;
   --input: #262626;
-  --ring: #fafafa;
+  --ring: #C9A66B;
 
-  /* Chart colors - Monochrome */
-  --chart-1: #fafafa;
-  --chart-2: #d4d4d4;
-  --chart-3: #a3a3a3;
-  --chart-4: #737373;
-  --chart-5: #525252;
+  /* Chart colors - Charcoal & Gold for dark mode */
+  --chart-1: #C9A66B;
+  --chart-2: #DEC9A3;
+  --chart-3: #6b7280;
+  --chart-4: #EBD9BC;
+  --chart-5: #9ca3af;
 
-  /* Sidebar - Monochrome */
-  --sidebar: #171717;
+  /* Sidebar - Dark Mode with Gold */
+  --sidebar: #0a0a0a;
   --sidebar-foreground: #fafafa;
-  --sidebar-primary: #fafafa;
-  --sidebar-primary-foreground: #0a0a0a;
-  --sidebar-accent: #262626;
+  --sidebar-primary: #C9A66B;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1f2937;
   --sidebar-accent-foreground: #fafafa;
-  --sidebar-border: #262626;
-  --sidebar-ring: #fafafa;
+  --sidebar-border: #374151;
+  --sidebar-ring: #C9A66B;
+
+  /* Elegant Gaming Colors (Dark Mode) */
+  --color-charcoal: #6b7280;
+  --color-charcoal-dark: #374151;
+  --color-gold: #C9A66B;
+  --color-gold-light: #DEC9A3;
+  --color-silver: #d1d5db;
+  --color-slate: #94a3b8;
 
   /* Elevated Shadows for dark mode */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -196,7 +211,39 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
   }
+}
+
+/* Typography Classes - Clash Display for headlines */
+.font-display {
+  font-family: "Clash Display Variable", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-body {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Heading styles with Clash Display */
+.heading-display {
+  font-family: "Clash Display Variable", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.heading-card {
+  font-family: "Clash Display Variable", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* Large number styles with Clash Display */
+.number-display {
+  font-family: "Clash Display Variable", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.02em;
 }
 
 /* Simple clean background */
@@ -249,33 +296,33 @@
   border-color: #404040;
 }
 
-/* Monochrome accent cards */
+/* Elegant accent cards */
 .card-accent-dark {
-  border-left: 4px solid #171717;
+  border-left: 4px solid var(--color-charcoal, #374151);
 }
 
 .card-accent-black {
-  border-left: 4px solid #0a0a0a;
+  border-left: 4px solid var(--color-gold, #C9A66B);
 }
 
 .card-accent-gray-1 {
-  border-left: 4px solid #404040;
+  border-left: 4px solid var(--color-charcoal-dark, #1f2937);
 }
 
 .card-accent-gray-2 {
-  border-left: 4px solid #737373;
+  border-left: 4px solid var(--color-gold-light, #DEC9A3);
 }
 
 .card-accent-gray-3 {
-  border-left: 4px solid #a3a3a3;
+  border-left: 4px solid var(--color-slate, #64748b);
 }
 
 .dark .card-accent-dark {
-  border-left-color: #fafafa;
+  border-left-color: var(--color-gold, #C9A66B);
 }
 
 .dark .card-accent-black {
-  border-left-color: #fafafa;
+  border-left-color: var(--color-gold-light, #DEC9A3);
 }
 
 /* Score bar dark mode color */
@@ -377,16 +424,129 @@
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* Animations */
+/* ============================================
+   ENHANCED ANIMATIONS & VISUAL EFFECTS
+   ============================================ */
+
+/* Flame/Fire Animation - More dynamic */
 @keyframes fire-pulse {
   0%, 100% {
-    transform: scale(1);
-    filter: brightness(1) drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
+    transform: scale(1) translateY(0);
+    filter: brightness(1) drop-shadow(0 0 10px rgba(201, 166, 107, 0.5));
+  }
+  25% {
+    transform: scale(1.1) translateY(-2px);
   }
   50% {
-    transform: scale(1.2);
-    filter: brightness(1.3) drop-shadow(0 0 20px rgba(251, 191, 36, 0.8));
+    transform: scale(1.2) translateY(-4px);
+    filter: brightness(1.3) drop-shadow(0 0 20px rgba(201, 166, 107, 0.8));
   }
+  75% {
+    transform: scale(1.15) translateY(-2px);
+  }
+}
+
+@keyframes flame-flicker {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  25% {
+    transform: scaleY(1.1) scaleX(0.95);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scaleY(0.95) scaleX(1.05);
+    opacity: 1;
+  }
+  75% {
+    transform: scaleY(1.05) scaleX(0.98);
+    opacity: 0.95;
+  }
+}
+
+/* Number counting animation */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Glow pulse for highlighted elements */
+@keyframes glow-pulse-accent {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(201, 166, 107, 0.2), 0 0 40px rgba(201, 166, 107, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(201, 166, 107, 0.4), 0 0 60px rgba(201, 166, 107, 0.2);
+  }
+}
+
+/* Card entrance animation */
+@keyframes card-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Progress bar fill animation */
+@keyframes progress-fill {
+  from { width: 0%; }
+}
+
+/* Shine sweep effect */
+@keyframes shine-sweep {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+}
+
+/* Ring progress animation */
+@keyframes ring-progress {
+  from { stroke-dashoffset: 327; }
+}
+
+/* XP bar fill */
+@keyframes xp-fill {
+  from { width: 0%; }
+}
+
+/* Badge pop */
+@keyframes badge-pop {
+  0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+  50% { transform: scale(1.2) rotate(10deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* Confetti burst */
+@keyframes confetti-fall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* Float up and fade */
+@keyframes float-up-fade {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+/* Heartbeat for important numbers */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.05); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.05); }
+  70% { transform: scale(1); }
+}
+
+/* Gradient shift for backgrounds */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @keyframes pulse-glow {
@@ -728,13 +888,13 @@
 }
 
 .corner-badge-new {
-  background: #171717;
+  background: var(--primary);
   color: white;
 }
 
 .dark .corner-badge-new {
-  background: #fafafa;
-  color: #171717;
+  background: var(--primary);
+  color: #0a0a0a;
 }
 
 .corner-badge-hot {
@@ -804,6 +964,353 @@
 .dark .card-tint-white {
   background: rgba(255, 255, 255, 0.02);
 }
+
+/* ============================================
+   ENHANCED ANIMATION UTILITY CLASSES
+   ============================================ */
+
+.animate-flame-flicker {
+  animation: flame-flicker 0.5s ease-in-out infinite;
+}
+
+.animate-card-enter {
+  animation: card-enter 0.5s ease-out forwards;
+}
+
+.animate-glow-pulse-accent {
+  animation: glow-pulse-accent 2s ease-in-out infinite;
+}
+
+.animate-progress-fill {
+  animation: progress-fill 1s ease-out forwards;
+}
+
+.animate-shine-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shine-sweep::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shine-sweep 2s ease-in-out infinite;
+}
+
+.animate-badge-pop {
+  animation: badge-pop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* ============================================
+   GLASSMORPHISM & GRADIENT CARDS
+   ============================================ */
+
+.glass-premium {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.dark .glass-premium {
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Gradient accent cards */
+.card-gradient-gold {
+  background: linear-gradient(135deg, rgba(189, 183, 107, 0.1) 0%, rgba(189, 183, 107, 0.05) 100%);
+  border: 1px solid rgba(189, 183, 107, 0.2);
+}
+
+.dark .card-gradient-gold {
+  background: linear-gradient(135deg, rgba(189, 183, 107, 0.15) 0%, rgba(189, 183, 107, 0.05) 100%);
+  border: 1px solid rgba(189, 183, 107, 0.3);
+}
+
+.card-gradient-gold:hover {
+  border-color: rgba(189, 183, 107, 0.4);
+  box-shadow: 0 0 30px rgba(189, 183, 107, 0.15);
+}
+
+/* Premium stat card styles */
+.stat-card-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stat-card-premium:hover::before {
+  opacity: 1;
+}
+
+.stat-card-premium:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(189, 183, 107, 0.2);
+}
+
+.dark .stat-card-premium:hover {
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(189, 183, 107, 0.3);
+}
+
+/* Glowing icon container */
+.icon-glow {
+  position: relative;
+}
+
+.icon-glow::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.group:hover .icon-glow::after {
+  opacity: 0.3;
+}
+
+/* XP Bar Styles */
+.xp-bar-container {
+  position: relative;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.dark .xp-bar-container {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--color-khaki));
+  border-radius: 3px;
+  position: relative;
+  animation: xp-fill 1s ease-out forwards;
+}
+
+.xp-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shine-sweep 2s ease-in-out infinite;
+}
+
+/* Level badge */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--color-khaki-dark) 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(189, 183, 107, 0.3);
+}
+
+.dark .level-badge {
+  color: #0a0a0a;
+}
+
+/* Streak flame enhanced */
+.streak-flame {
+  position: relative;
+  display: inline-flex;
+}
+
+.streak-flame-icon {
+  animation: fire-pulse 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(189, 183, 107, 0.6));
+}
+
+.streak-flame::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: radial-gradient(circle, rgba(189, 183, 107, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse-glow 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+/* Number counter animation */
+.counter-animate {
+  display: inline-block;
+  animation: count-up 0.5s ease-out;
+}
+
+/* Milestone badge styles */
+.milestone-badge {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.milestone-badge.achieved {
+  animation: badge-pop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.milestone-badge.achieved::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--primary);
+  border-radius: inherit;
+  filter: blur(6px);
+  opacity: 0.4;
+  z-index: -1;
+}
+
+/* Score ring enhanced */
+.score-ring-container {
+  position: relative;
+}
+
+.score-ring-glow {
+  position: absolute;
+  inset: -10px;
+  background: radial-gradient(circle, rgba(189, 183, 107, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Leaderboard row hover */
+.leaderboard-row {
+  transition: all 0.2s ease;
+}
+
+.leaderboard-row:hover {
+  background: rgba(189, 183, 107, 0.05);
+  transform: translateX(4px);
+}
+
+.leaderboard-row.current-user {
+  background: rgba(189, 183, 107, 0.1);
+  border-left: 3px solid var(--primary);
+}
+
+/* Notification bell animation */
+.notification-bell {
+  transition: transform 0.2s ease;
+}
+
+.notification-bell:hover {
+  animation: wiggle 0.5s ease-in-out;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 16px;
+  height: 16px;
+  background: var(--color-error);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: badge-pop 0.5s ease-out;
+}
+
+/* Sidebar nav item enhanced */
+.nav-item-enhanced {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item-enhanced::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: var(--primary);
+  border-radius: 0 2px 2px 0;
+  transition: height 0.2s ease;
+}
+
+.nav-item-enhanced:hover::before,
+.nav-item-enhanced.active::before {
+  height: 60%;
+}
+
+.nav-item-enhanced.active::before {
+  height: 80%;
+  box-shadow: 0 0 10px rgba(189, 183, 107, 0.5);
+}
+
+/* Quick action card */
+.quick-action-card {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.quick-action-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.quick-action-card:active {
+  transform: scale(0.98);
+}
+
+/* Staggered animation delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {

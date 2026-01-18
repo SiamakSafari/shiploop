@@ -4,15 +4,16 @@ import { Check, ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { Icon } from "@/components/ui/icon";
 import { cn, getPlatformDisplayName } from "@/lib/utils";
 import { LaunchPlatformStatus, LaunchPlatform } from "@/types";
 
-const platformEmojis: Record<LaunchPlatform, string> = {
-  product_hunt: "🚀",
-  indie_hackers: "💡",
-  hacker_news: "📰",
-  reddit: "🔗",
-  twitter: "🐦",
+const platformIcons: Record<LaunchPlatform, string> = {
+  product_hunt: "rocket",
+  indie_hackers: "lightbulb",
+  hacker_news: "newspaper",
+  reddit: "link",
+  twitter: "twitter",
 };
 
 const statusLabels = {
@@ -50,7 +51,7 @@ export function PlatformCard({ platform, onClick, isSelected }: PlatformCardProp
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">{platformEmojis[platform.platform]}</span>
+            <Icon name={platformIcons[platform.platform]} size={24} className="text-primary" />
             <div>
               <h3 className="font-medium">
                 {getPlatformDisplayName(platform.platform)}

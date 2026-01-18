@@ -2,9 +2,10 @@
 
 import { Flame, TrendingUp, Trophy, Sparkles } from "lucide-react";
 import { useAppStore } from "@/stores";
-import { cn, getTierColor } from "@/lib/utils";
-import { Heading, Caption, Micro, NumberDisplay } from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
+import { Caption, Micro, NumberDisplay } from "@/components/ui/typography";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAnimatedCounter } from "@/hooks";
 
 function ShipScoreCardSkeleton() {
   return (
@@ -54,33 +55,45 @@ function ShipScoreCardSkeleton() {
 export function ShipScoreCard() {
   const user = useAppStore((state) => state.user);
 
+  // Animated score counter
+  const { value: animatedScore } = useAnimatedCounter(user?.shipScore.total || 0, {
+    duration: 1500,
+    delay: 300,
+  });
+
   if (!user) return <ShipScoreCardSkeleton />;
 
   const { shipScore, rank } = user;
   const circumference = 2 * Math.PI * 52; // radius = 52
-  const progress = (shipScore.total / 100) * circumference;
+  const progress = (animatedScore / 100) * circumference;
   const offset = circumference - progress;
 
   return (
-    <div className="glass hover-lift relative overflow-hidden rounded-2xl p-6">
+    <div className="glass-premium hover-lift relative overflow-hidden rounded-2xl p-6 animate-card-enter">
+      {/* Background gradient glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none" />
+
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between">
+      <div className="relative mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-primary animate-pulse" />
-          <Heading level={3} className="text-primary">Ship Score</Heading>
+          <h3 className="text-lg font-display font-medium text-foreground">Ship Score</h3>
+          <Sparkles className="h-4 w-4 text-primary animate-pulse" />
         </div>
-        <Caption as="div" className="flex items-center gap-1.5 rounded-full bg-gray-900 dark:bg-gray-100 px-3 py-1.5 hover-wiggle cursor-default shadow-sm">
-          <Trophy className="h-4 w-4 text-white dark:text-gray-900" />
-          <span className="text-white dark:text-gray-900 font-semibold">
+        <div className="level-badge animate-badge-pop">
+          <Trophy className="h-4 w-4" />
+          <span>
             {rank.tier.charAt(0).toUpperCase() + rank.tier.slice(1)}
           </span>
-        </Caption>
+        </div>
       </div>
 
       <div className="relative flex items-center gap-8">
-        {/* Circular progress */}
-        <div className="relative">
-          <svg className="h-36 w-36 -rotate-90 transform">
+        {/* Circular progress with glow */}
+        <div className="score-ring-container">
+          {/* Glow effect behind ring */}
+          <div className="score-ring-glow" />
+
+          <svg className="h-36 w-36 -rotate-90 transform relative z-10">
             {/* Background circle */}
             <circle
               cx="72"
@@ -91,7 +104,7 @@ export function ShipScoreCard() {
               strokeWidth="8"
               className="text-gray-200 dark:text-gray-700"
             />
-            {/* Progress circle */}
+            {/* Progress circle with gradient */}
             <circle
               cx="72"
               cy="72"
@@ -102,15 +115,18 @@ export function ShipScoreCard() {
               strokeDasharray={circumference}
               strokeDashoffset={offset}
               className="stroke-primary transition-all duration-700 ease-out"
+              style={{
+                filter: "drop-shadow(0 0 6px rgba(189, 183, 107, 0.5))",
+              }}
             />
           </svg>
 
           {/* Score number in center */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <NumberDisplay variant="large" className="text-gray-900 dark:text-gray-50 animate-score-up">
-              {shipScore.total}
-            </NumberDisplay>
-            <Micro className="text-gray-500 dark:text-gray-400 font-medium">/ 100</Micro>
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
+            <div className="text-5xl font-bold tracking-tight text-foreground number-display">
+              {Math.round(animatedScore)}
+            </div>
+            <Micro className="text-muted-foreground font-medium">/ 100</Micro>
           </div>
         </div>
 
@@ -120,57 +136,60 @@ export function ShipScoreCard() {
             label="Commits"
             value={shipScore.breakdown.commits}
             max={25}
-            color="#171717"
-            darkColor="#e5e5e5"
+            color="#bdb76b"
+            darkColor="#bdb76b"
           />
           <ScoreBar
             label="Launches"
             value={shipScore.breakdown.launches}
             max={25}
-            color="#404040"
-            darkColor="#d4d4d4"
+            color="#7c8c6e"
+            darkColor="#8fa382"
           />
           <ScoreBar
             label="Revenue"
             value={shipScore.breakdown.revenue}
             max={25}
-            color="#171717"
-            darkColor="#e5e5e5"
+            color="#a89070"
+            darkColor="#c4a882"
           />
           <ScoreBar
             label="Growth"
             value={shipScore.breakdown.growth}
             max={25}
-            color="#525252"
-            darkColor="#a3a3a3"
+            color="#8b8b3d"
+            darkColor="#a8a84a"
           />
         </div>
       </div>
 
       {/* Bottom stats */}
-      <div className="mt-6 flex items-center justify-between rounded-xl bg-gray-50 dark:bg-gray-800/50 p-4 border border-gray-200 dark:border-gray-700">
+      <div className="relative mt-6 flex items-center justify-between rounded-xl bg-gradient-to-r from-muted to-muted/50 p-4 border border-border overflow-hidden">
+        {/* Subtle animated background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+
         {/* Streak */}
-        <div className="flex items-center gap-3">
+        <div className="relative flex items-center gap-3">
           {shipScore.streak.isOnFire && (
-            <div className="relative">
-              <Flame className="h-6 w-6 text-primary animate-fire-pulse" />
+            <div className="streak-flame">
+              <Flame className="h-6 w-6 text-primary streak-flame-icon" />
             </div>
           )}
           <div>
-            <NumberDisplay variant="small" className="text-primary">
+            <div className="text-xl font-bold text-primary number-display">
               {shipScore.streak.currentStreak} days
-            </NumberDisplay>
-            <Micro className="text-gray-500">Current streak</Micro>
+            </div>
+            <Micro className="text-muted-foreground">Current streak</Micro>
           </div>
         </div>
 
         {/* Rank */}
-        <div className="text-right">
-          <NumberDisplay variant="small" as="div" className="flex items-center justify-end gap-1.5">
-            <TrendingUp className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-            <span className="text-primary">Top {rank.percentile}%</span>
-          </NumberDisplay>
-          <Micro className="text-gray-500">
+        <div className="relative text-right">
+          <div className="flex items-center justify-end gap-1.5">
+            <TrendingUp className="h-5 w-5 text-emerald-500" />
+            <span className="text-xl font-bold text-primary number-display">Top {rank.percentile}%</span>
+          </div>
+          <Micro className="text-muted-foreground">
             #{rank.position.toLocaleString()} of {rank.totalUsers.toLocaleString()}
           </Micro>
         </div>

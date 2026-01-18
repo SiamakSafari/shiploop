@@ -5,11 +5,16 @@ import * as ProgressPrimitive from "@radix-ui/react-progress"
 
 import { cn } from "@/lib/utils"
 
+interface ProgressProps extends React.ComponentProps<typeof ProgressPrimitive.Root> {
+  shimmer?: boolean
+}
+
 function Progress({
   className,
   value,
+  shimmer = true,
   ...props
-}: React.ComponentProps<typeof ProgressPrimitive.Root>) {
+}: ProgressProps) {
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
@@ -21,9 +26,20 @@ function Progress({
     >
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
-        className="bg-primary h-full w-full flex-1 transition-all"
+        className={cn(
+          "bg-primary h-full w-full flex-1 transition-all duration-500 ease-out relative",
+          shimmer && "overflow-hidden"
+        )}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
-      />
+      >
+        {/* Shimmer overlay */}
+        {shimmer && (
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"
+            style={{ backgroundSize: '200% 100%' }}
+          />
+        )}
+      </ProgressPrimitive.Indicator>
     </ProgressPrimitive.Root>
   )
 }

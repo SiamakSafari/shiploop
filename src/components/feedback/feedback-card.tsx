@@ -4,6 +4,7 @@ import { ChevronRight, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CustomerFeedback, SOURCE_CONFIG, SENTIMENT_CONFIG, CATEGORY_CONFIG, STATUS_CONFIG } from "@/types";
 import { Caption, Micro } from "@/components/ui/typography";
+import { Icon } from "@/components/ui/icon";
 
 interface FeedbackCardProps {
   feedback: CustomerFeedback;
@@ -61,7 +62,7 @@ export function FeedbackCard({ feedback, onClick, isSelected }: FeedbackCardProp
               <Caption className="font-semibold text-gray-900 dark:text-gray-50">
                 {feedback.customerName || "Anonymous"}
               </Caption>
-              <span className="text-sm">{sourceConfig.icon}</span>
+              <Icon name={sourceConfig.icon} size={14} className="text-gray-500" />
             </div>
             <span className={cn(
               "shrink-0 flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
@@ -81,7 +82,7 @@ export function FeedbackCard({ feedback, onClick, isSelected }: FeedbackCardProp
 
           <div className="flex items-center gap-3 flex-wrap">
             <Micro className={cn("flex items-center gap-1", categoryConfig ? "text-gray-500 dark:text-gray-400" : "")}>
-              <span>{categoryConfig.icon}</span>
+              <Icon name={categoryConfig.icon} size={12} />
               <span>{categoryConfig.label}</span>
             </Micro>
             <Micro className="flex items-center gap-1 text-gray-400 dark:text-gray-500">
