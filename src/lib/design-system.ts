@@ -3,34 +3,36 @@
  * Helpers for managing colors, animations, and gamification elements
  */
 
-// Color Variants - Monochrome + Teal Palette
+// Color Variants - Pure Monochrome Palette
 export const colors = {
-  // Grayscale
-  black: '#000000',
-  gray1: '#171717',
-  gray2: '#404040',
-  gray3: '#737373',
-  gray4: '#a3a3a3',
-  gray5: '#d4d4d4',
-  gray6: '#e5e5e5',
-  gray7: '#f5f5f5',
+  // Grayscale (10 shades)
+  gray950: '#0a0a0a',
+  gray900: '#171717',
+  gray800: '#262626',
+  gray700: '#404040',
+  gray600: '#525252',
+  gray500: '#737373',
+  gray400: '#a3a3a3',
+  gray300: '#d4d4d4',
+  gray200: '#e5e5e5',
+  gray100: '#f5f5f5',
+  gray50: '#fafafa',
   white: '#ffffff',
 
-  // Teal Accent
-  primary: '#0f766e',
+  // Primary is now dark gray
+  primary: '#171717',
 
   // Functional (minimal use)
-  success: '#22c55e',
-  warning: '#f59e0b',
-  error: '#ef4444',
-  info: '#06b6d4',
+  success: '#16a34a',
+  warning: '#ca8a04',
+  error: '#dc2626',
 } as const
 
-// Card Tint Classes - Monochrome + Teal
+// Card Tint Classes - Pure Monochrome
 export const cardTints = [
-  'card-tint-teal',
+  'card-tint-dark',
   'card-tint-gray',
-  'card-tint-gray-light',
+  'card-tint-light',
   'card-tint-white',
 ] as const
 
@@ -41,74 +43,74 @@ export function getCardTint(index: number): CardTint {
   return cardTints[index % cardTints.length]
 }
 
-// Stat Card Color Assignments - Monochrome + Teal
+// Stat Card Color Assignments - Pure Monochrome
 export const statCardColors = {
   mrr: {
-    primary: colors.primary,      // Teal for revenue
-    secondary: colors.gray7,
-    tint: 'card-tint-gray' as const,
-    glow: 'rgba(15, 118, 110, 0.3)',
+    primary: colors.gray900,
+    secondary: colors.gray100,
+    tint: 'card-tint-dark' as const,
+    glow: 'rgba(23, 23, 23, 0.15)',
   },
   users: {
-    primary: colors.gray2,        // Dark gray
-    secondary: colors.gray7,
+    primary: colors.gray700,
+    secondary: colors.gray100,
     tint: 'card-tint-gray' as const,
-    glow: 'rgba(64, 64, 64, 0.3)',
+    glow: 'rgba(64, 64, 64, 0.15)',
   },
   velocity: {
-    primary: colors.gray3,        // Medium gray
-    secondary: colors.gray7,
-    tint: 'card-tint-gray' as const,
-    glow: 'rgba(115, 115, 115, 0.3)',
+    primary: colors.gray500,
+    secondary: colors.gray100,
+    tint: 'card-tint-light' as const,
+    glow: 'rgba(115, 115, 115, 0.15)',
   },
   rank: {
-    primary: colors.primary,      // Teal for rank
-    secondary: colors.gray7,
-    tint: 'card-tint-gray' as const,
-    glow: 'rgba(15, 118, 110, 0.3)',
+    primary: colors.gray900,
+    secondary: colors.gray100,
+    tint: 'card-tint-dark' as const,
+    glow: 'rgba(23, 23, 23, 0.15)',
   },
 } as const
 
 export type StatCardType = keyof typeof statCardColors
 
-// Activity Feed Color Mapping - Monochrome + Purple
+// Activity Feed Color Mapping - Pure Monochrome
 export const activityColors = {
   commit: {
-    color: colors.gray2,
+    color: colors.gray700,
     label: 'Commit',
   },
   revenue: {
-    color: colors.primary,
+    color: colors.gray900,
     label: 'Revenue',
   },
   launch: {
-    color: colors.primary,
+    color: colors.gray900,
     label: 'Launch',
   },
   milestone: {
-    color: colors.primary,
+    color: colors.gray800,
     label: 'Milestone',
   },
   idea: {
-    color: colors.gray3,
+    color: colors.gray500,
     label: 'Idea',
   },
   user: {
-    color: colors.gray2,
+    color: colors.gray600,
     label: 'User',
   },
 } as const
 
 export type ActivityType = keyof typeof activityColors
 
-// Project Solid Colors - Monochrome + Teal
+// Project Solid Colors - Pure Monochrome
 export const projectColors = [
-  { color: '#0f766e', bg: '#fafafa', name: 'teal' },     // Teal accent
-  { color: '#404040', bg: '#fafafa', name: 'gray1' },    // Dark gray
-  { color: '#737373', bg: '#fafafa', name: 'gray2' },    // Medium gray
-  { color: '#000000', bg: '#fafafa', name: 'black' },    // Black
-  { color: '#a3a3a3', bg: '#fafafa', name: 'gray3' },    // Light gray
-  { color: '#14b8a6', bg: '#f5f5f5', name: 'teal2' },    // Teal alternate (teal-500)
+  { color: '#171717', bg: '#fafafa', name: 'dark' },
+  { color: '#404040', bg: '#fafafa', name: 'gray700' },
+  { color: '#525252', bg: '#fafafa', name: 'gray600' },
+  { color: '#737373', bg: '#fafafa', name: 'gray500' },
+  { color: '#a3a3a3', bg: '#f5f5f5', name: 'gray400' },
+  { color: '#0a0a0a', bg: '#fafafa', name: 'black' },
 ] as const
 
 export function getProjectColor(index: number) {
@@ -120,28 +122,28 @@ export type BadgeTier = 'bronze' | 'silver' | 'gold' | 'platinum'
 
 export const badgeTierConfig = {
   bronze: {
-    color: colors.gray4,
-    glow: 'rgba(163, 163, 163, 0.4)',
+    color: colors.gray400,
+    glow: 'rgba(163, 163, 163, 0.2)',
     gradient: 'from-gray-400 to-gray-500',
-    icon: '🥉',
+    icon: '3',
   },
   silver: {
-    color: colors.gray3,
-    glow: 'rgba(115, 115, 115, 0.4)',
+    color: colors.gray500,
+    glow: 'rgba(115, 115, 115, 0.2)',
     gradient: 'from-gray-300 to-gray-400',
-    icon: '🥈',
+    icon: '2',
   },
   gold: {
-    color: colors.warning,
-    glow: 'rgba(245, 158, 11, 0.4)',
-    gradient: 'from-amber-400 to-amber-500',
-    icon: '🥇',
+    color: colors.gray700,
+    glow: 'rgba(64, 64, 64, 0.2)',
+    gradient: 'from-gray-600 to-gray-700',
+    icon: '1',
   },
   platinum: {
-    color: colors.primary,
-    glow: 'rgba(15, 118, 110, 0.4)',
-    gradient: 'from-teal-500 to-teal-600',
-    icon: '💎',
+    color: colors.gray900,
+    glow: 'rgba(23, 23, 23, 0.2)',
+    gradient: 'from-gray-800 to-gray-900',
+    icon: '*',
   },
 } as const
 
@@ -150,24 +152,24 @@ export type BadgeCategory = 'streak' | 'revenue' | 'launch' | 'community' | 'vel
 
 export const badgeCategoryConfig = {
   streak: {
-    color: colors.primary,
-    gradient: 'from-teal-500 to-teal-600',
+    color: colors.gray900,
+    gradient: 'from-gray-800 to-gray-900',
   },
   revenue: {
-    color: colors.success,
-    gradient: 'from-emerald-500 to-emerald-600',
+    color: colors.gray800,
+    gradient: 'from-gray-700 to-gray-800',
   },
   launch: {
-    color: colors.primary,
-    gradient: 'from-teal-400 to-teal-500',
+    color: colors.gray700,
+    gradient: 'from-gray-600 to-gray-700',
   },
   community: {
-    color: colors.info,
-    gradient: 'from-cyan-500 to-cyan-600',
+    color: colors.gray600,
+    gradient: 'from-gray-500 to-gray-600',
   },
   velocity: {
-    color: colors.gray2,
-    gradient: 'from-gray-600 to-gray-700',
+    color: colors.gray500,
+    gradient: 'from-gray-400 to-gray-500',
   },
 } as const
 
@@ -222,7 +224,7 @@ export const iconSizes = {
 
 // Animation Utilities
 export const animations = {
-  // Existing keyframe animations
+  // Keyframe animations
   firePulse: 'animate-fire-pulse',
   pulseGlow: 'animate-pulse-glow',
   shimmer: 'animate-shimmer',
@@ -231,9 +233,9 @@ export const animations = {
   fadeIn: 'animate-fade-in',
   bounceGentle: 'animate-bounce-gentle',
   wiggle: 'animate-wiggle',
-  shimmerTeal: 'animate-shimmer-teal',
+  shimmerMono: 'animate-shimmer-mono',
   scalePop: 'animate-scale-pop',
-  glowPulseTeal: 'animate-glow-pulse-teal',
+  glowPulseMono: 'animate-glow-pulse-mono',
 
   // Duration utilities
   duration: { fast: 'duration-150', normal: 'duration-250', slow: 'duration-400' },
@@ -323,16 +325,16 @@ export function formatCurrency(amount: number): string {
   }).format(amount)
 }
 
-// Confetti Colors - Monochrome + Teal
+// Confetti Colors - Pure Monochrome
 export const confettiColors = [
-  '#0f766e', // Dark teal
-  '#14b8a6', // Teal-500
-  '#5eead4', // Light teal
-  '#404040', // Dark gray
-  '#737373', // Medium gray
-  '#a3a3a3', // Light gray
-  '#d4d4d4', // Lighter gray
-  '#000000', // Black
+  '#171717',
+  '#262626',
+  '#404040',
+  '#525252',
+  '#737373',
+  '#a3a3a3',
+  '#d4d4d4',
+  '#e5e5e5',
 ]
 
 // Generate Random Confetti Colors

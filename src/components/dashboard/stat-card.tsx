@@ -14,26 +14,26 @@ interface StatCardProps {
   format?: "currency" | "number" | "percent";
   className?: string;
   statType?: StatCardType;
-  accentColor?: "teal" | "black" | "gray1" | "gray2";
+  accentColor?: "dark" | "black" | "gray1" | "gray2";
   isLoading?: boolean;
 }
 
 const accentStyles = {
-  teal: {
-    border: "card-accent-teal",
-    icon: "text-primary",
+  dark: {
+    border: "card-accent-dark",
+    icon: "text-gray-900 dark:text-gray-100",
   },
   black: {
     border: "card-accent-black",
-    icon: "text-black dark:text-white",
+    icon: "text-gray-950 dark:text-white",
   },
   gray1: {
     border: "card-accent-gray-1",
-    icon: "text-slate-700 dark:text-slate-200",
+    icon: "text-gray-700 dark:text-gray-200",
   },
   gray2: {
     border: "card-accent-gray-2",
-    icon: "text-slate-500 dark:text-slate-400",
+    icon: "text-gray-500 dark:text-gray-400",
   },
 };
 
@@ -45,7 +45,7 @@ export function StatCard({
   format = "number",
   className,
   statType,
-  accentColor = "teal",
+  accentColor = "dark",
   isLoading = false,
 }: StatCardProps) {
   if (isLoading) {
@@ -77,17 +77,17 @@ export function StatCard({
   const TrendIcon = trend === undefined || trend === 0 ? Minus : trend > 0 ? TrendingUp : TrendingDown;
   const trendColor =
     trend === undefined || trend === 0
-      ? "text-slate-400 dark:text-slate-500"
+      ? "text-gray-400 dark:text-gray-500"
       : trend > 0
-      ? "text-emerald-600"
-      : "text-red-600";
+      ? "text-gray-900 dark:text-gray-100"
+      : "text-gray-500 dark:text-gray-400";
 
   // Use statType for specific styling if provided
   const accent = statType ? {
     border: "",
     icon: "text-current",
     tint: statCardColors[statType].tint,
-  } : (accentStyles[accentColor] || accentStyles.teal);
+  } : (accentStyles[accentColor] || accentStyles.dark);
 
   return (
     <div
@@ -102,8 +102,8 @@ export function StatCard({
     >
       <div className="flex items-start justify-between">
         <div className="space-y-2">
-          <Caption className="text-slate-600 dark:text-slate-400">{title}</Caption>
-          <NumberDisplay variant="medium" className="text-slate-900 dark:text-slate-50 stat-number">{formattedValue}</NumberDisplay>
+          <Caption className="text-gray-600 dark:text-gray-400">{title}</Caption>
+          <NumberDisplay variant="medium" className="text-gray-900 dark:text-gray-50 stat-number">{formattedValue}</NumberDisplay>
           {trend !== undefined && (
             <Caption as="div" className={cn("flex items-center gap-1.5", trendColor)}>
               <TrendIcon className="h-4 w-4" />
@@ -114,7 +114,7 @@ export function StatCard({
         <div className="flex flex-col items-center">
           <div
             className={cn(
-              "rounded-xl p-3 bg-slate-50 dark:bg-slate-800 transition-all duration-250 group-hover:scale-110 group-hover:rotate-3",
+              "rounded-xl p-3 bg-gray-50 dark:bg-gray-800 transition-all duration-250 group-hover:scale-110 group-hover:rotate-3",
               statType ? "" : accent.icon
             )}
             style={statType ? {

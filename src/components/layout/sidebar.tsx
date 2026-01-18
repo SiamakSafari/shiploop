@@ -5,38 +5,24 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Rocket,
-  Trophy,
-  Lightbulb,
-  BarChart3,
   FolderKanban,
   Settings,
   ChevronLeft,
   Flame,
   Sparkles,
-  Globe,
   DollarSign,
-  Target,
   MessageSquare,
-  FlaskConical,
-  Megaphone,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useUIStore, useAppStore } from "@/stores";
 
 const navItems = [
-  { href: "/", icon: LayoutDashboard, label: "Dashboard", shortcut: "G D" },
-  { href: "/launch-hub", icon: Rocket, label: "Launch Hub", shortcut: "G L" },
-  { href: "/leaderboard", icon: Trophy, label: "Leaderboard", shortcut: "G B" },
-  { href: "/ideas", icon: Lightbulb, label: "Ideas", shortcut: "G I" },
-  { href: "/analytics", icon: BarChart3, label: "Analytics", shortcut: "G A" },
+  { href: "/", icon: LayoutDashboard, label: "Home", shortcut: "G H" },
   { href: "/projects", icon: FolderKanban, label: "Projects", shortcut: "G P" },
-  { href: "/directories", icon: Globe, label: "Directories", shortcut: "G R" },
-  { href: "/financial", icon: DollarSign, label: "Financial", shortcut: "G F" },
-  { href: "/goals", icon: Target, label: "Goals", shortcut: "G O" },
-  { href: "/feedback", icon: MessageSquare, label: "Feedback", shortcut: "G E" },
-  { href: "/pricing", icon: FlaskConical, label: "Pricing", shortcut: "G X" },
-  { href: "/build-public", icon: Megaphone, label: "Build Public", shortcut: "G U" },
+  { href: "/revenue", icon: DollarSign, label: "Revenue", shortcut: "G R" },
+  { href: "/launch", icon: Rocket, label: "Launch", shortcut: "G L" },
+  { href: "/engage", icon: MessageSquare, label: "Engage", shortcut: "G E" },
 ];
 
 export function Sidebar() {
@@ -47,12 +33,12 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 flex h-screen flex-col bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transition-all duration-300",
+        "fixed left-0 top-0 z-40 flex h-screen flex-col bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300",
         sidebarCollapsed ? "w-16" : "w-64"
       )}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center justify-between border-b border-slate-200 dark:border-slate-800 px-4">
+      <div className="flex h-16 items-center justify-between border-b border-gray-200 dark:border-gray-800 px-4">
         {!sidebarCollapsed && (
           <Link href="/" className="flex items-center gap-2 group">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-md transition-transform group-hover:scale-105">
@@ -65,7 +51,7 @@ export function Sidebar() {
           variant="ghost"
           size="icon"
           onClick={toggleSidebarCollapsed}
-          className={cn("h-8 w-8 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50 hover:bg-slate-100 dark:hover:bg-slate-800", sidebarCollapsed && "mx-auto")}
+          className={cn("h-8 w-8 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-800", sidebarCollapsed && "mx-auto")}
         >
           <ChevronLeft
             className={cn(
@@ -80,7 +66,7 @@ export function Sidebar() {
       {user && (
         <div
           className={cn(
-            "border-b border-slate-200 dark:border-slate-800 p-4",
+            "border-b border-gray-200 dark:border-gray-800 p-4",
             sidebarCollapsed && "px-2"
           )}
         >
@@ -94,10 +80,10 @@ export function Sidebar() {
               )}
             </div>
           ) : (
-            <div className="rounded-xl bg-white dark:bg-slate-800 p-3 border border-slate-200 dark:border-slate-700 shadow-sm">
+            <div className="rounded-xl bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                  <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 font-medium">
                     <Sparkles className="h-3 w-3 animate-pulse text-primary" />
                     Ship Score
                   </div>
@@ -109,7 +95,7 @@ export function Sidebar() {
                   {user.shipScore.streak.isOnFire && (
                     <Flame className="h-5 w-5 text-primary animate-fire-pulse" />
                   )}
-                  <span className="text-sm font-bold text-slate-700 dark:text-slate-200 font-space-grotesk">
+                  <span className="text-sm font-bold text-gray-700 dark:text-gray-200 font-space-grotesk">
                     {user.shipScore.streak.currentStreak}d
                   </span>
                 </div>
@@ -130,8 +116,8 @@ export function Sidebar() {
               className={cn(
                 "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
                 isActive
-                  ? "bg-teal-50 dark:bg-teal-900/30 text-slate-900 dark:text-slate-50 shadow-sm border border-teal-200 dark:border-teal-800"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50 hover:bg-slate-100 dark:hover:bg-slate-800",
+                  ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-50 shadow-sm border border-gray-200 dark:border-gray-700"
+                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-800",
                 sidebarCollapsed && "justify-center px-2"
               )}
             >
@@ -140,7 +126,7 @@ export function Sidebar() {
                 {!sidebarCollapsed && (
                   <>
                     <span className="flex-1">{item.label}</span>
-                    <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] text-gray-400 dark:text-gray-500 font-mono bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">
                       {item.shortcut}
                     </span>
                   </>
@@ -152,11 +138,11 @@ export function Sidebar() {
       </nav>
 
       {/* Settings */}
-      <div className="border-t border-slate-200 dark:border-slate-800 p-3">
+      <div className="border-t border-gray-200 dark:border-gray-800 p-3">
         <Link
           href="/settings"
           className={cn(
-            "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 dark:text-slate-400 transition-all duration-200 hover:text-slate-900 dark:hover:text-slate-50 hover:bg-slate-100 dark:hover:bg-slate-800",
+            "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-gray-600 dark:text-gray-400 transition-all duration-200 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-800",
             sidebarCollapsed && "justify-center px-2"
           )}
         >

@@ -37,8 +37,8 @@ export function GoalCard({ goal, onClick, isSelected }: GoalCardProps) {
       onClick={onClick}
       className={cn(
         "group w-full text-left rounded-xl p-4 transition-all duration-200",
-        "bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700",
-        "border border-slate-200 dark:border-slate-700",
+        "bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700",
+        "border border-gray-200 dark:border-gray-700",
         "hover:shadow-md active:scale-[0.98]",
         isSelected && "ring-2 ring-primary border-primary dark:border-primary"
       )}
@@ -52,7 +52,7 @@ export function GoalCard({ goal, onClick, isSelected }: GoalCardProps) {
               fill="none"
               stroke="currentColor"
               strokeWidth="3"
-              className="text-slate-200 dark:text-slate-700"
+              className="text-gray-200 dark:text-gray-700"
             />
             <path
               d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -64,7 +64,7 @@ export function GoalCard({ goal, onClick, isSelected }: GoalCardProps) {
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-xs font-bold text-slate-900 dark:text-slate-50">
+            <span className="text-xs font-bold text-gray-900 dark:text-gray-50">
               {goal.progress}%
             </span>
           </div>
@@ -73,7 +73,7 @@ export function GoalCard({ goal, onClick, isSelected }: GoalCardProps) {
         {/* Content */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <Caption className="font-semibold text-slate-900 dark:text-slate-50 truncate">
+            <Caption className="font-semibold text-gray-900 dark:text-gray-50 truncate">
               {goal.title}
             </Caption>
             <span className={cn(
@@ -82,7 +82,7 @@ export function GoalCard({ goal, onClick, isSelected }: GoalCardProps) {
               statusConfig.color.includes("amber") && "bg-amber-50 dark:bg-amber-900/30",
               statusConfig.color.includes("blue") && "bg-blue-50 dark:bg-blue-900/30",
               statusConfig.color.includes("red") && "bg-red-50 dark:bg-red-900/30",
-              statusConfig.color.includes("primary") && "bg-teal-50 dark:bg-teal-900/30",
+              statusConfig.color.includes("primary") && "bg-gray-50 dark:bg-gray-900/30",
               statusConfig.color
             )}>
               <span>{statusConfig.icon}</span>
@@ -90,17 +90,17 @@ export function GoalCard({ goal, onClick, isSelected }: GoalCardProps) {
             </span>
           </div>
 
-          <Micro className="text-slate-500 dark:text-slate-400 mt-0.5">
+          <Micro className="text-gray-500 dark:text-gray-400 mt-0.5">
             {goal.projectName}
           </Micro>
 
           {/* Progress info */}
           <div className="flex items-center gap-3 mt-2">
-            <Micro className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
+            <Micro className="flex items-center gap-1 text-gray-400 dark:text-gray-500">
               <CheckCircle2 className="h-3 w-3" />
               {completedMilestones}/{goal.milestones.length} milestones
             </Micro>
-            <Micro className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
+            <Micro className="flex items-center gap-1 text-gray-400 dark:text-gray-500">
               <Calendar className="h-3 w-3" />
               {getDaysRemaining()}
             </Micro>
@@ -108,7 +108,7 @@ export function GoalCard({ goal, onClick, isSelected }: GoalCardProps) {
 
           {/* Measurable progress */}
           <div className="mt-2">
-            <div className="h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+            <div className="h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
               <div
                 className={cn(
                   "h-full rounded-full transition-all duration-500",
@@ -119,14 +119,14 @@ export function GoalCard({ goal, onClick, isSelected }: GoalCardProps) {
                 style={{ width: `${goal.progress}%` }}
               />
             </div>
-            <Micro className="text-slate-400 dark:text-slate-500 mt-1">
+            <Micro className="text-gray-400 dark:text-gray-500 mt-1">
               {goal.measurable.current} / {goal.measurable.target} {goal.measurable.unit}
             </Micro>
           </div>
         </div>
 
         {/* Chevron */}
-        <ChevronRight className="h-5 w-5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300 group-hover:translate-x-0.5 transition-all shrink-0" />
+        <ChevronRight className="h-5 w-5 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 group-hover:translate-x-0.5 transition-all shrink-0" />
       </div>
     </button>
   );

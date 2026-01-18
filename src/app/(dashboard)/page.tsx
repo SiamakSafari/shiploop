@@ -7,11 +7,10 @@ import {
   StreakCounter,
   ActivityFeed,
   QuickActions,
-  ProjectProgress,
-  LaunchStatus,
 } from "@/components/dashboard";
+import { LeaderboardWidget } from "@/components/leaderboard";
 import { useAppStore, useProjectsStore } from "@/stores";
-import { mockAnalytics } from "@/data";
+import { mockAnalytics, mockLeaderboard } from "@/data";
 
 export default function DashboardPage() {
   const user = useAppStore((state) => state.user);
@@ -28,17 +27,20 @@ export default function DashboardPage() {
         )
       : 0;
 
+  // Get current user's leaderboard entry
+  const currentUserEntry = mockLeaderboard.find((e) => e.isCurrentUser);
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Page header */}
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-6 w-6 text-purple-400" />
-          <h1 className="text-3xl font-bold text-gradient">
+          <Sparkles className="h-6 w-6 text-foreground" />
+          <h1 className="text-3xl font-bold text-foreground">
             Welcome back, {user?.name.split(" ")[0]}
           </h1>
         </div>
-        <p className="text-white/60 text-lg">
+        <p className="text-muted-foreground text-lg">
           Here&apos;s how your indie hacker journey is going.
         </p>
       </div>
@@ -51,7 +53,7 @@ export default function DashboardPage() {
           icon={DollarSign}
           format="currency"
           trend={mockAnalytics.overview.avgGrowth}
-          accentColor="emerald"
+          accentColor="dark"
         />
         <StatCard
           title="Total Users"
@@ -59,7 +61,7 @@ export default function DashboardPage() {
           icon={Users}
           format="number"
           trend={8.2}
-          accentColor="cyan"
+          accentColor="gray1"
         />
         <StatCard
           title="Ship Velocity"
@@ -67,7 +69,7 @@ export default function DashboardPage() {
           icon={Zap}
           format="number"
           trend={12.5}
-          accentColor="purple"
+          accentColor="dark"
         />
         <StatCard
           title="Global Rank"
@@ -75,22 +77,22 @@ export default function DashboardPage() {
           icon={Trophy}
           format="number"
           trend={user?.rank.percentile ? -(100 - user.rank.percentile) / 10 : 0}
-          accentColor="pink"
+          accentColor="gray2"
         />
       </div>
 
       {/* Main content grid */}
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* Left column - Ship Score and Streak */}
+        {/* Left column - Ship Score, Streak, and Leaderboard */}
         <div className="space-y-6 lg:col-span-2">
           <ShipScoreCard />
           <StreakCounter />
 
-          {/* Projects and Launch Status */}
-          <div className="grid gap-6 md:grid-cols-2">
-            <ProjectProgress />
-            <LaunchStatus />
-          </div>
+          {/* Leaderboard Widget */}
+          <LeaderboardWidget
+            entries={mockLeaderboard}
+            currentUserEntry={currentUserEntry}
+          />
         </div>
 
         {/* Right column - Activity and Actions */}

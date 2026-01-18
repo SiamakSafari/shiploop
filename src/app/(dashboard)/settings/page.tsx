@@ -24,21 +24,21 @@ export default function SettingsPage() {
       <div className="space-y-2">
         <div className="flex items-center gap-2">
           <Settings className="h-6 w-6 text-primary" />
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-50">Settings</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50">Settings</h1>
         </div>
-        <p className="text-slate-500 dark:text-slate-400 text-lg">
+        <p className="text-gray-500 dark:text-gray-400 text-lg">
           Manage your account and preferences.
         </p>
       </div>
 
       {/* Profile section */}
       <div className="glass hover-lift rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-slate-200 dark:border-slate-700">
-          <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-gray-50">
             <User className="h-4 w-4 text-primary" />
             Profile
           </h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Your public profile information.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Your public profile information.</p>
         </div>
         <div className="p-6 space-y-6">
           <div className="flex items-center gap-4">
@@ -51,23 +51,23 @@ export default function SettingsPage() {
                   .join("")}
               </AvatarFallback>
             </Avatar>
-            <button className="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm text-slate-600 dark:text-slate-300 transition-all hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-50 border border-slate-200 dark:border-slate-700">
+            <button className="rounded-xl bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm text-gray-600 dark:text-gray-300 transition-all hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-50 border border-gray-200 dark:border-gray-700">
               Change Avatar
             </button>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-600 dark:text-slate-300">Name</label>
-              <Input defaultValue={user?.name} className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+              <label className="text-sm font-medium text-gray-600 dark:text-gray-300">Name</label>
+              <Input defaultValue={user?.name} className="border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50 placeholder:text-gray-400 dark:placeholder:text-gray-500" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-600 dark:text-slate-300">Username</label>
-              <Input defaultValue={user?.username} className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+              <label className="text-sm font-medium text-gray-600 dark:text-gray-300">Username</label>
+              <Input defaultValue={user?.username} className="border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50 placeholder:text-gray-400 dark:placeholder:text-gray-500" />
             </div>
             <div className="space-y-2 sm:col-span-2">
-              <label className="text-sm font-medium text-slate-600 dark:text-slate-300">Email</label>
-              <Input type="email" defaultValue={user?.email} className="border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+              <label className="text-sm font-medium text-gray-600 dark:text-gray-300">Email</label>
+              <Input type="email" defaultValue={user?.email} className="border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50 placeholder:text-gray-400 dark:placeholder:text-gray-500" />
             </div>
           </div>
 
@@ -79,12 +79,12 @@ export default function SettingsPage() {
 
       {/* Theme section */}
       <div className="glass hover-lift rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-slate-200 dark:border-slate-700">
-          <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-gray-50">
             <Sun className="h-4 w-4 text-amber-500" />
             Appearance
           </h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Customize how ShipLoop looks.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Customize how ShipLoop looks.</p>
         </div>
         <div className="p-6">
           <div className="grid grid-cols-3 gap-4">
@@ -95,12 +95,12 @@ export default function SettingsPage() {
                 className={cn(
                   "flex flex-col items-center gap-3 rounded-xl border-2 p-4 transition-all",
                   theme === t.value
-                    ? "border-primary bg-teal-50 dark:bg-teal-900/30 shadow-md"
-                    : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800"
+                    ? "border-primary bg-gray-50 dark:bg-gray-900/30 shadow-md"
+                    : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800"
                 )}
               >
-                <t.icon className={cn("h-6 w-6", theme === t.value ? "text-primary" : "text-slate-400 dark:text-slate-500")} />
-                <span className={cn("text-sm font-medium", theme === t.value ? "text-slate-900 dark:text-slate-50" : "text-slate-500 dark:text-slate-400")}>{t.label}</span>
+                <t.icon className={cn("h-6 w-6", theme === t.value ? "text-primary" : "text-gray-400 dark:text-gray-500")} />
+                <span className={cn("text-sm font-medium", theme === t.value ? "text-gray-900 dark:text-gray-50" : "text-gray-500 dark:text-gray-400")}>{t.label}</span>
               </button>
             ))}
           </div>
@@ -109,12 +109,12 @@ export default function SettingsPage() {
 
       {/* Notifications section */}
       <div className="glass hover-lift rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-slate-200 dark:border-slate-700">
-          <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-gray-50">
             <Bell className="h-4 w-4 text-primary" />
             Notifications
           </h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Configure your notification preferences.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Configure your notification preferences.</p>
         </div>
         <div className="p-6 space-y-4">
           <ToggleItem
@@ -137,12 +137,12 @@ export default function SettingsPage() {
 
       {/* Public profile section */}
       <div className="glass hover-lift rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-slate-200 dark:border-slate-700">
-          <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-gray-50">
             <Globe className="h-4 w-4 text-emerald-600" />
             Public Profile
           </h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage your public presence.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage your public presence.</p>
         </div>
         <div className="p-6 space-y-4">
           <ToggleItem
@@ -165,12 +165,12 @@ export default function SettingsPage() {
 
       {/* Keyboard shortcuts */}
       <div className="glass hover-lift rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-slate-200 dark:border-slate-700">
-          <h3 className="flex items-center gap-2 text-base font-semibold text-slate-900 dark:text-slate-50">
-            <Keyboard className="h-4 w-4 text-slate-600 dark:text-slate-400" />
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-gray-50">
+            <Keyboard className="h-4 w-4 text-gray-600 dark:text-gray-400" />
             Keyboard Shortcuts
           </h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Quick navigation and actions.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Quick navigation and actions.</p>
         </div>
         <div className="p-6">
           <div className="grid gap-3 sm:grid-cols-2">
@@ -199,10 +199,10 @@ function ToggleItem({
   defaultChecked?: boolean;
 }) {
   return (
-    <div className="flex items-center justify-between rounded-xl bg-slate-50 dark:bg-slate-800/50 p-4 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700">
+    <div className="flex items-center justify-between rounded-xl bg-gray-50 dark:bg-gray-800/50 p-4 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700">
       <div className="space-y-0.5">
-        <p className="font-medium text-slate-900 dark:text-slate-50">{title}</p>
-        <p className="text-sm text-slate-500 dark:text-slate-400">{description}</p>
+        <p className="font-medium text-gray-900 dark:text-gray-50">{title}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>
       </div>
       <Switch defaultChecked={defaultChecked} />
     </div>
@@ -217,9 +217,9 @@ function ShortcutItem({
   description: string;
 }) {
   return (
-    <div className="flex items-center justify-between rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700">
-      <span className="text-sm text-slate-600 dark:text-slate-300">{description}</span>
-      <kbd className="rounded-lg bg-slate-200 dark:bg-slate-700 px-2.5 py-1 font-mono text-xs text-slate-600 dark:text-slate-300">
+    <div className="flex items-center justify-between rounded-xl bg-gray-50 dark:bg-gray-800/50 p-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-gray-200 dark:border-gray-700">
+      <span className="text-sm text-gray-600 dark:text-gray-300">{description}</span>
+      <kbd className="rounded-lg bg-gray-200 dark:bg-gray-700 px-2.5 py-1 font-mono text-xs text-gray-600 dark:text-gray-300">
         {shortcut}
       </kbd>
     </div>

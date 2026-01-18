@@ -5,16 +5,13 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Rocket,
-  Trophy,
-  Lightbulb,
-  BarChart3,
   FolderKanban,
   Settings,
-  X,
   Flame,
+  DollarSign,
+  MessageSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -24,12 +21,11 @@ import {
 import { useUIStore, useAppStore } from "@/stores";
 
 const navItems = [
-  { href: "/", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/launch-hub", icon: Rocket, label: "Launch Hub" },
-  { href: "/leaderboard", icon: Trophy, label: "Leaderboard" },
-  { href: "/ideas", icon: Lightbulb, label: "Ideas" },
-  { href: "/analytics", icon: BarChart3, label: "Analytics" },
+  { href: "/", icon: LayoutDashboard, label: "Home" },
   { href: "/projects", icon: FolderKanban, label: "Projects" },
+  { href: "/revenue", icon: DollarSign, label: "Revenue" },
+  { href: "/launch", icon: Rocket, label: "Launch" },
+  { href: "/engage", icon: MessageSquare, label: "Engage" },
   { href: "/settings", icon: Settings, label: "Settings" },
 ];
 
@@ -46,7 +42,7 @@ export function MobileNav() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
               <Rocket className="h-4 w-4 text-white" />
             </div>
-            <span className="font-bold text-slate-900 dark:text-slate-50">ShipLoop</span>
+            <span className="font-bold text-gray-900 dark:text-gray-50">ShipLoop</span>
           </SheetTitle>
         </SheetHeader>
 

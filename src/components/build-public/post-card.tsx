@@ -50,15 +50,15 @@ export function PostCard({ post, onClick, isSelected }: PostCardProps) {
       onClick={onClick}
       className={cn(
         "group w-full text-left rounded-xl p-4 transition-all duration-200",
-        "bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700",
-        "border border-slate-200 dark:border-slate-700",
+        "bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700",
+        "border border-gray-200 dark:border-gray-700",
         "hover:shadow-md active:scale-[0.98]",
         isSelected && "ring-2 ring-primary border-primary dark:border-primary"
       )}
     >
       <div className="flex items-start gap-3">
         {/* Platform Icon */}
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-xl shrink-0 border border-slate-200 dark:border-slate-700">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-xl shrink-0 border border-gray-200 dark:border-gray-700">
           {platformConfig.icon}
         </div>
 
@@ -66,14 +66,14 @@ export function PostCard({ post, onClick, isSelected }: PostCardProps) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-1">
             <div className="flex items-center gap-2">
-              <Caption className="font-semibold text-slate-900 dark:text-slate-50">
+              <Caption className="font-semibold text-gray-900 dark:text-gray-50">
                 {platformConfig.label}
               </Caption>
               <span className="text-sm">{typeConfig.icon}</span>
             </div>
             <span className={cn(
               "shrink-0 flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
-              statusConfig.color.includes("slate") && "bg-slate-100 dark:bg-slate-800",
+              statusConfig.color.includes("slate") && "bg-gray-100 dark:bg-gray-800",
               statusConfig.color.includes("blue") && "bg-blue-50 dark:bg-blue-900/30",
               statusConfig.color.includes("emerald") && "bg-emerald-50 dark:bg-emerald-900/30",
               statusConfig.color.includes("red") && "bg-red-50 dark:bg-red-900/30",
@@ -84,22 +84,22 @@ export function PostCard({ post, onClick, isSelected }: PostCardProps) {
           </div>
 
           {post.title && (
-            <Caption className="font-medium text-slate-900 dark:text-slate-50 truncate mb-1">
+            <Caption className="font-medium text-gray-900 dark:text-gray-50 truncate mb-1">
               {post.title}
             </Caption>
           )}
 
-          <p className="text-sm text-slate-600 dark:text-slate-300 mb-2">
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
             {truncateContent(post.content)}
           </p>
 
           {/* Meta info */}
           <div className="flex items-center gap-3 flex-wrap">
-            <Micro className="text-slate-500 dark:text-slate-400">
+            <Micro className="text-gray-500 dark:text-gray-400">
               {post.projectName}
             </Micro>
             <Micro className={cn(
-              isOverLimit ? "text-red-600 dark:text-red-400" : "text-slate-400 dark:text-slate-500"
+              isOverLimit ? "text-red-600 dark:text-red-400" : "text-gray-400 dark:text-gray-500"
             )}>
               {charCount}/{charLimit}
             </Micro>
@@ -110,7 +110,7 @@ export function PostCard({ post, onClick, isSelected }: PostCardProps) {
               </Micro>
             )}
             {post.publishedAt && (
-              <Micro className="text-slate-400 dark:text-slate-500">
+              <Micro className="text-gray-400 dark:text-gray-500">
                 {formatRelativeDate(post.publishedAt)}
               </Micro>
             )}
@@ -140,13 +140,13 @@ export function PostCard({ post, onClick, isSelected }: PostCardProps) {
               {post.tags.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-slate-100 dark:bg-slate-700 px-2 py-0.5 text-xs text-slate-600 dark:text-slate-400"
+                  className="rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-xs text-gray-600 dark:text-gray-400"
                 >
                   #{tag}
                 </span>
               ))}
               {post.tags.length > 3 && (
-                <span className="text-xs text-slate-400 dark:text-slate-500">
+                <span className="text-xs text-gray-400 dark:text-gray-500">
                   +{post.tags.length - 3}
                 </span>
               )}
@@ -155,7 +155,7 @@ export function PostCard({ post, onClick, isSelected }: PostCardProps) {
         </div>
 
         {/* Chevron */}
-        <ChevronRight className="h-5 w-5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300 group-hover:translate-x-0.5 transition-all shrink-0" />
+        <ChevronRight className="h-5 w-5 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 group-hover:translate-x-0.5 transition-all shrink-0" />
       </div>
     </button>
   );

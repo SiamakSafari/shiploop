@@ -51,10 +51,10 @@ export function MetricCard({ metric }: MetricCardProps) {
   const positive = isPositiveTrend();
 
   return (
-    <div className="rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4">
+    <div className="rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 p-4">
       <div className="flex items-center gap-2 mb-2">
         <span className="text-lg">{categoryConfig.icon}</span>
-        <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+        <span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
           {metric.name}
         </span>
       </div>
@@ -69,7 +69,7 @@ export function MetricCard({ metric }: MetricCardProps) {
             "flex items-center gap-1 text-xs font-medium rounded-full px-2 py-0.5",
             positive === true && "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30",
             positive === false && "text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30",
-            positive === null && "text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800"
+            positive === null && "text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800"
           )}>
             {positive === true && <TrendingUp className="h-3 w-3" />}
             {positive === false && <TrendingDown className="h-3 w-3" />}

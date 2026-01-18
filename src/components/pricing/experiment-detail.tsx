@@ -62,11 +62,11 @@ export function ExperimentDetail({
       <div className="glass rounded-2xl p-6">
         <div className="flex items-start justify-between mb-4">
           <div>
-            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-50">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-50">
               {experiment.name}
             </h2>
             {experiment.description && (
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                 {experiment.description}
               </p>
             )}
@@ -77,8 +77,8 @@ export function ExperimentDetail({
               statusConfig.color.includes("emerald") && "bg-emerald-50 dark:bg-emerald-900/30",
               statusConfig.color.includes("amber") && "bg-amber-50 dark:bg-amber-900/30",
               statusConfig.color.includes("blue") && "bg-blue-50 dark:bg-blue-900/30",
-              statusConfig.color.includes("slate") && "bg-slate-100 dark:bg-slate-800",
-              statusConfig.color.includes("primary") && "bg-teal-50 dark:bg-teal-900/30",
+              statusConfig.color.includes("slate") && "bg-gray-100 dark:bg-gray-800",
+              statusConfig.color.includes("primary") && "bg-gray-50 dark:bg-gray-900/30",
               statusConfig.color
             )}>
               {statusConfig.icon} {statusConfig.label}
@@ -125,7 +125,7 @@ export function ExperimentDetail({
 
         {/* Dates */}
         {experiment.startDate && (
-          <div className="flex items-center gap-4 mt-4 text-sm text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-4 mt-4 text-sm text-gray-500 dark:text-gray-400">
             <span>Started: {formatDate(experiment.startDate)}</span>
             {experiment.endDate && <span>Ended: {formatDate(experiment.endDate)}</span>}
           </div>
@@ -134,7 +134,7 @@ export function ExperimentDetail({
 
       {/* Variants Comparison */}
       <div className="glass rounded-2xl p-6">
-        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-4">
+        <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-50 mb-4">
           Variant Comparison
         </h3>
         <div className="space-y-4">
@@ -150,13 +150,13 @@ export function ExperimentDetail({
                 className={cn(
                   "rounded-xl p-4 border",
                   isWinner
-                    ? "bg-teal-50 dark:bg-teal-900/30 border-primary"
-                    : "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700"
+                    ? "bg-gray-50 dark:bg-gray-900/30 border-primary"
+                    : "bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700"
                 )}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-slate-900 dark:text-slate-50">
+                    <span className="font-semibold text-gray-900 dark:text-gray-50">
                       {variant.name}
                     </span>
                     {isWinner && (
@@ -175,7 +175,7 @@ export function ExperimentDetail({
                   {(experiment.status === "running" || experiment.status === "paused") && !experiment.winningVariantId && (
                     <button
                       onClick={() => onDeclareWinner(variant.id)}
-                      className="flex items-center gap-1 rounded-lg bg-slate-100 dark:bg-slate-700 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                      className="flex items-center gap-1 rounded-lg bg-gray-100 dark:bg-gray-700 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                     >
                       <Trophy className="h-3 w-3" />
                       Declare Winner
@@ -185,26 +185,26 @@ export function ExperimentDetail({
 
                 <div className="grid grid-cols-4 gap-4 text-sm">
                   <div>
-                    <p className="text-slate-400 dark:text-slate-500 mb-1">Price</p>
-                    <p className="font-semibold text-slate-900 dark:text-slate-50">
+                    <p className="text-gray-400 dark:text-gray-500 mb-1">Price</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-50">
                       {formatCurrency(variant.price)}
                     </p>
                   </div>
                   <div>
-                    <p className="text-slate-400 dark:text-slate-500 mb-1">Visitors</p>
-                    <p className="font-semibold text-slate-900 dark:text-slate-50">
+                    <p className="text-gray-400 dark:text-gray-500 mb-1">Visitors</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-50">
                       {variant.visitors.toLocaleString()}
                     </p>
                   </div>
                   <div>
-                    <p className="text-slate-400 dark:text-slate-500 mb-1">Conversion</p>
+                    <p className="text-gray-400 dark:text-gray-500 mb-1">Conversion</p>
                     <p className="font-semibold text-emerald-600 dark:text-emerald-400">
                       {cvr.toFixed(2)}%
                     </p>
                   </div>
                   <div>
-                    <p className="text-slate-400 dark:text-slate-500 mb-1">Revenue</p>
-                    <p className="font-semibold text-slate-900 dark:text-slate-50">
+                    <p className="text-gray-400 dark:text-gray-500 mb-1">Revenue</p>
+                    <p className="font-semibold text-gray-900 dark:text-gray-50">
                       {formatCurrency(variant.revenue)}
                     </p>
                   </div>
@@ -212,11 +212,11 @@ export function ExperimentDetail({
 
                 {/* Conversion bar */}
                 <div className="mt-3">
-                  <div className="h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                  <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
                     <div
                       className={cn(
                         "h-full rounded-full transition-all",
-                        isWinner ? "bg-primary" : "bg-slate-400"
+                        isWinner ? "bg-primary" : "bg-gray-400"
                       )}
                       style={{ width: `${Math.min(cvr * 5, 100)}%` }}
                     />
@@ -229,7 +229,7 @@ export function ExperimentDetail({
                     {variant.features.map((feature, i) => (
                       <span
                         key={i}
-                        className="rounded-full bg-slate-100 dark:bg-slate-700 px-2 py-0.5 text-xs text-slate-600 dark:text-slate-400"
+                        className="rounded-full bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-xs text-gray-600 dark:text-gray-400"
                       >
                         {feature}
                       </span>
@@ -244,17 +244,17 @@ export function ExperimentDetail({
 
       {/* Settings */}
       <div className="glass rounded-xl p-4">
-        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3">
+        <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-50 mb-3">
           Experiment Settings
         </h3>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <p className="text-slate-400 dark:text-slate-500">Minimum Sample Size</p>
-            <p className="text-slate-900 dark:text-slate-50">{experiment.minimumSampleSize} visitors</p>
+            <p className="text-gray-400 dark:text-gray-500">Minimum Sample Size</p>
+            <p className="text-gray-900 dark:text-gray-50">{experiment.minimumSampleSize} visitors</p>
           </div>
           <div>
-            <p className="text-slate-400 dark:text-slate-500">Confidence Level</p>
-            <p className="text-slate-900 dark:text-slate-50">{(experiment.confidenceLevel * 100).toFixed(0)}%</p>
+            <p className="text-gray-400 dark:text-gray-500">Confidence Level</p>
+            <p className="text-gray-900 dark:text-gray-50">{(experiment.confidenceLevel * 100).toFixed(0)}%</p>
           </div>
         </div>
       </div>

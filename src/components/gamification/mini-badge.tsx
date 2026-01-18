@@ -49,7 +49,7 @@ const badgeConfig: Record<MiniBadgeVariant, {
   rocket: {
     label: "SHIP",
     emoji: "🚀",
-    gradient: "from-cyan-500 to-blue-500",
+    gradient: "from-gray-600 to-gray-800",
     textColor: "text-white",
   },
 };
@@ -126,11 +126,11 @@ interface FloatingBadgeProps {
 
 export function FloatingBadge({ icon, text, color = "purple", className }: FloatingBadgeProps) {
   const colorClasses = {
-    purple: "from-purple-500 to-pink-500",
-    cyan: "from-cyan-500 to-blue-500",
-    pink: "from-pink-500 to-rose-500",
-    emerald: "from-emerald-500 to-teal-500",
-    orange: "from-orange-500 to-red-500",
+    purple: "from-gray-500 to-gray-700",
+    cyan: "from-gray-600 to-gray-800",
+    pink: "from-gray-400 to-gray-600",
+    emerald: "from-gray-500 to-gray-700",
+    orange: "from-gray-600 to-gray-800",
   };
 
   return (

@@ -10,10 +10,10 @@ interface RevenueBreakdownProps {
 }
 
 const COLORS = [
-  "hsl(262, 83%, 58%)",
-  "hsl(217, 91%, 60%)",
-  "hsl(142, 76%, 36%)",
-  "hsl(38, 92%, 50%)",
+  "#171717", // near black
+  "#404040", // dark gray
+  "#737373", // medium gray
+  "#a3a3a3", // light gray
 ];
 
 export function RevenueBreakdown({ data }: RevenueBreakdownProps) {

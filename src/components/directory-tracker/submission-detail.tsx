@@ -60,16 +60,16 @@ export function SubmissionDetail({
   return (
     <div className="glass hover-lift sticky top-20 rounded-2xl overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-xl">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-xl">
             {directoryInfo.icon}
           </div>
           <div className="flex-1">
-            <Heading level={4} className="text-slate-900 dark:text-slate-50">
+            <Heading level={4} className="text-gray-900 dark:text-gray-50">
               {directoryInfo.displayName}
             </Heading>
-            <Micro className="text-slate-500 dark:text-slate-400">
+            <Micro className="text-gray-500 dark:text-gray-400">
               {directoryInfo.description}
             </Micro>
           </div>
@@ -77,7 +77,7 @@ export function SubmissionDetail({
             href={directoryInfo.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
           >
             <ExternalLink className="h-4 w-4" />
           </a>
@@ -87,7 +87,7 @@ export function SubmissionDetail({
       <div className="p-4 space-y-5">
         {/* Status selector */}
         <div className="space-y-2">
-          <Caption className="text-slate-600 dark:text-slate-300 font-medium">
+          <Caption className="text-gray-600 dark:text-gray-300 font-medium">
             Status
           </Caption>
           <div className="flex flex-wrap gap-2">
@@ -99,7 +99,7 @@ export function SubmissionDetail({
                   "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
                   submission.status === option.value
                     ? "bg-primary text-white shadow-md"
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                    : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                 )}
               >
                 {option.label}
@@ -110,12 +110,12 @@ export function SubmissionDetail({
 
         {/* Meta info */}
         <div className="flex items-center gap-4 text-sm">
-          <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400">
             <Clock className="h-4 w-4" />
             <span>Avg. review: {directoryInfo.avgReviewTime}</span>
           </div>
           {submission.submittedAt && (
-            <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+            <div className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400">
               <Send className="h-4 w-4" />
               <span>Submitted {formatDate(submission.submittedAt)}</span>
             </div>
@@ -125,10 +125,10 @@ export function SubmissionDetail({
         {/* Requirements checklist */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <Caption className="text-slate-600 dark:text-slate-300 font-medium">
+            <Caption className="text-gray-600 dark:text-gray-300 font-medium">
               Requirements
             </Caption>
-            <Micro className="text-slate-400 dark:text-slate-500">
+            <Micro className="text-gray-400 dark:text-gray-500">
               {completedRequired}/{requiredItems.length} required done
             </Micro>
           </div>
@@ -147,7 +147,7 @@ export function SubmissionDetail({
 
           {optionalItems.length > 0 && (
             <>
-              <Micro className="text-slate-400 dark:text-slate-500 pt-2">
+              <Micro className="text-gray-400 dark:text-gray-500 pt-2">
                 Optional
               </Micro>
               <div className="space-y-2">
@@ -166,9 +166,9 @@ export function SubmissionDetail({
         </div>
 
         {/* URLs */}
-        <div className="space-y-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+        <div className="space-y-3 pt-2 border-t border-gray-200 dark:border-gray-700">
           <div className="space-y-2">
-            <Caption className="text-slate-600 dark:text-slate-300 font-medium flex items-center gap-1.5">
+            <Caption className="text-gray-600 dark:text-gray-300 font-medium flex items-center gap-1.5">
               <LinkIcon className="h-3 w-3" />
               Submission URL
             </Caption>
@@ -177,7 +177,7 @@ export function SubmissionDetail({
                 placeholder="https://..."
                 value={submissionUrl}
                 onChange={(e) => setSubmissionUrl(e.target.value)}
-                className="flex-1 text-sm border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50"
+                className="flex-1 text-sm border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50"
               />
               <Button
                 size="sm"
@@ -191,7 +191,7 @@ export function SubmissionDetail({
           </div>
 
           <div className="space-y-2">
-            <Caption className="text-slate-600 dark:text-slate-300 font-medium flex items-center gap-1.5">
+            <Caption className="text-gray-600 dark:text-gray-300 font-medium flex items-center gap-1.5">
               <ExternalLink className="h-3 w-3" />
               Live Listing URL
             </Caption>
@@ -200,7 +200,7 @@ export function SubmissionDetail({
                 placeholder="https://..."
                 value={listingUrl}
                 onChange={(e) => setListingUrl(e.target.value)}
-                className="flex-1 text-sm border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-50"
+                className="flex-1 text-sm border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50"
               />
               <Button
                 size="sm"
@@ -215,7 +215,7 @@ export function SubmissionDetail({
         </div>
 
         {/* Delete */}
-        <div className="pt-2 border-t border-slate-200 dark:border-slate-700">
+        <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
           <button
             onClick={onDelete}
             className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
@@ -245,21 +245,21 @@ function RequirementItem({
       onClick={onToggle}
       className={cn(
         "w-full flex items-center gap-3 rounded-lg p-2.5 text-left transition-all",
-        "hover:bg-slate-100 dark:hover:bg-slate-800",
-        completed && "bg-slate-50 dark:bg-slate-800/50"
+        "hover:bg-gray-100 dark:hover:bg-gray-800",
+        completed && "bg-gray-50 dark:bg-gray-800/50"
       )}
     >
       {completed ? (
         <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
       ) : (
-        <Circle className="h-5 w-5 text-slate-300 dark:text-slate-600 shrink-0" />
+        <Circle className="h-5 w-5 text-gray-300 dark:text-gray-600 shrink-0" />
       )}
       <span
         className={cn(
           "text-sm flex-1",
           completed
-            ? "text-slate-500 dark:text-slate-400 line-through"
-            : "text-slate-700 dark:text-slate-200"
+            ? "text-gray-500 dark:text-gray-400 line-through"
+            : "text-gray-700 dark:text-gray-200"
         )}
       >
         {label}

@@ -65,13 +65,13 @@ export function getTierFromPercentile(percentile: number): "diamond" | "gold" | 
 export function getTierColor(tier: "diamond" | "gold" | "silver" | "bronze"): string {
   switch (tier) {
     case "diamond":
-      return "text-cyan-400"
+      return "text-gray-200"
     case "gold":
-      return "text-yellow-400"
+      return "text-gray-300"
     case "silver":
       return "text-gray-400"
     case "bronze":
-      return "text-orange-400"
+      return "text-gray-500"
   }
 }
 

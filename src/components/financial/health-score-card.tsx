@@ -39,8 +39,8 @@ export function HealthScoreCard({ health, onClick, isSelected }: HealthScoreCard
       onClick={onClick}
       className={cn(
         "group w-full text-left rounded-xl p-4 transition-all duration-200",
-        "bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700",
-        "border border-slate-200 dark:border-slate-700",
+        "bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700",
+        "border border-gray-200 dark:border-gray-700",
         "hover:shadow-md active:scale-[0.98]",
         isSelected && "ring-2 ring-primary border-primary dark:border-primary"
       )}
@@ -54,7 +54,7 @@ export function HealthScoreCard({ health, onClick, isSelected }: HealthScoreCard
               fill="none"
               stroke="currentColor"
               strokeWidth="3"
-              className="text-slate-200 dark:text-slate-700"
+              className="text-gray-200 dark:text-gray-700"
             />
             <path
               d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -74,19 +74,19 @@ export function HealthScoreCard({ health, onClick, isSelected }: HealthScoreCard
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <Caption className="font-semibold text-slate-900 dark:text-slate-50 truncate">
+          <Caption className="font-semibold text-gray-900 dark:text-gray-50 truncate">
             {health.projectName}
           </Caption>
 
           <div className="grid grid-cols-2 gap-2 mt-2">
             <div>
-              <Micro className="text-slate-400 dark:text-slate-500">MRR</Micro>
-              <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+              <Micro className="text-gray-400 dark:text-gray-500">MRR</Micro>
+              <p className="text-sm font-semibold text-gray-900 dark:text-gray-50">
                 {formatCurrency(health.mrr)}
               </p>
             </div>
             <div>
-              <Micro className="text-slate-400 dark:text-slate-500">Runway</Micro>
+              <Micro className="text-gray-400 dark:text-gray-500">Runway</Micro>
               <p className={cn(
                 "text-sm font-semibold",
                 health.runway >= 12 ? "text-emerald-600 dark:text-emerald-400" :

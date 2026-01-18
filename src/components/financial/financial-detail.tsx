@@ -33,10 +33,10 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
       <div className="glass rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-50">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-50">
               {health.projectName}
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               Last updated {new Date(health.updatedAt).toLocaleDateString()}
             </p>
           </div>
@@ -51,7 +51,7 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
         </div>
 
         {/* Health Score Bar */}
-        <div className="h-3 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+        <div className="h-3 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
           <div
             className={cn(
               "h-full rounded-full transition-all duration-500",
@@ -67,7 +67,7 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
       {/* Key Stats */}
       <div className="grid grid-cols-2 gap-4">
         <div className="glass rounded-xl p-4">
-          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
+          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 mb-1">
             <DollarSign className="h-4 w-4" />
             <span className="text-xs font-medium uppercase tracking-wide">MRR</span>
           </div>
@@ -77,7 +77,7 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
         </div>
 
         <div className="glass rounded-xl p-4">
-          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
+          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 mb-1">
             <LineChart className="h-4 w-4" />
             <span className="text-xs font-medium uppercase tracking-wide">Runway</span>
           </div>
@@ -92,17 +92,17 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
         </div>
 
         <div className="glass rounded-xl p-4">
-          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
+          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 mb-1">
             <Wallet className="h-4 w-4" />
             <span className="text-xs font-medium uppercase tracking-wide">Cash on Hand</span>
           </div>
-          <p className="text-2xl font-bold font-space-grotesk text-slate-900 dark:text-slate-50">
+          <p className="text-2xl font-bold font-space-grotesk text-gray-900 dark:text-gray-50">
             {formatCurrency(health.cashOnHand)}
           </p>
         </div>
 
         <div className="glass rounded-xl p-4">
-          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-1">
+          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 mb-1">
             <CreditCard className="h-4 w-4" />
             <span className="text-xs font-medium uppercase tracking-wide">Monthly Burn</span>
           </div>
@@ -115,7 +115,7 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
       {/* Growth Rate */}
       <div className="glass rounded-xl p-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
             {health.growthRate >= 0 ? (
               <TrendingUp className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
             ) : (
@@ -135,7 +135,7 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
       {/* Metrics Grid */}
       {health.metrics.length > 0 && (
         <div>
-          <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3">
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-50 mb-3">
             All Metrics
           </h3>
           <div className="grid grid-cols-2 gap-3">

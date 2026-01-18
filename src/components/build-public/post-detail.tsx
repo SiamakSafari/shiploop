@@ -68,14 +68,14 @@ export function PostDetail({
       <div className="glass rounded-2xl p-6">
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-2xl border border-slate-200 dark:border-slate-700">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-2xl border border-gray-200 dark:border-gray-700">
               {platformConfig.icon}
             </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-900 dark:text-slate-50">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50">
                 {post.title || `${platformConfig.label} Post`}
               </h2>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 {post.projectName}
               </p>
             </div>
@@ -83,7 +83,7 @@ export function PostDetail({
           <div className="flex items-center gap-2">
             <span className={cn(
               "flex items-center gap-1 rounded-full px-3 py-1 text-sm font-medium",
-              statusConfig.color.includes("slate") && "bg-slate-100 dark:bg-slate-800",
+              statusConfig.color.includes("slate") && "bg-gray-100 dark:bg-gray-800",
               statusConfig.color.includes("blue") && "bg-blue-50 dark:bg-blue-900/30",
               statusConfig.color.includes("emerald") && "bg-emerald-50 dark:bg-emerald-900/30",
               statusConfig.color.includes("red") && "bg-red-50 dark:bg-red-900/30",
@@ -105,7 +105,7 @@ export function PostDetail({
           <div className="flex gap-2">
             <button
               onClick={() => onSchedule(new Date(Date.now() + 24 * 60 * 60 * 1000))}
-              className="flex items-center gap-2 rounded-lg bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="flex items-center gap-2 rounded-lg bg-gray-100 dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
             >
               <Clock className="h-4 w-4" />
               Schedule
@@ -123,21 +123,21 @@ export function PostDetail({
 
         {/* Engagement stats */}
         {post.engagement && (
-          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-2 text-red-500">
               <Heart className="h-5 w-5" />
               <span className="font-semibold">{post.engagement.likes}</span>
-              <span className="text-sm text-slate-500 dark:text-slate-400">likes</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">likes</span>
             </div>
             <div className="flex items-center gap-2 text-blue-500">
               <MessageCircle className="h-5 w-5" />
               <span className="font-semibold">{post.engagement.comments}</span>
-              <span className="text-sm text-slate-500 dark:text-slate-400">comments</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">comments</span>
             </div>
             <div className="flex items-center gap-2 text-emerald-500">
               <Share2 className="h-5 w-5" />
               <span className="font-semibold">{post.engagement.shares}</span>
-              <span className="text-sm text-slate-500 dark:text-slate-400">shares</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">shares</span>
             </div>
           </div>
         )}
@@ -146,14 +146,14 @@ export function PostDetail({
       {/* Platform & Type */}
       <div className="grid grid-cols-2 gap-4">
         <div className="glass rounded-xl p-4">
-          <label className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2 block">
+          <label className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2 block">
             Platform
           </label>
           <select
             value={post.platform}
             onChange={(e) => onUpdate({ platform: e.target.value as PostPlatform })}
             disabled={post.status !== "draft"}
-            className="w-full rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm text-slate-900 dark:text-slate-50 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+            className="w-full rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
           >
             {platforms.map((platform) => (
               <option key={platform} value={platform}>
@@ -164,14 +164,14 @@ export function PostDetail({
         </div>
 
         <div className="glass rounded-xl p-4">
-          <label className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2 block">
+          <label className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2 block">
             Post Type
           </label>
           <select
             value={post.type}
             onChange={(e) => onUpdate({ type: e.target.value as PostType })}
             disabled={post.status !== "draft"}
-            className="w-full rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm text-slate-900 dark:text-slate-50 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+            className="w-full rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
           >
             {types.map((type) => (
               <option key={type} value={type}>
@@ -185,7 +185,7 @@ export function PostDetail({
       {/* Title (for longer platforms) */}
       {(post.platform === "blog" || post.platform === "reddit" || post.platform === "indiehackers") && (
         <div className="glass rounded-xl p-4">
-          <label className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2 block">
+          <label className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2 block">
             Title
           </label>
           <input
@@ -194,7 +194,7 @@ export function PostDetail({
             onChange={(e) => handleTitleChange(e.target.value)}
             disabled={post.status !== "draft"}
             placeholder="Enter post title..."
-            className="w-full rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm text-slate-900 dark:text-slate-50 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+            className="w-full rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
           />
         </div>
       )}
@@ -202,12 +202,12 @@ export function PostDetail({
       {/* Content Editor */}
       <div className="glass rounded-xl p-4">
         <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+          <label className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
             Content
           </label>
           <span className={cn(
             "text-xs font-medium",
-            isOverLimit ? "text-red-600 dark:text-red-400" : "text-slate-400 dark:text-slate-500"
+            isOverLimit ? "text-red-600 dark:text-red-400" : "text-gray-400 dark:text-gray-500"
           )}>
             {charCount} / {charLimit}
           </span>
@@ -218,12 +218,12 @@ export function PostDetail({
           disabled={post.status !== "draft"}
           placeholder={typeConfig.template}
           className={cn(
-            "w-full rounded-lg bg-slate-50 dark:bg-slate-800 border px-3 py-2 text-sm text-slate-900 dark:text-slate-50 focus:outline-none focus:ring-2 focus:ring-primary min-h-[200px] resize-none disabled:opacity-50",
-            isOverLimit ? "border-red-500" : "border-slate-200 dark:border-slate-700"
+            "w-full rounded-lg bg-gray-50 dark:bg-gray-800 border px-3 py-2 text-sm text-gray-900 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-primary min-h-[200px] resize-none disabled:opacity-50",
+            isOverLimit ? "border-red-500" : "border-gray-200 dark:border-gray-700"
           )}
         />
         {/* Character limit bar */}
-        <div className="mt-2 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+        <div className="mt-2 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
           <div
             className={cn(
               "h-full rounded-full transition-all",
@@ -236,20 +236,20 @@ export function PostDetail({
 
       {/* Tags */}
       <div className="glass rounded-xl p-4">
-        <label className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2 block">
+        <label className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2 block">
           Tags
         </label>
         <div className="flex gap-2 flex-wrap">
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-slate-100 dark:bg-slate-700 px-3 py-1 text-sm text-slate-600 dark:text-slate-400"
+              className="rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1 text-sm text-gray-600 dark:text-gray-400"
             >
               #{tag}
             </span>
           ))}
           {post.tags.length === 0 && (
-            <span className="text-sm text-slate-400 dark:text-slate-500">No tags</span>
+            <span className="text-sm text-gray-400 dark:text-gray-500">No tags</span>
           )}
         </div>
       </div>

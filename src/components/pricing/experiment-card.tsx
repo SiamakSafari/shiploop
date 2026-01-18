@@ -54,8 +54,8 @@ export function ExperimentCard({ experiment, onClick, isSelected }: ExperimentCa
       onClick={onClick}
       className={cn(
         "group w-full text-left rounded-xl p-4 transition-all duration-200",
-        "bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700",
-        "border border-slate-200 dark:border-slate-700",
+        "bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700",
+        "border border-gray-200 dark:border-gray-700",
         "hover:shadow-md active:scale-[0.98]",
         isSelected && "ring-2 ring-primary border-primary dark:border-primary"
       )}
@@ -65,8 +65,8 @@ export function ExperimentCard({ experiment, onClick, isSelected }: ExperimentCa
         <div className={cn(
           "flex h-10 w-10 items-center justify-center rounded-xl text-xl shrink-0",
           experiment.status === "running" && "bg-emerald-50 dark:bg-emerald-900/30",
-          experiment.status === "winner_declared" && "bg-teal-50 dark:bg-teal-900/30",
-          experiment.status === "draft" && "bg-slate-100 dark:bg-slate-800",
+          experiment.status === "winner_declared" && "bg-gray-50 dark:bg-gray-900/30",
+          experiment.status === "draft" && "bg-gray-100 dark:bg-gray-800",
           experiment.status === "paused" && "bg-amber-50 dark:bg-amber-900/30",
           experiment.status === "completed" && "bg-blue-50 dark:bg-blue-900/30"
         )}>
@@ -76,7 +76,7 @@ export function ExperimentCard({ experiment, onClick, isSelected }: ExperimentCa
         {/* Content */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2 mb-1">
-            <Caption className="font-semibold text-slate-900 dark:text-slate-50 truncate">
+            <Caption className="font-semibold text-gray-900 dark:text-gray-50 truncate">
               {experiment.name}
             </Caption>
             <span className={cn(
@@ -84,35 +84,35 @@ export function ExperimentCard({ experiment, onClick, isSelected }: ExperimentCa
               statusConfig.color.includes("emerald") && "bg-emerald-50 dark:bg-emerald-900/30",
               statusConfig.color.includes("amber") && "bg-amber-50 dark:bg-amber-900/30",
               statusConfig.color.includes("blue") && "bg-blue-50 dark:bg-blue-900/30",
-              statusConfig.color.includes("slate") && "bg-slate-100 dark:bg-slate-800",
-              statusConfig.color.includes("primary") && "bg-teal-50 dark:bg-teal-900/30",
+              statusConfig.color.includes("slate") && "bg-gray-100 dark:bg-gray-800",
+              statusConfig.color.includes("primary") && "bg-gray-50 dark:bg-gray-900/30",
               statusConfig.color
             )}>
               {statusConfig.label}
             </span>
           </div>
 
-          <Micro className="text-slate-500 dark:text-slate-400 mb-2">
+          <Micro className="text-gray-500 dark:text-gray-400 mb-2">
             {experiment.projectName} - {experiment.variants.length} variants
           </Micro>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-2 text-xs">
             <div>
-              <p className="text-slate-400 dark:text-slate-500">Visitors</p>
-              <p className="font-semibold text-slate-900 dark:text-slate-50">
+              <p className="text-gray-400 dark:text-gray-500">Visitors</p>
+              <p className="font-semibold text-gray-900 dark:text-gray-50">
                 {getTotalVisitors().toLocaleString()}
               </p>
             </div>
             <div>
-              <p className="text-slate-400 dark:text-slate-500">Best CVR</p>
+              <p className="text-gray-400 dark:text-gray-500">Best CVR</p>
               <p className="font-semibold text-emerald-600 dark:text-emerald-400">
                 {getBestConversionRate().toFixed(1)}%
               </p>
             </div>
             <div>
-              <p className="text-slate-400 dark:text-slate-500">Revenue</p>
-              <p className="font-semibold text-slate-900 dark:text-slate-50">
+              <p className="text-gray-400 dark:text-gray-500">Revenue</p>
+              <p className="font-semibold text-gray-900 dark:text-gray-50">
                 {formatCurrency(getTotalRevenue())}
               </p>
             </div>
@@ -128,7 +128,7 @@ export function ExperimentCard({ experiment, onClick, isSelected }: ExperimentCa
 
           {/* Dates */}
           {experiment.startDate && (
-            <Micro className="flex items-center gap-1 text-slate-400 dark:text-slate-500 mt-2">
+            <Micro className="flex items-center gap-1 text-gray-400 dark:text-gray-500 mt-2">
               <Calendar className="h-3 w-3" />
               Started {formatDate(experiment.startDate)}
               {experiment.endDate && ` - Ended ${formatDate(experiment.endDate)}`}
@@ -137,7 +137,7 @@ export function ExperimentCard({ experiment, onClick, isSelected }: ExperimentCa
         </div>
 
         {/* Chevron */}
-        <ChevronRight className="h-5 w-5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300 group-hover:translate-x-0.5 transition-all shrink-0" />
+        <ChevronRight className="h-5 w-5 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 group-hover:translate-x-0.5 transition-all shrink-0" />
       </div>
     </button>
   );

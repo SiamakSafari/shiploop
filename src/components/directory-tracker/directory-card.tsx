@@ -17,8 +17,8 @@ const statusConfig: Record<
 > = {
   not_started: {
     label: "Not Started",
-    color: "text-slate-500 dark:text-slate-400",
-    bgColor: "bg-slate-100 dark:bg-slate-800",
+    color: "text-gray-500 dark:text-gray-400",
+    bgColor: "bg-gray-100 dark:bg-gray-800",
   },
   preparing: {
     label: "Preparing",
@@ -43,7 +43,7 @@ const statusConfig: Record<
   live: {
     label: "Live",
     color: "text-primary",
-    bgColor: "bg-teal-50 dark:bg-teal-900/30",
+    bgColor: "bg-gray-50 dark:bg-gray-900/30",
   },
   rejected: {
     label: "Rejected",
@@ -69,22 +69,22 @@ export function DirectoryCard({
       onClick={onClick}
       className={cn(
         "group w-full text-left rounded-xl p-4 transition-all duration-200",
-        "bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700",
-        "border border-slate-200 dark:border-slate-700",
+        "bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700",
+        "border border-gray-200 dark:border-gray-700",
         "hover:shadow-md active:scale-[0.98]",
         isSelected && "ring-2 ring-primary border-primary dark:border-primary"
       )}
     >
       <div className="flex items-start gap-3">
         {/* Icon */}
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-2xl shadow-sm group-hover:scale-105 transition-transform">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-2xl shadow-sm group-hover:scale-105 transition-transform">
           {directoryInfo.icon}
         </div>
 
         {/* Content */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <Caption className="font-semibold text-slate-900 dark:text-slate-50 truncate">
+            <Caption className="font-semibold text-gray-900 dark:text-gray-50 truncate">
               {directoryInfo.displayName}
             </Caption>
             <span
@@ -98,14 +98,14 @@ export function DirectoryCard({
             </span>
           </div>
 
-          <Micro className="text-slate-500 dark:text-slate-400 mt-0.5">
+          <Micro className="text-gray-500 dark:text-gray-400 mt-0.5">
             {submission.projectName}
           </Micro>
 
           {/* Progress bar */}
           <div className="mt-2">
             <div className="flex items-center justify-between mb-1">
-              <Micro className="text-slate-400 dark:text-slate-500">
+              <Micro className="text-gray-400 dark:text-gray-500">
                 {completedCount}/{totalCount} requirements
               </Micro>
               {submission.listingUrl && (
@@ -120,7 +120,7 @@ export function DirectoryCard({
                 </a>
               )}
             </div>
-            <div className="h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+            <div className="h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
               <div
                 className={cn(
                   "h-full rounded-full transition-all duration-500",
@@ -138,7 +138,7 @@ export function DirectoryCard({
           {/* Meta info */}
           <div className="flex items-center gap-3 mt-2">
             {submission.submittedAt && (
-              <Micro className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
+              <Micro className="flex items-center gap-1 text-gray-400 dark:text-gray-500">
                 <Clock className="h-3 w-3" />
                 Submitted {formatRelativeDate(submission.submittedAt)}
               </Micro>
@@ -153,7 +153,7 @@ export function DirectoryCard({
         </div>
 
         {/* Chevron */}
-        <ChevronRight className="h-5 w-5 text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300 group-hover:translate-x-0.5 transition-all shrink-0" />
+        <ChevronRight className="h-5 w-5 text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 group-hover:translate-x-0.5 transition-all shrink-0" />
       </div>
     </button>
   );
