@@ -1,6 +1,6 @@
 "use client";
 
-import { DollarSign, Users, Zap, Trophy } from "lucide-react";
+import { DollarSign, Users, Zap, Trophy, Sparkles } from "lucide-react";
 import {
   ShipScoreCard,
   StatCard,
@@ -14,7 +14,7 @@ import { mockAnalytics, mockLeaderboard } from "@/data";
 
 export default function DashboardPage() {
   const user = useAppStore((state) => state.user);
-  const projects = useProjectsStore((state) => state.projects);
+  const projects = useProjectsStore((state) => state.projects) ?? [];
 
   // Calculate aggregate stats
   const totalMRR = projects.reduce((sum, p) => sum + p.metrics.mrr, 0);
@@ -35,11 +35,12 @@ export default function DashboardPage() {
       {/* Page header */}
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <h1 className="text-3xl font-display font-semibold tracking-tight text-foreground">
+          <Sparkles className="h-6 w-6 text-foreground" />
+          <h1 className="text-3xl font-bold text-foreground">
             Welcome back, {user?.name.split(" ")[0]}
           </h1>
         </div>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-lg">
           Here&apos;s how your indie hacker journey is going.
         </p>
       </div>

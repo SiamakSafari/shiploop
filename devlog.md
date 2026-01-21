@@ -1896,4 +1896,475 @@ Implemented two high-impact features: a working waitlist API and comprehensive O
 
 ---
 
+## January 20, 2026 - Day 5 (Part 2): Lottie Animations, Premium UI Polish & AI Ship Coach
+
+### What I Built Today
+
+Implemented three major enhancements to make ShipLoop visually stunning and uniquely engaging for indie hackers:
+
+1. **Lottie Animations** - Smooth, lightweight vector animations throughout the app
+2. **Premium UI Effects** - CSS-powered visual polish (gradients, 3D transforms, glows)
+3. **AI Ship Coach** - A motivational coach with 4 personalities that sends context-aware messages
+
+### 1. Lottie Animations Integration
+
+Installed `lottie-react` and created animation wrapper components with inline animation data (no external files needed).
+
+**Files created:**
+- `src/components/lottie/rocket-animation.tsx` - For launches and Ship Score
+- `src/components/lottie/fire-animation.tsx` - For streaks
+- `src/components/lottie/loading-animation.tsx` - For loading states
+- `src/components/lottie/success-animation.tsx` - For completions
+- `src/components/lottie/empty-state-animation.tsx` - For empty lists
+- `src/components/lottie/trophy-animation.tsx` - For leaderboard/achievements
+- `src/components/lottie/confetti-animation.tsx` - For celebrations
+- `src/components/lottie/index.ts` - Barrel export
+
+**Updated components to use animations:**
+- `ship-score-card.tsx` - RocketAnimation and FireAnimation
+- `streak-counter.tsx` - FireAnimation with React Query integration
+- `activity-feed.tsx` - Success animations
+- `quick-actions.tsx` - Rocket animations
+- `leaderboard-widget.tsx` - Trophy animations
+- `hero-section.tsx` - Lottie animations in landing page
+
+**Also created UI helpers:**
+- `src/components/ui/animated-loader.tsx` - Consistent loading states
+- `src/components/ui/animated-empty-state.tsx` - Empty state with animation
+
+### 2. Premium UI Polish
+
+Added extensive CSS effects to `globals.css` (~400 lines):
+
+**Gradient Text Effects:**
+```css
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.text-gradient-shine {
+  background: linear-gradient(90deg, #fff, #e5e5e5, #fff);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+```
+
+**3D Card Transforms:**
+```css
+.card-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+}
+.card-3d:hover {
+  transform: rotateX(2deg) rotateY(-2deg) translateZ(10px);
+}
+```
+
+**Animated Gradient Borders:**
+```css
+.border-gradient {
+  position: relative;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+              linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7) border-box;
+  border: 2px solid transparent;
+}
+```
+
+**Button Effects:**
+- `.btn-shimmer` - Sliding highlight effect
+- `.btn-glow` - Pulsing outer glow
+
+**Other Effects:**
+- `.animate-float` - Gentle floating animation
+- `.spotlight` - Cursor-following spotlight
+- `.noise-overlay` - Subtle texture
+- `.depth-effect` - Multi-layer shadow for depth
+
+**Created animated background components:**
+- `src/components/ui/animated-background.tsx`
+  - `FloatingOrb` - Animated gradient orbs
+  - `AnimatedBackground` - Full background with variants
+  - `SpotlightCard` - Cursor-tracking spotlight effect
+  - `GradientText` - Animated gradient text component
+  - `FloatingParticles` - Decorative particles
+
+**Updated hero-section.tsx:**
+- Added floating orbs background
+- Applied GradientText to headline
+- Added `btn-glow` and `btn-shimmer` to CTAs
+- Applied `card-3d` effect to preview card
+
+### 3. AI Ship Coach (The Killer Feature)
+
+Built a complete motivational AI coach system to attract indie hackers with gamification and personality.
+
+#### Coach Personalities
+
+| Personality | Avatar | Tone | Catchphrase |
+|-------------|--------|------|-------------|
+| **Drill Sergeant** | 🎖️ | Intense, demanding, military-style | "DROP AND GIVE ME 20 COMMITS!" |
+| **Hype Beast** | 🔥 | Enthusiastic, Gen-Z energy | "YOOOO THIS IS FIRE!" |
+| **Zen Master** | 🧘 | Calm, philosophical, mindful | "The code flows like water..." |
+| **Roast Master** | 😈 | Sarcastic, playful burns | "Oh wow, another todo app?" |
+
+#### Message Triggers (14 types)
+
+- `streak-started` - When user starts a new streak
+- `streak-continued` - When streak is maintained
+- `streak-broken` - When streak is lost
+- `milestone-hit` - Achievement unlocked
+- `revenue-milestone` - MRR milestone reached
+- `slacking` - No activity detected
+- `comeback` - Return after absence
+- `first-launch` - First product launch
+- `leaderboard-climb` - Rank improved
+- `leaderboard-drop` - Rank dropped
+- `daily-checkin` - Daily greeting
+- `weekly-summary` - Week recap
+- `ship-score-up` - Score increased
+- `ship-score-down` - Score decreased
+
+#### Files Created
+
+**Types & Config:**
+```typescript
+// src/lib/coach/types.ts
+export type CoachPersonality = "drill-sergeant" | "hype-beast" | "zen-master" | "roast-master";
+
+export const COACH_PERSONALITIES: Record<CoachPersonality, CoachPersonalityConfig> = {
+  "drill-sergeant": {
+    id: "drill-sergeant",
+    name: "Sergeant Ship",
+    description: "No excuses. No mercy. Only results.",
+    avatar: "🎖️",
+    color: "#dc2626",
+    tone: "intense, demanding, military-style motivation",
+    catchphrase: "DROP AND GIVE ME 20 COMMITS!",
+  },
+  // ... 3 more personalities
+};
+```
+
+**Message Templates:**
+```typescript
+// src/lib/coach/messages.ts - 200+ pre-written messages
+const COACH_MESSAGES: Record<CoachPersonality, Record<MessageTrigger, string[]>> = {
+  "drill-sergeant": {
+    "streak-started": [
+      "ATTENTION! A new streak has begun. Don't you DARE let it die, soldier!",
+      "Day 1. The journey of a thousand commits begins with a single push.",
+      // ...
+    ],
+    // ... 13 more trigger types
+  },
+  // ... 3 more personalities
+};
+
+export function getCoachMessage(
+  personality: CoachPersonality,
+  trigger: MessageTrigger,
+  context: CoachContext
+): string { /* returns random message with context interpolation */ }
+```
+
+**Zustand Store:**
+```typescript
+// src/stores/use-coach-store.ts
+export const useCoachStore = create<CoachState>()(
+  persist(
+    (set, get) => ({
+      selectedPersonality: "hype-beast",
+      isEnabled: true,
+      messages: [],
+      isChatOpen: false,
+      unreadCount: 0,
+      addMessage: (trigger, context) => { /* ... */ },
+      clearMessages: () => { /* ... */ },
+      markAllRead: () => { /* ... */ },
+      setPersonality: (personality) => { /* ... */ },
+      toggleChat: () => { /* ... */ },
+      toggleEnabled: () => { /* ... */ },
+    }),
+    { name: "shiploop-coach" }
+  )
+);
+```
+
+**Main Widget UI:**
+```typescript
+// src/components/coach/coach-widget.tsx
+// Floating button with unread badge + expandable chat window
+// - Message history with timestamps
+// - Settings panel for personality selection
+// - Uses framer-motion AnimatePresence for smooth transitions
+// - Personality avatars and color theming
+```
+
+**Notification System:**
+```typescript
+// src/components/coach/coach-notification.tsx
+// Toast notifications for new messages when chat is closed
+// - Auto-dismiss after 8 seconds
+// - Progress bar showing time remaining
+// - Click to open full chat
+// - Stacked notifications with max of 3
+```
+
+**Provider Wrapper:**
+```typescript
+// src/components/coach/coach-provider.tsx
+export function CoachProvider({ children }: { children: React.ReactNode }) {
+  useCoachTriggers({
+    enableDailyCheckin: true,
+    enableStreakAlerts: true,
+    enableMilestoneAlerts: true,
+    enableSlackingAlerts: true,
+  });
+
+  return (
+    <>
+      {children}
+      <CoachWidget />
+      <CoachNotificationContainer />
+    </>
+  );
+}
+```
+
+**Auto-Trigger Hook:**
+```typescript
+// src/hooks/use-coach-triggers.ts
+export function useCoachTriggers(options: CoachTriggerOptions) {
+  // Monitors ship score changes
+  // Monitors streak status
+  // Triggers daily check-in on first visit
+  // Detects slacking (no activity for X days)
+  // Returns manual trigger functions
+  return {
+    triggerMessage,
+    triggerStreakStarted,
+    triggerStreakBroken,
+    triggerMilestone,
+    // ...
+  };
+}
+```
+
+#### Integration
+
+**Updated `src/app/dashboard/layout.tsx`:**
+```tsx
+import { CoachProvider } from "@/components/coach";
+
+export default function DashboardLayout({ children }) {
+  return (
+    <div className="min-h-screen relative">
+      <Sidebar />
+      <MobileNav />
+      <CommandPalette />
+      <div className={cn("relative z-10", sidebarCollapsed ? "md:pl-16" : "md:pl-64")}>
+        <Header />
+        <main className="flex-1 p-4 md:p-6">
+          <CoachProvider>{children}</CoachProvider>  {/* ← Coach wraps content */}
+        </main>
+      </div>
+    </div>
+  );
+}
+```
+
+**Updated exports:**
+- `src/stores/index.ts` - Added `useCoachStore` export
+- `src/hooks/index.ts` - Added `useCoachTriggers` export
+- `src/components/coach/index.ts` - Barrel export for coach components
+
+### Dependencies Added
+
+```bash
+npm install lottie-react framer-motion
+```
+
+- `lottie-react` - Lightweight Lottie animation player for React
+- `framer-motion` - Production-ready animation library for React
+
+### What I Learned
+
+1. **Inline Lottie Data** - Storing animation JSON directly in components eliminates network requests and allows tree-shaking. The animations are small (~5-15KB each).
+
+2. **Framer Motion AnimatePresence** - The `AnimatePresence` component handles exit animations properly, allowing smooth transitions when components unmount.
+
+3. **Zustand Persist Middleware** - Using `persist()` middleware automatically saves state to localStorage. Perfect for preserving coach personality selection and message history.
+
+4. **Context-Aware Messages** - Template strings with placeholders like `{streakDays}` and `{userName}` make messages feel personal. Random selection from arrays prevents repetition.
+
+5. **CSS Perspective for 3D** - Using `perspective` on parent and `transform: rotateX/Y` on children creates convincing 3D card effects without JavaScript.
+
+6. **Gradient Border Technique** - Using `background` with `padding-box` and `border-box` allows gradient borders without pseudo-elements.
+
+7. **Coach as Engagement Hook** - The personality system makes users want to try all 4 coaches. The roast master especially drives engagement through humor.
+
+### Testing Results
+
+✅ All Lottie animations render correctly
+✅ Premium CSS effects work in light and dark mode
+✅ Coach widget opens/closes smoothly
+✅ Personality switching works with immediate UI update
+✅ Messages persist across page refreshes (localStorage)
+✅ Notifications appear when chat is closed
+✅ Auto-triggers fire based on mock data
+✅ Build passes with no TypeScript errors
+✅ framer-motion animations are smooth
+
+### Metrics
+
+- **New files created**: 18
+- **Files modified**: 12
+- **Lines of code added**: ~2,500
+- **Coach personalities**: 4
+- **Message triggers**: 14
+- **Pre-written messages**: 200+
+- **CSS effects added**: 15+
+- **Dependencies added**: 2
+
+### Why AI Ship Coach Will Attract Indie Hackers
+
+1. **Personality Variety** - Different moods for different days. Feeling unmotivated? Switch to Drill Sergeant. Need a laugh? Roast Master.
+
+2. **Context-Aware** - Messages reference actual metrics (streak days, Ship Score, revenue). Feels like the coach knows you.
+
+3. **Shareable Moments** - Roast Master's burns are screenshot-worthy. Free viral marketing.
+
+4. **Gamification Layer** - Adds emotional connection to metrics. A broken streak hurts more when Sergeant Ship is disappointed.
+
+5. **Low Effort, High Impact** - Works with mock data now. Ready for real integrations later.
+
+### Next Steps
+
+- [ ] Add voice/sound effects for notifications (optional toggle)
+- [ ] Create more message templates for edge cases
+- [ ] Add coach message sharing to Twitter
+- [ ] Implement "Ask Coach" feature for custom questions
+- [ ] Add coach avatar animations (idle, talking, celebrating)
+- [ ] Connect to real data sources (GitHub, Stripe) for accurate triggers
+
+---
+
+## January 21, 2026 - Day 6: Dev Auth Bypass & Landing Page Simplification
+
+### What I Did Today
+
+Implemented two practical changes to improve the development workflow and simplify the landing page design.
+
+### 1. Dev Auth Bypass
+
+Added a development-mode authentication bypass to allow working on the dashboard without requiring real Supabase auth.
+
+**Files modified:**
+- `src/components/providers/auth-provider.tsx` - Added mock user logic
+- `.env.local` - Added `NEXT_PUBLIC_DEV_BYPASS=true` flag
+
+**Implementation:**
+```typescript
+// In auth-provider.tsx useEffect
+if (process.env.NEXT_PUBLIC_DEV_BYPASS === "true") {
+  const mockUser = {
+    id: "dev-user-123",
+    email: "dev@test.com",
+    app_metadata: {},
+    user_metadata: { full_name: "Dev User" },
+    aud: "authenticated",
+    created_at: new Date().toISOString(),
+  } as User;
+
+  setUser(mockUser);
+  setSession({ user: mockUser } as Session);
+  setProfile({
+    id: "dev-user-123",
+    email: "dev@test.com",
+    full_name: "Dev User",
+    avatar_url: null,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  } as Profile);
+  setLoading(false);
+  return; // Skip real Supabase auth
+}
+```
+
+**Usage:**
+- Set `NEXT_PUBLIC_DEV_BYPASS=true` in `.env.local` to enable
+- Dashboard immediately accessible at `/dashboard` with mock user
+- Set to `false` or remove to use real Supabase auth
+
+### 2. Landing Page Simplification
+
+Reverted the landing page hero section from the Lottie-heavy animated design back to a simpler, cleaner design.
+
+**File modified:**
+- `src/components/landing/hero-section.tsx` - Full revert to commit cda2246 style
+
+**Changes made:**
+
+| Element | Before (Removed) | After (Restored) |
+|---------|------------------|------------------|
+| Background | 3 FloatingOrb animated gradients | Static (none) |
+| Badge | RocketAnimation + Sparkles + shimmer | CSS ping animation dot |
+| Headline | GradientText with gold animation | Simple `<span className="text-primary">` |
+| CTA Buttons | btn-glow, btn-shimmer, click-pop, border-gradient | Basic hover states |
+| Notification Cards | Lottie SuccessAnimation, FireAnimation | Emoji-based (+$, 🔥) |
+| Card Animation | card-3d transform, depth-effect | animate-bounce-gentle |
+| Decorative Blurs | animate-pulse on blur elements | Static blur elements |
+
+**Kept unchanged (Option B: Selective Revert):**
+- `landing-header.tsx` - Preserved theme toggle and auth-aware navigation
+- Dashboard uses user state to show "Dashboard" button when logged in
+
+### What I Learned
+
+1. **Dev Bypass Pattern** - Using `NEXT_PUBLIC_*` environment variables for client-side feature flags is a clean pattern. The bypass skips all Supabase calls, making development faster.
+
+2. **Selective Reverts** - Reverting only the hero section while keeping header improvements (theme toggle, auth awareness) gives the best of both designs without losing useful features.
+
+3. **Design Simplicity Trade-offs** - The Lottie animations added visual interest but also added dependencies and complexity. The simpler CSS-based animations (ping, bounce-gentle) are lighter and still effective.
+
+4. **Component Dependencies** - The Lottie components are still used in dashboard components (sidebar, ship-score-card, streak-counter). Removing them from landing doesn't affect dashboard.
+
+### Testing Results
+
+✅ Landing page loads at `/` with simpler design
+✅ Dev bypass provides mock user automatically
+✅ Dashboard accessible at `/dashboard` without login
+✅ Theme toggle works on landing page
+✅ Auth-aware header shows "Dashboard" when mock user active
+✅ No Lottie errors on landing page
+
+### Files Changed Summary
+
+| File | Change Type | Description |
+|------|-------------|-------------|
+| `auth-provider.tsx` | Modified | Added dev bypass logic with mock user |
+| `.env.local` | Modified | Added `NEXT_PUBLIC_DEV_BYPASS=true` |
+| `hero-section.tsx` | Replaced | Reverted to simpler design from cda2246 |
+
+### Metrics
+
+- **Lines of code changed**: ~180
+- **Dependencies removed from landing**: Lottie animations
+- **Build time**: ~4 seconds (unchanged)
+- **Dev experience**: Significantly improved with auth bypass
+
+### Next Steps
+
+- [ ] Add fallbacks for dashboard Lottie components (or keep them)
+- [ ] Consider adding a "Demo Mode" banner when dev bypass is active
+- [ ] Test production build with `NEXT_PUBLIC_DEV_BYPASS=false`
+- [ ] Implement real Supabase auth flow
+
+---
+
 *ShipLoop - Build. Ship. Grow. Track. Repeat.*

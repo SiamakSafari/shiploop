@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DollarSign, Users, TrendingUp, BarChart3, Plus, ChevronDown } from "lucide-react";
+import { DollarSign, Users, TrendingUp, BarChart3, FlaskConical, Plus, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 import { StatCard } from "@/components/dashboard";
 import {
   RevenueChart,
@@ -100,8 +100,11 @@ export default function RevenuePage() {
     <div className="space-y-8">
       {/* Page header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-display font-semibold tracking-tight text-foreground">Revenue</h1>
-        <p className="text-muted-foreground">
+        <div className="flex items-center gap-2">
+          <DollarSign className="h-6 w-6 text-primary" />
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50">Revenue</h1>
+        </div>
+        <p className="text-gray-500 dark:text-gray-400 text-lg">
           Track your revenue, financial health, and pricing experiments.
         </p>
       </div>
@@ -163,15 +166,15 @@ export default function RevenuePage() {
         >
           <button
             onClick={() => setFinancialOpen(!financialOpen)}
-            className="flex items-center gap-2 text-lg font-display font-medium text-foreground bg-transparent border-none cursor-pointer"
+            className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50 bg-transparent border-none cursor-pointer"
           >
+            <Sparkles className="h-4 w-4 text-primary" />
             Financial Health
-            <ChevronDown
-              className={cn(
-                "h-5 w-5 text-muted-foreground ml-2 transition-transform duration-300",
-                financialOpen && "rotate-180"
-              )}
-            />
+            {financialOpen ? (
+              <ChevronUp className="h-5 w-5 text-gray-500 ml-2" />
+            ) : (
+              <ChevronDown className="h-5 w-5 text-gray-500 ml-2" />
+            )}
           </button>
           <div className="flex items-center gap-2">
             <Dialog open={addDialogOpen} onOpenChange={setAddDialogOpen}>
@@ -226,15 +229,9 @@ export default function RevenuePage() {
             </Dialog>
           </div>
         </div>
-        <div
-          className={cn(
-            "grid transition-all duration-300 ease-out",
-            financialOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-          )}
-        >
-          <div className="overflow-hidden">
-            <div className="p-4">
-              {healthRecords.length > 0 ? (
+        {financialOpen && (
+          <div className="p-4">
+            {healthRecords.length > 0 ? (
               <div className="grid gap-4 lg:grid-cols-2">
                 <div className="space-y-3">
                   {healthRecords.map((record) => (
@@ -265,9 +262,8 @@ export default function RevenuePage() {
                 </p>
               </div>
             )}
-            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Section D: Pricing Experiments (Expandable) */}
@@ -277,15 +273,15 @@ export default function RevenuePage() {
         >
           <button
             onClick={() => setPricingOpen(!pricingOpen)}
-            className="flex items-center gap-2 text-lg font-display font-medium text-foreground bg-transparent border-none cursor-pointer"
+            className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50 bg-transparent border-none cursor-pointer"
           >
+            <FlaskConical className="h-4 w-4 text-primary" />
             Pricing Experiments
-            <ChevronDown
-              className={cn(
-                "h-5 w-5 text-muted-foreground ml-2 transition-transform duration-300",
-                pricingOpen && "rotate-180"
-              )}
-            />
+            {pricingOpen ? (
+              <ChevronUp className="h-5 w-5 text-gray-500 ml-2" />
+            ) : (
+              <ChevronDown className="h-5 w-5 text-gray-500 ml-2" />
+            )}
           </button>
           <div className="flex items-center gap-2">
             <button
@@ -296,16 +292,10 @@ export default function RevenuePage() {
             </button>
           </div>
         </div>
-        <div
-          className={cn(
-            "grid transition-all duration-300 ease-out",
-            pricingOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-          )}
-        >
-          <div className="overflow-hidden">
-            <div className="p-4 space-y-4">
-              {/* Experiment filters */}
-              <Tabs value={experimentFilter} onValueChange={setExperimentFilter}>
+        {pricingOpen && (
+          <div className="p-4 space-y-4">
+            {/* Experiment filters */}
+            <Tabs value={experimentFilter} onValueChange={setExperimentFilter}>
               <TabsList className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                 <TabsTrigger value="all" className="text-gray-500 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-50">All</TabsTrigger>
                 <TabsTrigger value="running" className="text-gray-500 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-50">Running</TabsTrigger>
@@ -354,9 +344,8 @@ export default function RevenuePage() {
                 </p>
               </div>
             )}
-            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

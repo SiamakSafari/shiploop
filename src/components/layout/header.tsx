@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, Command, Menu, Moon, Sun, Bell, Award, Sparkles } from "lucide-react";
+import { Search, Command, Menu, Moon, Sun, Bell, Award } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -12,12 +12,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useUIStore, useAppStore } from "@/stores";
 import { cn } from "@/lib/utils";
 import { calculateLevel } from "@/lib/design-system";
@@ -76,53 +70,23 @@ export function Header({ className }: HeaderProps) {
 
       {/* Right side */}
       <div className="flex items-center gap-2">
-        {/* Enhanced Level/XP display (for desktop) */}
+        {/* Achievement counter (for desktop) */}
         {user && (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button className="hidden md:flex items-center gap-3 h-9 px-3 rounded-xl bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 text-gray-700 dark:text-gray-200 transition-all hover:from-gray-200 hover:to-gray-100 dark:hover:from-gray-700 dark:hover:to-gray-800 hover:text-gray-900 dark:hover:text-gray-50 group border border-gray-200 dark:border-gray-700 hover:border-primary/30 hover:shadow-md">
-                  {/* Level badge */}
-                  <div className="flex items-center gap-1.5">
-                    <div className="relative">
-                      <Award className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
-                      <Sparkles className="absolute -top-1 -right-1 h-2.5 w-2.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                    <span className="font-bold text-sm">{calculateLevel(user.shipScore.total)}</span>
-                    <Micro className="text-muted-foreground">LVL</Micro>
-                  </div>
-
-                  {/* Mini XP bar */}
-                  <div className="hidden lg:block w-16">
-                    <div className="xp-bar-container h-1.5">
-                      <div
-                        className="xp-bar-fill"
-                        style={{
-                          width: `${(user.shipScore.total % 20) * 5}%`, // Progress to next level
-                        }}
-                      />
-                    </div>
-                  </div>
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" className="bg-card border-border">
-                <div className="text-center">
-                  <Micro className="text-muted-foreground">XP to next level</Micro>
-                  <Caption className="font-bold">{20 - (user.shipScore.total % 20)} points</Caption>
-                </div>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <button className="hidden md:flex items-center gap-2 h-9 px-3 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 transition-all hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-50 hover-bounce group border border-gray-200 dark:border-gray-700">
+            <Award className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
+            <Caption className="font-bold font-space-grotesk">{calculateLevel(user.shipScore.total)}</Caption>
+            <Micro className="font-fredoka">LVL</Micro>
+          </button>
         )}
 
-        {/* Notification bell with enhanced animation */}
+        {/* Notification bell */}
         {user && (
-          <button className="notification-bell relative flex h-9 w-9 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 transition-all hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-50 border border-gray-200 dark:border-gray-700 hover:border-primary/30">
+          <button className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 transition-all hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-50 hover-wiggle border border-gray-200 dark:border-gray-700">
             <Bell className="h-4 w-4" />
-            {/* Enhanced notification badge */}
-            <span className="notification-badge">
+            {/* Notification badge */}
+            <Micro as="span" className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary font-bold text-white font-fredoka shadow-md animate-scale-pop">
               3
-            </span>
+            </Micro>
           </button>
         )}
 

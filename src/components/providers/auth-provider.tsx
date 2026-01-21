@@ -47,6 +47,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [user, fetchProfile]);
 
   useEffect(() => {
+    // Dev bypass - provide mock user when NEXT_PUBLIC_DEV_BYPASS is enabled
+    if (process.env.NEXT_PUBLIC_DEV_BYPASS === "true") {
+      const mockUser = {
+        id: "dev-user-123",
+        email: "dev@test.com",
+        app_metadata: {},
+        user_metadata: { full_name: "Dev User" },
+        aud: "authenticated",
+        created_at: new Date().toISOString(),
+      } as User;
+
+      setUser(mockUser);
+      setSession({ user: mockUser } as Session);
+      setProfile({
+        id: "dev-user-123",
+        email: "dev@test.com",
+        full_name: "Dev User",
+        avatar_url: null,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      } as Profile);
+      setLoading(false);
+      return;
+    }
+
     // Get initial session
     const initializeAuth = async () => {
       try {

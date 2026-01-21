@@ -27,7 +27,7 @@ export function ProjectProgress() {
           Projects
         </h3>
         <Link
-          href="/dashboard/projects"
+          href="/projects"
           className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-900 transition-colors group"
         >
           View all <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
@@ -100,7 +100,7 @@ export function ProjectProgress() {
           <div className="py-8 text-center">
             <p className="text-sm text-gray-500 mb-2">No active projects yet.</p>
             <Link
-              href="/dashboard/projects"
+              href="/projects"
               className="text-sm text-primary hover:text-gray-800 transition-colors"
             >
               Create your first project

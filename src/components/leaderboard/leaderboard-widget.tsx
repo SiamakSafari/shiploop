@@ -1,9 +1,10 @@
 "use client";
 
-import { Trophy, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { LeaderboardEntry } from "@/types";
+import { TrophyAnimation } from "@/components/lottie";
 
 interface LeaderboardWidgetProps {
   entries: LeaderboardEntry[];
@@ -18,7 +19,7 @@ export function LeaderboardWidget({ entries, currentUserEntry }: LeaderboardWidg
     <div className="glass hover-lift rounded-2xl overflow-hidden">
       <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
         <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-gray-50">
-          <Trophy className="h-4 w-4 text-amber-500" />
+          <TrophyAnimation size="sm" />
           Top Shippers
         </h3>
         <span className="text-xs text-gray-400 dark:text-gray-500">

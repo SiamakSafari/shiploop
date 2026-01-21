@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, FolderKanban, Lightbulb, Target } from "lucide-react";
-import { toast } from "sonner";
+import { Plus, FolderKanban, Lightbulb, Target, Sparkles } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { StatBox } from "@/components/ui/stat-box";
 import { ProjectCard } from "@/components/projects";
 import { IdeaInput, IdeaCard, ValidationScores } from "@/components/ideas";
 import { GoalCard, GoalDetail } from "@/components/goals";
@@ -70,21 +68,10 @@ export default function ProjectsPage() {
   const handlePause = (id: string) => {
     const project = projects.find((p) => p.id === id);
     if (project) {
-      const newStatus = project.status === "paused" ? "building" : "paused";
-      updateProject(id, { status: newStatus });
-      toast.success(
-        newStatus === "paused" ? "Project paused" : "Project resumed",
-        { description: project.name }
-      );
+      updateProject(id, {
+        status: project.status === "paused" ? "building" : "paused",
+      });
     }
-  };
-
-  const handleDelete = (id: string) => {
-    const project = projects.find((p) => p.id === id);
-    deleteProject(id);
-    toast.success("Project deleted", {
-      description: project?.name || "Project removed successfully",
-    });
   };
 
   const handleIdeaSubmit = (title: string, description: string) => {
@@ -94,23 +81,10 @@ export default function ProjectsPage() {
       scores: { demand: 0, competition: 0, feasibility: 0, overall: 0 },
       status: "pending",
     });
-    toast.success("Idea added!", {
-      description: title,
-    });
-  };
-
-  const handleDeleteIdea = (id: string) => {
-    const idea = ideas.find((i) => i.id === id);
-    deleteIdea(id);
-    toast.success("Idea deleted", {
-      description: idea?.title || "Idea removed",
-    });
   };
 
   const handleConvert = (ideaId: string) => {
-    toast.success("Converting to project...", {
-      description: "This feature is coming soon!",
-    });
+    alert("This would create a new project from the idea!");
   };
 
   // Goal stats
@@ -126,8 +100,11 @@ export default function ProjectsPage() {
       {/* Page header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-2">
-          <h1 className="text-3xl font-display font-semibold tracking-tight text-foreground">Projects</h1>
-          <p className="text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <FolderKanban className="h-6 w-6 text-primary" />
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50">Projects</h1>
+          </div>
+          <p className="text-gray-500 dark:text-gray-400 text-lg">
             Manage your projects, ideas, and goals in one place.
           </p>
         </div>
@@ -185,24 +162,19 @@ export default function ProjectsPage() {
           {/* Projects grid */}
           {filteredProjects.length > 0 ? (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {filteredProjects.map((project, index) => (
-                <div
+              {filteredProjects.map((project) => (
+                <ProjectCard
                   key={project.id}
-                  className="animate-card-enter"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <ProjectCard
-                    project={project}
-                    onDelete={handleDelete}
-                    onPause={handlePause}
-                  />
-                </div>
+                  project={project}
+                  onDelete={deleteProject}
+                  onPause={handlePause}
+                />
               ))}
             </div>
           ) : (
             <div className="glass rounded-2xl">
               <div className="flex flex-col items-center justify-center py-12">
-                <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-4 animate-bounce-gentle">
+                <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-4">
                   <FolderKanban className="h-12 w-12 text-primary" />
                 </div>
                 <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-gray-50">No Projects Found</h3>
@@ -230,7 +202,8 @@ export default function ProjectsPage() {
 
               {/* Ideas list */}
               <div className="space-y-4">
-                <h2 className="text-lg font-display font-medium text-foreground">
+                <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50">
+                  <Sparkles className="h-4 w-4 text-primary" />
                   Your Ideas ({ideas.length})
                 </h2>
                 {ideas.length > 0 ? (
@@ -239,7 +212,7 @@ export default function ProjectsPage() {
                       <IdeaCard
                         key={idea.id}
                         idea={idea}
-                        onDelete={handleDeleteIdea}
+                        onDelete={deleteIdea}
                         onRevalidate={validateIdea}
                         onConvert={handleConvert}
                         isSelected={selectedIdeaId === idea.id}
@@ -250,7 +223,7 @@ export default function ProjectsPage() {
                 ) : (
                   <div className="glass rounded-2xl">
                     <div className="flex flex-col items-center justify-center py-12">
-                      <div className="rounded-2xl bg-amber-100 dark:bg-amber-900/30 p-4 animate-bounce-gentle">
+                      <div className="rounded-2xl bg-amber-100 dark:bg-amber-900/30 p-4">
                         <Lightbulb className="h-12 w-12 text-amber-500" />
                       </div>
                       <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-gray-50">No Ideas Yet</h3>
@@ -302,10 +275,10 @@ export default function ProjectsPage() {
         <TabsContent value="goals" className="space-y-6 mt-6">
           {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <StatBox label="Total Goals" value={goalStats.total} variant="default" staggerIndex={1} />
-            <StatBox label="On Track" value={goalStats.onTrack} variant="success" staggerIndex={2} />
-            <StatBox label="At Risk" value={goalStats.atRisk} variant="warning" staggerIndex={3} />
-            <StatBox label="Completed" value={goalStats.completed} color="text-primary" staggerIndex={4} />
+            <StatBox label="Total Goals" value={goalStats.total} color="text-gray-900 dark:text-gray-50" />
+            <StatBox label="On Track" value={goalStats.onTrack} color="text-emerald-600 dark:text-emerald-400" />
+            <StatBox label="At Risk" value={goalStats.atRisk} color="text-amber-600 dark:text-amber-400" />
+            <StatBox label="Completed" value={goalStats.completed} color="text-primary" />
           </div>
 
           {/* Goal filters */}
@@ -335,7 +308,8 @@ export default function ProjectsPage() {
           <div className="grid gap-6 lg:grid-cols-2">
             {/* Goals list */}
             <div className="space-y-4">
-              <h2 className="text-lg font-display font-medium text-foreground">
+              <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50">
+                <Sparkles className="h-4 w-4 text-primary" />
                 Goals ({filteredGoals.length})
               </h2>
               {filteredGoals.length > 0 ? (
@@ -352,7 +326,7 @@ export default function ProjectsPage() {
               ) : (
                 <div className="glass rounded-2xl">
                   <div className="flex flex-col items-center justify-center py-12">
-                    <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-4 animate-bounce-gentle">
+                    <div className="rounded-2xl bg-gray-100 dark:bg-gray-900/30 p-4">
                       <Target className="h-12 w-12 text-primary" />
                     </div>
                     <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-gray-50">
@@ -390,6 +364,25 @@ export default function ProjectsPage() {
           </div>
         </TabsContent>
       </Tabs>
+    </div>
+  );
+}
+
+function StatBox({
+  label,
+  value,
+  color,
+}: {
+  label: string;
+  value: number;
+  color: string;
+}) {
+  return (
+    <div className="glass rounded-xl p-4">
+      <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
+      <p className={cn("text-2xl font-bold font-space-grotesk", color)}>
+        {value}
+      </p>
     </div>
   );
 }
