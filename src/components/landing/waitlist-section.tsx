@@ -22,12 +22,32 @@ export function WaitlistSection() {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source: "landing-waitlist" }),
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast.success("You're on the list! Check your email for confirmation.");
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.error || "Something went wrong");
+        return;
+      }
+
+      if (data.alreadyExists) {
+        toast.info("You're already on the waitlist!");
+      } else {
+        toast.success(`Welcome! You're #${data.position} on the waitlist.`);
+      }
+
+      setIsSubmitted(true);
+    } catch {
+      toast.error("Network error. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

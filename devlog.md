@@ -1298,4 +1298,602 @@ Old routes return 404 as expected.
 
 ---
 
+## January 17, 2026 - Day 3 (Part 3): Visual Polish & Quick Wins
+
+### What I Did Today
+
+Implemented comprehensive visual polish enhancements across UI primitives and added quick wins for better UX.
+
+### Visual Polish Implementation
+
+Most UI primitives were already enhanced from previous work, but completed remaining items:
+
+#### Phase 4: Page-Level Polish
+
+**Revenue Page Expandable Sections (`revenue/page.tsx`)**
+- Added smooth CSS grid-based height transitions for Financial Health and Pricing Experiments sections
+- Used the `grid-rows-[1fr]` / `grid-rows-[0fr]` pattern with `transition-all duration-300`
+- Replaced boolean conditional rendering with animated collapsible containers
+
+```tsx
+// Before: Instant show/hide
+{isOpen && <div>Content</div>}
+
+// After: Smooth height transition
+<div className={cn(
+  "grid transition-all duration-300 ease-out",
+  isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+)}>
+  <div className="overflow-hidden">
+    <div>Content</div>
+  </div>
+</div>
+```
+
+**Launch Page Empty States (`launch/page.tsx`)**
+- Added `animate-bounce-gentle` to empty state icons (Rocket, Globe)
+- Creates subtle floating animation that draws attention without being distracting
+
+### Quick Wins Implementation
+
+#### 1. Toast Notifications
+
+**Installed Sonner:**
+```bash
+npm install sonner
+```
+
+**Added Toaster to Root Layout (`layout.tsx`):**
+```tsx
+import { Toaster } from "sonner";
+
+<Toaster
+  position="bottom-right"
+  toastOptions={{
+    classNames: {
+      toast: "bg-background border-border text-foreground shadow-lg",
+      success: "!bg-emerald-50 dark:!bg-emerald-950/50",
+      error: "!bg-red-50 dark:!bg-red-950/50",
+    },
+  }}
+/>
+```
+
+**Added Toast Feedback to Actions (`projects/page.tsx`):**
+- Project pause/resume shows toast with project name
+- Project delete shows confirmation toast
+- Idea add shows success toast with title
+- Idea delete shows confirmation toast
+- All toasts use appropriate success/info styling
+
+#### 2. Enhanced Command Palette (`command-palette.tsx`)
+
+Upgraded the existing command palette with:
+
+**Correct Navigation Routes:**
+```typescript
+const navigationItems = [
+  { name: "Dashboard", href: "/", icon: LayoutDashboard, shortcut: "G D" },
+  { name: "Projects", href: "/projects", icon: FolderKanban, shortcut: "G P" },
+  { name: "Revenue", href: "/revenue", icon: DollarSign, shortcut: "G R" },
+  { name: "Launch", href: "/launch", icon: Rocket, shortcut: "G L" },
+  { name: "Engage", href: "/engage", icon: MessageSquare, shortcut: "G E" },
+  { name: "Settings", href: "/settings", icon: Settings, shortcut: "G S" },
+];
+```
+
+**Toast Feedback on Navigation:**
+```tsx
+const handleNavigation = (href: string, name: string) => {
+  runCommand(() => {
+    router.push(href);
+    toast.success(`Navigated to ${name}`);
+  });
+};
+```
+
+**Theme Toggle Integration:**
+```tsx
+const toggleTheme = () => {
+  runCommand(() => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    toast.success(`Switched to ${newTheme} mode`);
+  });
+};
+```
+
+**Quick Actions with Contextual Feedback:**
+- New Project → Navigates to /projects with helpful toast
+- New Idea → Navigates with "Switch to Ideas Pipeline tab" hint
+- New Goal → Navigates with "Switch to Goals tab" hint
+- Quick Ship Update → Encourages streak maintenance
+- View Analytics → Quick access to revenue
+
+#### 3. Loading Skeletons (`loading.tsx`)
+
+Created comprehensive loading state for dashboard:
+
+```tsx
+// src/app/(dashboard)/loading.tsx
+export default function DashboardLoading() {
+  return (
+    <div className="space-y-6 animate-fade-in">
+      {/* Header skeleton */}
+      <Skeleton variant="shimmer" className="h-9 w-64" />
+
+      {/* Stats grid skeleton */}
+      <div className="grid grid-cols-4 gap-6">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
+      </div>
+
+      {/* Main content skeleton */}
+      {/* Ship Score, Streak, Leaderboard, Quick Actions, Activity */}
+    </div>
+  );
+}
+```
+
+**Enhanced Skeleton Component (`skeleton.tsx`):**
+- Added dark mode support with proper colors
+- `bg-gray-200 dark:bg-gray-800` for background
+- `before:via-gray-300/40 dark:before:via-gray-600/40` for shimmer
+
+#### 4. Chart Width Warning Fix
+
+**Problem:** Console warning about chart dimensions
+```
+The width(-1) and height(-1) of chart should be greater than 0
+```
+
+**Solution:** Added `minWidth` and `minHeight` to ResponsiveContainer:
+
+```tsx
+// revenue-chart.tsx & revenue-breakdown.tsx
+<div className="h-[300px] w-full">
+  <ResponsiveContainer
+    width="100%"
+    height="100%"
+    minWidth={300}
+    minHeight={200}
+  >
+    {/* Chart content */}
+  </ResponsiveContainer>
+</div>
+```
+
+### Files Modified
+
+**Layout:**
+- `src/app/layout.tsx` - Added Sonner Toaster
+
+**Command Palette:**
+- `src/components/layout/command-palette.tsx` - Complete rewrite with toast feedback
+
+**Pages:**
+- `src/app/(dashboard)/loading.tsx` - New loading skeleton page
+- `src/app/(dashboard)/projects/page.tsx` - Added toast imports and handlers
+- `src/app/(dashboard)/revenue/page.tsx` - Smooth expandable transitions
+- `src/app/(dashboard)/launch/page.tsx` - Bounce animation on empty states
+
+**Components:**
+- `src/components/ui/skeleton.tsx` - Dark mode support
+- `src/components/analytics/revenue-chart.tsx` - minWidth/minHeight fix
+- `src/components/analytics/revenue-breakdown.tsx` - minWidth/minHeight fix
+
+### What I Learned
+
+1. **CSS Grid for Height Animations** - The `grid-rows-[1fr]` to `grid-rows-[0fr]` trick with `overflow-hidden` is the cleanest way to animate height from 0 to auto. Better than max-height hacks.
+
+2. **Sonner is Lightweight** - At ~3KB gzipped, Sonner provides beautiful toasts without the bloat. Theme-aware styling works seamlessly with Tailwind.
+
+3. **Loading States via Convention** - Next.js `loading.tsx` files automatically wrap page content during navigation. No manual loading state management needed.
+
+4. **Chart Libraries Need Dimensions** - ResponsiveContainer can fail on initial render if parent has no dimensions. Setting minWidth/minHeight prevents the warning.
+
+5. **Command Palette UX** - Adding toast feedback to navigation makes the app feel more responsive. Users know their action was registered.
+
+6. **Skeleton Dark Mode** - Shimmer effects need separate dark mode colors. The `before:via-gray-600/40` creates visible shimmer on dark backgrounds.
+
+### Testing Results
+
+✅ Toast notifications appear correctly on actions
+✅ Command palette opens with Cmd+K
+✅ Theme toggle works with toast feedback
+✅ Loading skeletons display during navigation
+✅ Chart warnings eliminated
+✅ Expandable sections animate smoothly
+✅ Dark mode compatible throughout
+
+### Commits Created
+
+```
+f1d7a89 feat: Add visual polish to UI primitives and page components
+ce88227 feat: Add quick wins - toasts, command palette, loading states
+```
+
+### Metrics
+
+- **Files modified**: 10
+- **New dependencies**: 1 (sonner)
+- **Toast integrations**: 6 actions
+- **Keyboard shortcuts**: 6 navigation + 5 quick actions + 1 theme toggle
+- **Loading skeleton components**: 1 full-page + helpers
+
+### Summary of All UI Primitives Status
+
+| Component | Enhancement | Status |
+|-----------|-------------|--------|
+| Progress | Shimmer effect | ✅ Done |
+| Button | Hover lift, shadow, active states | ✅ Done |
+| Card | Animated entrance, hover-lift, shine | ✅ Done |
+| Badge | Pop animation, semantic variants | ✅ Done |
+| Tabs | Smooth transitions, fade-in content | ✅ Done |
+| StatBox | Animated counters, glass, hover-lift | ✅ Done |
+| Input | Focus glow, hover border | ✅ Done |
+| Checkbox | Scale-pop on check | ✅ Done |
+| Switch | Toggle animation, glow | ✅ Done |
+| Skeleton | Shimmer variant, dark mode | ✅ Done |
+
+### Next Steps
+
+- [ ] Add more toast notifications to other pages (Revenue, Launch, Engage)
+- [ ] Consider adding undo functionality to delete toasts
+- [ ] Add loading skeletons to other page routes
+- [ ] Implement global keyboard shortcuts beyond command palette
+- [ ] Add confetti celebration for achievements/milestones
+
+---
+
+## January 18, 2026 - Day 4: Landing Page & Route Restructure
+
+### What I Built Today
+
+Created a high-converting landing page for ShipLoop and restructured the app routing to separate the public landing page from the authenticated dashboard.
+
+### Route Restructure
+
+**Before:**
+- `/` → Dashboard (authenticated)
+- `/(dashboard)/*` → All dashboard pages using route groups
+
+**After:**
+- `/` → Public landing page
+- `/dashboard` → Dashboard home
+- `/dashboard/*` → All dashboard pages (projects, revenue, launch, engage, settings)
+
+This change required updating all navigation links across:
+- `sidebar.tsx` - Main nav items
+- `mobile-nav.tsx` - Mobile navigation
+- `project-progress.tsx` - Project links
+- `launch-status.tsx` - Project links
+- `projects/[id]/page.tsx` - Back button links
+
+### Landing Page Implementation
+
+Created 10 sections for maximum conversion:
+
+#### 1. Hero Section (`hero-section.tsx`)
+- Full viewport height with gradient mesh background
+- **Headline:** "Stop Building in the Dark. **Ship with Confidence.**"
+- **Subheadline:** "The operating system that turns your indie hacker journey into a game."
+- Primary CTA (Join Waitlist) + Secondary CTA (See How It Works)
+- Animated Ship Score preview card on right side
+- Trust indicators (2,847+ indie hackers, $4.2M+ MRR tracked)
+- Floating notification cards with bounce animation
+
+#### 2. Social Proof Bar (`social-proof-bar.tsx`)
+- Animated counters using `useAnimatedCounter` hook
+- Stats: 2,847+ Indie Hackers | $4.2M+ MRR Tracked | 127K+ Commits | 847 day best streak
+- Intersection Observer triggers animation when visible
+
+#### 3. Features Grid (`features-grid.tsx` + `feature-card.tsx`)
+- Bento-style 6-card layout
+- Features: Shipping Streak, Global Leaderboard, Project Pipeline, Launch Command Center, Revenue Dashboard, Build in Public
+- Each card with gradient hover effect, icon, and description
+- Staggered entrance animations
+
+#### 4. How It Works (`how-it-works.tsx`)
+- 3-step visual process:
+  1. **Connect** - Link GitHub, Stripe, socials (2 min)
+  2. **Ship** - Auto-track commits, launches, sales
+  3. **Compete** - Watch Ship Score climb
+- Step icons with connecting timeline on desktop
+
+#### 5. Testimonials (`testimonials-section.tsx` + `testimonial-card.tsx`)
+- 3 glassmorphism cards
+- Avatar, quote, product name, Ship Score badge, MRR
+- Hover effects with gradient overlay
+
+#### 6. Leaderboard Preview (`leaderboard-preview.tsx`)
+- Podium visualization showing top 3 users
+- Adapted from existing `Podium` component pattern
+- "Your position could be here" CTA
+
+#### 7. Waitlist Section (`waitlist-section.tsx`)
+- Email signup form with validation
+- Early access benefits list:
+  - Lifetime discount on premium plans
+  - Priority access to new features
+  - Founding member badge
+  - Direct line to founding team
+- Social proof: "Join X indie hackers on the waitlist"
+- Success state with confirmation message
+
+#### 8. FAQ Section (`faq-section.tsx`)
+- Accordion-style expandable questions
+- Topics: Ship Score calculation, Integrations, Security, Multiple projects, Free plan
+- Smooth height transition animation
+
+#### 9. Final CTA (`final-cta.tsx`)
+- Dark gradient background
+- **Headline:** "Your Shipping Streak **Starts Now**"
+- Large animated CTA button with glow effect
+
+#### 10. Header & Footer (`landing-header.tsx`, `landing-footer.tsx`)
+- Fixed header with scroll effect (background blur on scroll)
+- Logo, nav links, Sign In / Join Waitlist CTAs
+- Mobile menu with slide-out navigation
+- Footer with product, resources, company links + social icons
+
+### Global Background Pattern
+
+Added consistent background across all pages via root layout:
+```tsx
+// src/app/layout.tsx
+<div className="fixed inset-0 bg-background -z-50" />
+<div className="fixed inset-0 bg-gradient-to-br from-background via-background to-muted/30 -z-40" />
+<div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,...)] from-primary/5 -z-40" />
+<div className="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_left,...)] from-primary/5 -z-40" />
+<div className="fixed inset-0 pattern-grid -z-30" />
+```
+
+Updated grid pattern visibility in `globals.css`:
+- Light mode: 8% opacity (was 4%)
+- Dark mode: 10% opacity (was 6%)
+
+### Data Structure
+
+Created `landing-data.ts` with mock content:
+- `features` - 6 feature definitions with icons, gradients, colors
+- `testimonials` - 3 user testimonials with avatars, quotes, metrics
+- `faqs` - 5 FAQ items with questions and answers
+- `stats` - Social proof numbers
+- `topLeaderboard` - Top 3 users for preview
+- `howItWorks` - 3-step process
+- `earlyAccessBenefits` - Waitlist incentives
+
+### Files Created (17 new files)
+
+**Landing Components:**
+1. `src/components/landing/landing-header.tsx`
+2. `src/components/landing/landing-footer.tsx`
+3. `src/components/landing/hero-section.tsx`
+4. `src/components/landing/ship-score-preview.tsx`
+5. `src/components/landing/social-proof-bar.tsx`
+6. `src/components/landing/feature-card.tsx`
+7. `src/components/landing/features-grid.tsx`
+8. `src/components/landing/how-it-works.tsx`
+9. `src/components/landing/testimonial-card.tsx`
+10. `src/components/landing/testimonials-section.tsx`
+11. `src/components/landing/leaderboard-preview.tsx`
+12. `src/components/landing/waitlist-section.tsx`
+13. `src/components/landing/faq-section.tsx`
+14. `src/components/landing/final-cta.tsx`
+15. `src/components/landing/index.ts`
+
+**Data & Pages:**
+16. `src/data/landing-data.ts`
+17. `src/app/page.tsx`
+
+### Files Modified (8 files)
+
+1. `src/app/layout.tsx` - Added global background pattern
+2. `src/app/globals.css` - Increased grid pattern visibility
+3. `src/app/dashboard/layout.tsx` - Simplified (background now global)
+4. `src/components/layout/sidebar.tsx` - Updated all hrefs to /dashboard/*
+5. `src/components/layout/mobile-nav.tsx` - Updated all hrefs to /dashboard/*
+6. `src/components/dashboard/launch-status.tsx` - Updated project links
+7. `src/components/dashboard/project-progress.tsx` - Updated project links
+8. `src/data/index.ts` - Added landing-data export
+
+### Bug Fixes
+
+#### 1. TypeScript Error in useAnimatedCounter
+**Problem:** `useRef<number>()` requires an initial value in strict mode
+**Solution:** Changed to `useRef<number | undefined>(undefined)`
+
+### What I Learned
+
+1. **Route Groups vs Nested Routes** - Moving from `(dashboard)/` route group to explicit `/dashboard/` path required updating all internal links. Route groups are invisible in URLs but affect code organization.
+
+2. **Fixed Backgrounds with Z-Index** - Using negative z-index (`-z-50` to `-z-30`) allows background layers to stack properly without affecting content.
+
+3. **Intersection Observer for Animations** - The social proof counters use Intersection Observer to trigger animation only when the section becomes visible, creating a better first impression.
+
+4. **Landing Page Structure** - Following a proven pattern: Hero → Social Proof → Features → How It Works → Testimonials → Social Proof (Leaderboard) → CTA (Waitlist) → FAQ → Final CTA creates a natural flow.
+
+5. **Reusing Dashboard Components** - The `ShipScorePreview` component adapts the dashboard's `ShipScoreCard` pattern for the landing page, maintaining visual consistency.
+
+6. **Mobile-First Navigation** - Landing header includes mobile menu toggle, scroll-based background change, and responsive CTA placement.
+
+### Testing Results
+
+✅ Landing page renders at `/`
+✅ Dashboard accessible at `/dashboard`
+✅ All navigation links work correctly
+✅ Animated counters trigger on scroll
+✅ Waitlist form shows success state
+✅ FAQ accordion expands/collapses smoothly
+✅ Dark mode works throughout
+✅ Mobile responsive design
+✅ Build passes with no errors
+
+### Metrics
+
+- **New files created**: 17
+- **Files modified**: 8
+- **Lines of code added**: ~1,700
+- **Landing page sections**: 10
+- **Components created**: 14
+- **Build time**: ~4.5 seconds
+
+### Commit
+
+```
+cda2246 feat: Add landing page and move dashboard to /dashboard route
+34 files changed, 1737 insertions(+), 29 deletions(-)
+```
+
+### Next Steps
+
+- [ ] Add email collection backend (API route or third-party)
+- [ ] Implement actual authentication flow
+- [ ] Add analytics tracking (Plausible, Fathom, or similar)
+- [ ] Create additional landing page variants for A/B testing
+- [ ] Add Open Graph meta tags for social sharing
+- [ ] Optimize images and add loading states
+- [ ] Consider adding video demo section
+
+---
+
+## January 20, 2026 - Day 5: Email Collection & Open Graph
+
+### What I Built Today
+
+Implemented two high-impact features: a working waitlist API and comprehensive Open Graph metadata for social sharing.
+
+### Features Implemented
+
+#### 1. Waitlist Email Collection API (`/api/waitlist`)
+
+**Files created:**
+- `src/app/api/waitlist/route.ts`
+
+**Functionality:**
+- `POST /api/waitlist` - Add email to waitlist
+  - Validates email format
+  - Normalizes email (lowercase, trim)
+  - Checks for duplicates (returns friendly message if exists)
+  - Stores to `waitlist.json` with timestamp and source
+  - Returns position in queue
+- `GET /api/waitlist` - Get waitlist count (for admin use)
+
+**Response examples:**
+```json
+// Success (new signup)
+{ "message": "Welcome to the waitlist!", "position": 42 }
+
+// Already exists
+{ "message": "You're already on the waitlist!", "alreadyExists": true }
+
+// Validation error
+{ "error": "Please enter a valid email address" }
+```
+
+**Waitlist data structure:**
+```json
+[
+  {
+    "email": "user@example.com",
+    "joinedAt": "2026-01-20T10:30:00.000Z",
+    "source": "landing-waitlist"
+  }
+]
+```
+
+#### 2. Updated Waitlist Form (`waitlist-section.tsx`)
+
+**Changes:**
+- Replaced simulated API call with real `fetch` to `/api/waitlist`
+- Added proper error handling with try/catch
+- Shows position number on successful signup
+- Handles duplicate email case with info toast
+- Shows personalized toast: "Welcome! You're #42 on the waitlist."
+
+#### 3. Comprehensive Open Graph Metadata (`layout.tsx`)
+
+**Added metadata fields:**
+- `title.template` - Dynamic titles: "Page Name | ShipLoop"
+- `description` - Compelling copy for search/social
+- `keywords` - 10 relevant SEO keywords
+- `authors`, `creator` - Attribution
+- `metadataBase` - Proper URL resolution
+- `openGraph` - Full OG tags (type, locale, url, siteName, images)
+- `twitter` - Twitter Card tags (summary_large_image, creator)
+- `robots` - SEO directives for Google
+- `icons` - Favicon, shortcut, apple-touch-icon references
+
+#### 4. Dynamic OG Image Generator (`/og-image.png`)
+
+**File created:**
+- `src/app/og-image.png/route.tsx`
+
+**Features:**
+- Uses Next.js `ImageResponse` (Edge runtime)
+- Generates 1200x630 PNG on-the-fly
+- Dark theme matching app aesthetic
+- Includes: Logo, headline, subheadline, stats bar
+- Grid pattern background for visual interest
+- No external dependencies or static files needed
+
+**OG Image content:**
+- Brand: ShipLoop logo + name
+- Headline: "The Indie Hacker Operating System"
+- Subheadline: "Track your Ship Score. Maintain streaks. Build in public."
+- Stats: 2,800+ Indie Hackers | $4.2M+ MRR Tracked | 127K+ Commits
+
+### Files Modified
+
+1. `.gitignore` - Added `waitlist.json` to prevent committing user emails
+2. `src/components/landing/waitlist-section.tsx` - Real API integration
+3. `src/app/layout.tsx` - Comprehensive metadata config
+
+### Files Created
+
+1. `src/app/api/waitlist/route.ts` - Email collection API
+2. `src/app/og-image.png/route.tsx` - Dynamic OG image generator
+
+### What I Learned
+
+1. **Next.js Route Handlers** - The `route.ts` convention in App Router creates API endpoints. Can export GET, POST, etc. as named functions.
+
+2. **File-based Storage** - Using JSON file for waitlist is fine for early validation. Easy to migrate to DB later since the data structure is already defined.
+
+3. **Next.js Metadata API** - The `metadata` export with `title.template` creates consistent page titles across the app automatically.
+
+4. **ImageResponse for OG Images** - Generates images server-side using JSX-like syntax. Runs on Edge runtime for fast response. No need to create static images.
+
+5. **metadataBase** - Required for proper URL resolution of relative paths in OG images and other meta tags.
+
+6. **Duplicate Handling UX** - Instead of treating duplicate signups as errors, returning a friendly "already on list" message creates better UX.
+
+### Testing Results
+
+✅ Build passes without errors
+✅ API route created at `/api/waitlist`
+✅ OG image generates at `/og-image.png`
+✅ Metadata properly configured
+✅ Waitlist form connects to real API
+
+### Metrics
+
+- **Files created**: 2
+- **Files modified**: 3
+- **Lines of code added**: ~250
+- **API endpoints**: 2 (POST, GET)
+- **Build time**: ~4 seconds
+
+### Next Steps
+
+- [ ] Add email confirmation/welcome email (Resend integration)
+- [ ] Create admin page to view waitlist signups
+- [ ] Implement actual authentication flow
+- [ ] Add analytics tracking
+- [ ] Create favicon and apple-touch-icon assets
+
+---
+
 *ShipLoop - Build. Ship. Grow. Track. Repeat.*
