@@ -1,7 +1,8 @@
 "use client";
 
 import { Sidebar, Header, CommandPalette, MobileNav } from "@/components/layout";
-import { useUIStore } from "@/stores";
+import { WelcomeModal } from "@/components/onboarding";
+import { useUIStore, useOnboardingStore } from "@/stores";
 import { cn } from "@/lib/utils";
 
 export default function DashboardLayout({
@@ -10,11 +11,10 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const { sidebarCollapsed } = useUIStore();
+  const { hasSeenWelcome, completeOnboarding } = useOnboardingStore();
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Clean background - no mesh gradient or orbs */}
-      <div className="mesh-gradient" />
+    <div className="min-h-screen">
 
       {/* Sidebar - hidden on mobile */}
       <div className="hidden md:block relative z-20">
@@ -27,6 +27,12 @@ export default function DashboardLayout({
       {/* Command palette */}
       <CommandPalette />
 
+      {/* Welcome modal for new users */}
+      <WelcomeModal
+        open={!hasSeenWelcome}
+        onComplete={completeOnboarding}
+      />
+
       {/* Main content */}
       <div
         className={cn(
@@ -35,7 +41,7 @@ export default function DashboardLayout({
         )}
       >
         <Header />
-        <main className="flex-1 p-4 md:p-6 bg-gray-50 dark:bg-background">{children}</main>
+        <main className="flex-1 p-4 md:p-6">{children}</main>
       </div>
     </div>
   );

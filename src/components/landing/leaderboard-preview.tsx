@@ -12,10 +12,10 @@ export function LeaderboardPreview() {
       case 1:
         return {
           height: "h-32",
-          gradient: "from-yellow-500/20 via-yellow-500/10 to-transparent",
-          medalColor: "text-yellow-500",
-          ring: "ring-yellow-500",
-          bg: "bg-yellow-500/10",
+          gradient: "from-[#D4AF37]/20 via-[#D4AF37]/10 to-transparent",
+          medalColor: "text-[#D4AF37]",
+          ring: "ring-[#D4AF37]",
+          bg: "bg-[#D4AF37]/10",
         };
       case 2:
         return {
@@ -28,10 +28,10 @@ export function LeaderboardPreview() {
       case 3:
         return {
           height: "h-20",
-          gradient: "from-orange-600/20 via-orange-600/10 to-transparent",
-          medalColor: "text-orange-600",
-          ring: "ring-orange-600",
-          bg: "bg-orange-600/10",
+          gradient: "from-[#E8945A]/20 via-[#E8945A]/10 to-transparent",
+          medalColor: "text-[#E8945A]",
+          ring: "ring-[#E8945A]",
+          bg: "bg-[#E8945A]/10",
         };
       default:
         return {
@@ -115,14 +115,14 @@ export function LeaderboardPreview() {
                   <div className="mt-2 flex items-center gap-2 text-xs">
                     <span className="font-bold text-primary">{entry.shipScore}</span>
                     <span className="text-muted-foreground">·</span>
-                    <span className="text-emerald-500 font-medium">
+                    <span className="text-[#6BBF8A] font-medium">
                       ${(entry.mrr / 1000).toFixed(1)}k
                     </span>
                   </div>
 
                   {/* Streak badge */}
                   <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
-                    <Flame className="h-3 w-3 text-orange-500" />
+                    <Flame className="h-3 w-3 text-[#E8945A]" />
                     <span>{entry.streak} days</span>
                   </div>
                 </div>

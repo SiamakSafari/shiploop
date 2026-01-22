@@ -8,7 +8,7 @@ const actions = [
   {
     label: "New Project",
     icon: Plus,
-    href: "/projects",
+    href: "/dashboard/projects",
     shortcut: "N",
     color: "#171717",
     isPrimary: true,
@@ -16,21 +16,21 @@ const actions = [
   {
     label: "New Idea",
     icon: Lightbulb,
-    href: "/ideas",
+    href: "/dashboard/projects",
     shortcut: "I",
     color: "#737373",
   },
   {
     label: "Log Revenue",
     icon: DollarSign,
-    href: "/analytics",
+    href: "/dashboard/revenue",
     shortcut: "R",
     color: "#171717",
   },
   {
     label: "Prep Launch",
     icon: Rocket,
-    href: "/launch-hub",
+    href: "/dashboard/launch",
     shortcut: "L",
     color: "#404040",
   },

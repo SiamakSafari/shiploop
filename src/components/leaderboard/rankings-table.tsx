@@ -26,7 +26,7 @@ export function RankingsTable({ entries, onSelectUser }: RankingsTableProps) {
             entry.change === 0
               ? "text-muted-foreground"
               : entry.change > 0
-              ? "text-green-500"
+              ? "text-[#6BBF8A]"
               : "text-red-500";
 
           return (
@@ -94,7 +94,7 @@ export function RankingsTable({ entries, onSelectUser }: RankingsTableProps) {
                   <div>
                     <div className="flex items-center gap-1 text-lg font-bold">
                       {entry.streak >= 7 && (
-                        <Flame className="h-4 w-4 text-orange-500" />
+                        <Flame className="h-4 w-4 text-[#E8945A]" />
                       )}
                       {entry.streak}d
                     </div>
@@ -102,7 +102,7 @@ export function RankingsTable({ entries, onSelectUser }: RankingsTableProps) {
                   </div>
                 </div>
                 <div className="w-20 text-right">
-                  <div className="text-lg font-bold text-green-500">
+                  <div className="text-lg font-bold text-[#6BBF8A]">
                     {formatCurrency(entry.mrr)}
                   </div>
                   <div className="text-xs text-muted-foreground">MRR</div>

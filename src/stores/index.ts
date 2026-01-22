@@ -8,3 +8,4 @@ export { useGoalsStore } from "./use-goals-store";
 export { useFeedbackStore } from "./use-feedback-store";
 export { usePricingStore } from "./use-pricing-store";
 export { useBuildPublicStore } from "./use-build-public-store";
+export { useOnboardingStore } from "./use-onboarding-store";

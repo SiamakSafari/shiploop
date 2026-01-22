@@ -129,12 +129,12 @@ export function PostDetail({
               <span className="font-semibold">{post.engagement.likes}</span>
               <span className="text-sm text-gray-500 dark:text-gray-400">likes</span>
             </div>
-            <div className="flex items-center gap-2 text-blue-500">
+            <div className="flex items-center gap-2 text-[#7CB4C4]">
               <MessageCircle className="h-5 w-5" />
               <span className="font-semibold">{post.engagement.comments}</span>
               <span className="text-sm text-gray-500 dark:text-gray-400">comments</span>
             </div>
-            <div className="flex items-center gap-2 text-emerald-500">
+            <div className="flex items-center gap-2 text-[#6BBF8A]">
               <Share2 className="h-5 w-5" />
               <span className="font-semibold">{post.engagement.shares}</span>
               <span className="text-sm text-gray-500 dark:text-gray-400">shares</span>
@@ -227,7 +227,7 @@ export function PostDetail({
           <div
             className={cn(
               "h-full rounded-full transition-all",
-              isOverLimit ? "bg-red-500" : charPercentage > 80 ? "bg-amber-500" : "bg-primary"
+              isOverLimit ? "bg-red-500" : charPercentage > 80 ? "bg-[#D4AF37]" : "bg-primary"
             )}
             style={{ width: `${charPercentage}%` }}
           />
@@ -269,7 +269,7 @@ export function PostDetail({
       {/* Published info */}
       {post.publishedAt && (
         <div className="glass rounded-xl p-4">
-          <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
+          <div className="flex items-center gap-2 text-[#6BBF8A]">
             <Send className="h-5 w-5" />
             <span className="text-sm font-medium">
               Published {formatDate(post.publishedAt)}

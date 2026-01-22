@@ -17,10 +17,10 @@ import { Project, ProjectStatus } from "@/types";
 
 const statusConfig: Record<ProjectStatus, { label: string; color: string }> = {
   idea: { label: "Idea", color: "bg-gray-500" },
-  validating: { label: "Validating", color: "bg-yellow-500" },
-  building: { label: "Building", color: "bg-blue-500" },
-  live: { label: "Live", color: "bg-green-500" },
-  paused: { label: "Paused", color: "bg-orange-500" },
+  validating: { label: "Validating", color: "bg-[#D4AF37]" },
+  building: { label: "Building", color: "bg-[#7CB4C4]" },
+  live: { label: "Live", color: "bg-[#6BBF8A]" },
+  paused: { label: "Paused", color: "bg-[#E8945A]" },
 };
 
 interface ProjectCardProps {
@@ -116,7 +116,7 @@ export function ProjectCard({ project, onDelete, onPause }: ProjectCardProps) {
         <div className="flex items-center justify-between text-sm">
           <div className="space-y-0.5">
             <p className="text-muted-foreground">MRR</p>
-            <p className={cn("font-bold", project.metrics.mrr > 0 && "text-green-500")}>
+            <p className={cn("font-bold", project.metrics.mrr > 0 && "text-[#6BBF8A]")}>
               {formatCurrency(project.metrics.mrr)}
             </p>
           </div>

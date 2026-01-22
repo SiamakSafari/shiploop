@@ -6,7 +6,6 @@ import {
   StatCard,
   StreakCounter,
   ActivityFeed,
-  QuickActions,
 } from "@/components/dashboard";
 import { LeaderboardWidget } from "@/components/leaderboard";
 import { useAppStore, useProjectsStore } from "@/stores";
@@ -95,9 +94,8 @@ export default function DashboardPage() {
           />
         </div>
 
-        {/* Right column - Activity and Actions */}
+        {/* Right column - Activity */}
         <div className="space-y-6">
-          <QuickActions />
           <ActivityFeed />
         </div>
       </div>

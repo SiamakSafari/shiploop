@@ -24,20 +24,20 @@ const variantStyles: Record<StatBoxVariant, { text: string; glow: string }> = {
     glow: "",
   },
   success: {
-    text: "text-emerald-600 dark:text-emerald-400",
-    glow: "hover:shadow-emerald-500/10",
+    text: "text-[#6BBF8A]",
+    glow: "hover:shadow-[#6BBF8A]/10",
   },
   warning: {
-    text: "text-amber-600 dark:text-amber-400",
-    glow: "hover:shadow-amber-500/10",
+    text: "text-[#D4AF37]",
+    glow: "hover:shadow-[#D4AF37]/10",
   },
   danger: {
     text: "text-red-600 dark:text-red-400",
     glow: "hover:shadow-red-500/10",
   },
   info: {
-    text: "text-blue-600 dark:text-blue-400",
-    glow: "hover:shadow-blue-500/10",
+    text: "text-[#7CB4C4]",
+    glow: "hover:shadow-[#7CB4C4]/10",
   },
 };
 

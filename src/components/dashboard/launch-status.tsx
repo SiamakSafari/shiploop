@@ -43,7 +43,7 @@ export function LaunchStatus() {
           <div className="py-4 text-center">
             <p className="text-sm text-gray-500 mb-2">No projects ready for launch.</p>
             <Link
-              href="/projects"
+              href="/dashboard/projects"
               className="text-sm text-primary hover:text-gray-800 transition-colors"
             >
               Start building
@@ -66,7 +66,7 @@ export function LaunchStatus() {
           Launch Status
         </h3>
         <Link
-          href="/launch-hub"
+          href="/dashboard/launch"
           className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-900 transition-colors group"
         >
           Open Hub <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />

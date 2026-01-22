@@ -98,7 +98,14 @@ export function ShipScoreCard() {
               strokeWidth="8"
               className="text-gray-200 dark:text-gray-700"
             />
-            {/* Progress circle */}
+            {/* Progress circle with SwingAI gradient */}
+            <defs>
+              <linearGradient id="swingai-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#E8945A" />
+                <stop offset="60%" stopColor="#7CB4C4" />
+                <stop offset="100%" stopColor="#4AABA8" />
+              </linearGradient>
+            </defs>
             <circle
               cx="72"
               cy="72"
@@ -108,7 +115,8 @@ export function ShipScoreCard() {
               strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={offset}
-              className="stroke-primary transition-all duration-700 ease-out"
+              stroke="url(#swingai-gradient)"
+              className="transition-all duration-700 ease-out"
             />
           </svg>
 
@@ -190,13 +198,11 @@ function ScoreBar({
   label,
   value,
   max,
-  color,
-  darkColor,
 }: {
   label: string;
   value: number;
   max: number;
-  color: string;
+  color?: string;
   darkColor?: string;
 }) {
   const percentage = (value / max) * 100;
@@ -209,14 +215,13 @@ function ScoreBar({
           {value}/{max}
         </Micro>
       </div>
-      <div className="relative h-2.5 overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600">
-        {/* Actual bar with solid color */}
+      <div className="relative h-2.5 overflow-hidden rounded-full bg-[#2E3546] dark:bg-[#2E3546] border border-[#383F52]">
+        {/* SwingAI gradient bar */}
         <div
-          className="relative h-full rounded-full transition-all duration-700 ease-out overflow-hidden score-bar"
+          className="relative h-full rounded-full transition-all duration-700 ease-out overflow-hidden"
           style={{
             width: `${percentage}%`,
-            backgroundColor: color,
-            ['--dark-color' as string]: darkColor || color
+            background: 'linear-gradient(90deg, #E8945A 0%, #7CB4C4 60%, #4AABA8 100%)'
           }}
         >
           {/* Shimmer effect */}

@@ -27,10 +27,13 @@ function Progress({
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
         className={cn(
-          "bg-primary h-full w-full flex-1 transition-all duration-500 ease-out relative",
+          "h-full w-full flex-1 transition-all duration-500 ease-out relative rounded-full",
           shimmer && "overflow-hidden"
         )}
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+        style={{
+          transform: `translateX(-${100 - (value || 0)}%)`,
+          background: 'linear-gradient(90deg, #E8945A 0%, #7CB4C4 60%, #4AABA8 100%)'
+        }}
       >
         {/* Shimmer overlay */}
         {shimmer && (

@@ -106,7 +106,7 @@ export function ExperimentDetail({
           {experiment.status === "running" && (
             <button
               onClick={onPause}
-              className="flex items-center gap-2 rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white hover:bg-amber-600 transition-colors"
+              className="flex items-center gap-2 rounded-lg bg-[#D4AF37] px-4 py-2 text-sm font-medium text-white hover:bg-[#D4AF37]/90 transition-colors"
             >
               <Pause className="h-4 w-4" />
               Pause
@@ -166,7 +166,7 @@ export function ExperimentDetail({
                       </span>
                     )}
                     {isBest && (
-                      <span className="flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400">
+                      <span className="flex items-center gap-1 text-xs text-[#6BBF8A]">
                         <TrendingUp className="h-3 w-3" />
                         Leading
                       </span>
@@ -198,7 +198,7 @@ export function ExperimentDetail({
                   </div>
                   <div>
                     <p className="text-gray-400 dark:text-gray-500 mb-1">Conversion</p>
-                    <p className="font-semibold text-emerald-600 dark:text-emerald-400">
+                    <p className="font-semibold text-[#6BBF8A]">
                       {cvr.toFixed(2)}%
                     </p>
                   </div>

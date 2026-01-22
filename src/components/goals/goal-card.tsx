@@ -112,9 +112,9 @@ export function GoalCard({ goal, onClick, isSelected }: GoalCardProps) {
               <div
                 className={cn(
                   "h-full rounded-full transition-all duration-500",
-                  goal.status === "completed" ? "bg-emerald-500" :
+                  goal.status === "completed" ? "bg-[#6BBF8A]" :
                   goal.status === "failed" ? "bg-red-500" :
-                  goal.status === "at_risk" ? "bg-amber-500" : "bg-primary"
+                  goal.status === "at_risk" ? "bg-[#D4AF37]" : "bg-primary"
                 )}
                 style={{ width: `${goal.progress}%` }}
               />

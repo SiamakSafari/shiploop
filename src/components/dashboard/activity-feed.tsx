@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import {
   GitCommit,
   DollarSign,
@@ -29,6 +30,11 @@ const activityIcons: Record<ActivityType, { icon: typeof GitCommit; color: strin
 
 export function ActivityFeed() {
   const activity = useAppStore((state) => state.activity);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className="glass hover-lift h-full rounded-2xl overflow-hidden">
@@ -77,7 +83,7 @@ export function ActivityFeed() {
                     </Micro>
                   )}
                   <Micro as="div" className="flex items-center gap-2 text-gray-400 dark:text-gray-500 font-medium">
-                    <span>{formatRelativeTime(item.timestamp)}</span>
+                    <span suppressHydrationWarning>{mounted ? formatRelativeTime(item.timestamp) : "..."}</span>
                     {item.projectName && (
                       <>
                         <span className="text-gray-300 dark:text-gray-600">·</span>

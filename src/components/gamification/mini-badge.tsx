@@ -20,37 +20,37 @@ const badgeConfig: Record<MiniBadgeVariant, {
   new: {
     label: "NEW",
     icon: "sparkles",
-    gradient: "from-lime-500 to-emerald-500",
-    textColor: "text-emerald-950",
+    gradient: "from-[#6BBF8A] to-[#4AABA8]", /* SwingAI green to teal */
+    textColor: "text-white",
   },
   hot: {
     label: "HOT",
     icon: "flame",
-    gradient: "from-coral-500 to-orange-500",
+    gradient: "from-[#E8945A] to-[#F0A878]", /* SwingAI orange to pink */
     textColor: "text-white",
   },
   fire: {
     label: "FIRE",
     icon: "flame",
-    gradient: "from-orange-500 to-red-500",
+    gradient: "from-[#E8945A] to-[#D4783A]", /* SwingAI orange gradient */
     textColor: "text-white",
   },
   star: {
     label: "STAR",
     icon: "star",
-    gradient: "from-yellow-400 to-yellow-300",
-    textColor: "text-yellow-950",
+    gradient: "from-[#D4AF37] to-[#E8945A]", /* SwingAI gold to orange */
+    textColor: "text-[#1A1F2E]",
   },
   crown: {
     label: "TOP",
     icon: "crown",
-    gradient: "from-gold-500 to-yellow-500",
-    textColor: "text-yellow-950",
+    gradient: "from-[#D4AF37] to-[#F0A878]", /* SwingAI gold to pink */
+    textColor: "text-[#1A1F2E]",
   },
   rocket: {
     label: "SHIP",
     icon: "rocket",
-    gradient: "from-gray-600 to-gray-800",
+    gradient: "from-[#242A3A] to-[#1A1F2E]", /* SwingAI dark backgrounds */
     textColor: "text-white",
   },
 };
@@ -104,8 +104,8 @@ export function CornerRibbon({ text, variant = "new", className }: CornerRibbonP
           "relative px-4 py-1 text-[10px] font-bold uppercase tracking-wider rotate-12 shadow-lg font-fredoka",
           "bg-gradient-to-r border border-white/20",
           isNew
-            ? "from-lime-500 to-emerald-500 text-emerald-950"
-            : "from-coral-500 to-orange-500 text-white"
+            ? "from-[#6BBF8A] to-[#4AABA8] text-white"
+            : "from-[#E8945A] to-[#F0A878] text-white"
         )}
         style={{
           clipPath: "polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%)",
@@ -125,13 +125,13 @@ interface FloatingBadgeProps {
   className?: string;
 }
 
-export function FloatingBadge({ icon, text, color = "purple", className }: FloatingBadgeProps) {
+export function FloatingBadge({ icon, text, color = "orange", className }: FloatingBadgeProps) {
   const colorClasses = {
-    purple: "from-gray-500 to-gray-700",
-    cyan: "from-gray-600 to-gray-800",
-    pink: "from-gray-400 to-gray-600",
-    emerald: "from-gray-500 to-gray-700",
-    orange: "from-gray-600 to-gray-800",
+    purple: "from-[#242A3A] to-[#1A1F2E]",
+    cyan: "from-[#7CB4C4] to-[#4AABA8]",
+    pink: "from-[#F0A878] to-[#E8945A]",
+    emerald: "from-[#6BBF8A] to-[#4AABA8]",
+    orange: "from-[#E8945A] to-[#D4783A]",
   };
 
   return (

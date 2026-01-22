@@ -40,7 +40,7 @@ export function LeaderboardWidget({ entries, currentUserEntry }: LeaderboardWidg
             entry.change === 0
               ? "text-gray-400 dark:text-gray-500"
               : entry.change > 0
-              ? "text-emerald-500"
+              ? "text-[#6BBF8A]"
               : "text-red-500";
 
           return (
@@ -56,9 +56,9 @@ export function LeaderboardWidget({ entries, currentUserEntry }: LeaderboardWidg
               <div className="w-6 text-center">
                 <span className={cn(
                   "text-sm font-bold",
-                  entry.rank === 1 && "text-amber-500",
+                  entry.rank === 1 && "text-[#D4AF37]",
                   entry.rank === 2 && "text-gray-400",
-                  entry.rank === 3 && "text-amber-700"
+                  entry.rank === 3 && "text-[#E8945A]"
                 )}>
                   {entry.rank}
                 </span>
@@ -142,7 +142,7 @@ export function LeaderboardWidget({ entries, currentUserEntry }: LeaderboardWidg
                 currentUserEntry.change === 0
                   ? "text-gray-400 dark:text-gray-500"
                   : currentUserEntry.change > 0
-                  ? "text-emerald-500"
+                  ? "text-[#6BBF8A]"
                   : "text-red-500"
               )}>
                 {currentUserEntry.change === 0 ? (

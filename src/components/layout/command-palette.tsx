@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Rocket,
-  Trophy,
   Lightbulb,
   BarChart3,
   FolderKanban,
@@ -13,6 +12,7 @@ import {
   Plus,
   DollarSign,
   Zap,
+  MessageSquare,
 } from "lucide-react";
 import {
   CommandDialog,
@@ -26,13 +26,12 @@ import {
 import { useUIStore } from "@/stores";
 
 const navigationCommands = [
-  { href: "/", icon: LayoutDashboard, label: "Go to Dashboard", shortcut: "G D" },
-  { href: "/launch-hub", icon: Rocket, label: "Go to Launch Hub", shortcut: "G L" },
-  { href: "/leaderboard", icon: Trophy, label: "Go to Leaderboard", shortcut: "G B" },
-  { href: "/ideas", icon: Lightbulb, label: "Go to Ideas", shortcut: "G I" },
-  { href: "/analytics", icon: BarChart3, label: "Go to Analytics", shortcut: "G A" },
-  { href: "/projects", icon: FolderKanban, label: "Go to Projects", shortcut: "G P" },
-  { href: "/settings", icon: Settings, label: "Go to Settings", shortcut: "G S" },
+  { href: "/dashboard", icon: LayoutDashboard, label: "Go to Dashboard", shortcut: "G D" },
+  { href: "/dashboard/projects", icon: FolderKanban, label: "Go to Projects", shortcut: "G P" },
+  { href: "/dashboard/revenue", icon: BarChart3, label: "Go to Revenue", shortcut: "G R" },
+  { href: "/dashboard/launch", icon: Rocket, label: "Go to Launch", shortcut: "G L" },
+  { href: "/dashboard/engage", icon: MessageSquare, label: "Go to Engage", shortcut: "G E" },
+  { href: "/dashboard/settings", icon: Settings, label: "Go to Settings", shortcut: "G S" },
 ];
 
 const actionCommands = [

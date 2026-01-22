@@ -75,7 +75,7 @@ Track your shipping at ShipLoop.dev`;
 
           <div className="relative mt-4 flex items-center justify-between border-t border-border pt-4">
             <div className="flex items-center gap-2">
-              <Flame className="h-5 w-5 text-orange-500" />
+              <Flame className="h-5 w-5 text-[#E8945A]" />
               <span className="font-bold">{user.shipScore.streak.currentStreak}</span>
               <span className="text-sm text-muted-foreground">day streak</span>
             </div>

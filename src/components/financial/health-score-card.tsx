@@ -13,16 +13,16 @@ interface HealthScoreCardProps {
 
 export function HealthScoreCard({ health, onClick, isSelected }: HealthScoreCardProps) {
   const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-emerald-600 dark:text-emerald-400";
+    if (score >= 80) return "text-[#6BBF8A]";
     if (score >= 60) return "text-primary";
-    if (score >= 40) return "text-amber-600 dark:text-amber-400";
+    if (score >= 40) return "text-[#D4AF37]";
     return "text-red-600 dark:text-red-400";
   };
 
   const getScoreBgColor = (score: number) => {
-    if (score >= 80) return "bg-emerald-500";
+    if (score >= 80) return "bg-[#6BBF8A]";
     if (score >= 60) return "bg-primary";
-    if (score >= 40) return "bg-amber-500";
+    if (score >= 40) return "bg-[#D4AF37]";
     return "bg-red-500";
   };
 
@@ -89,8 +89,8 @@ export function HealthScoreCard({ health, onClick, isSelected }: HealthScoreCard
               <Micro className="text-gray-400 dark:text-gray-500">Runway</Micro>
               <p className={cn(
                 "text-sm font-semibold",
-                health.runway >= 12 ? "text-emerald-600 dark:text-emerald-400" :
-                health.runway >= 6 ? "text-amber-600 dark:text-amber-400" :
+                health.runway >= 12 ? "text-[#6BBF8A]" :
+                health.runway >= 6 ? "text-[#D4AF37]" :
                 "text-red-600 dark:text-red-400"
               )}>
                 {health.runway >= 999 ? "Profitable" : `${health.runway} mo`}
@@ -101,11 +101,11 @@ export function HealthScoreCard({ health, onClick, isSelected }: HealthScoreCard
           {/* Growth indicator */}
           <div className="flex items-center gap-1 mt-2">
             {health.growthRate >= 0 ? (
-              <TrendingUp className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+              <TrendingUp className="h-3 w-3 text-[#6BBF8A]" />
             ) : (
               <TrendingDown className="h-3 w-3 text-red-600 dark:text-red-400" />
             )}
-            <Micro className={health.growthRate >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}>
+            <Micro className={health.growthRate >= 0 ? "text-[#6BBF8A]" : "text-red-600 dark:text-red-400"}>
               {health.growthRate >= 0 ? "+" : ""}{health.growthRate}% MoM
             </Micro>
           </div>

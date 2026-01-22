@@ -21,12 +21,12 @@ import {
 import { useUIStore, useAppStore } from "@/stores";
 
 const navItems = [
-  { href: "/", icon: LayoutDashboard, label: "Home" },
-  { href: "/projects", icon: FolderKanban, label: "Projects" },
-  { href: "/revenue", icon: DollarSign, label: "Revenue" },
-  { href: "/launch", icon: Rocket, label: "Launch" },
-  { href: "/engage", icon: MessageSquare, label: "Engage" },
-  { href: "/settings", icon: Settings, label: "Settings" },
+  { href: "/dashboard", icon: LayoutDashboard, label: "Home" },
+  { href: "/dashboard/projects", icon: FolderKanban, label: "Projects" },
+  { href: "/dashboard/revenue", icon: DollarSign, label: "Revenue" },
+  { href: "/dashboard/launch", icon: Rocket, label: "Launch" },
+  { href: "/dashboard/engage", icon: MessageSquare, label: "Engage" },
+  { href: "/dashboard/settings", icon: Settings, label: "Settings" },
 ];
 
 export function MobileNav() {
@@ -58,7 +58,7 @@ export function MobileNav() {
               </div>
               <div className="flex items-center gap-1">
                 {user.shipScore.streak.isOnFire && (
-                  <Flame className="h-5 w-5 text-orange-500 animate-fire-pulse" />
+                  <Flame className="h-5 w-5 text-[#E8945A] animate-fire-pulse" />
                 )}
                 <span className="text-sm font-medium">
                   {user.shipScore.streak.currentStreak}d streak

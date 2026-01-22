@@ -19,9 +19,9 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
   };
 
   const getScoreLabel = (score: number) => {
-    if (score >= 80) return { label: "Excellent", color: "text-emerald-600 dark:text-emerald-400" };
+    if (score >= 80) return { label: "Excellent", color: "text-[#6BBF8A]" };
     if (score >= 60) return { label: "Good", color: "text-primary" };
-    if (score >= 40) return { label: "Fair", color: "text-amber-600 dark:text-amber-400" };
+    if (score >= 40) return { label: "Fair", color: "text-[#D4AF37]" };
     return { label: "Needs Attention", color: "text-red-600 dark:text-red-400" };
   };
 
@@ -55,9 +55,9 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
           <div
             className={cn(
               "h-full rounded-full transition-all duration-500",
-              health.healthScore >= 80 ? "bg-emerald-500" :
+              health.healthScore >= 80 ? "bg-[#6BBF8A]" :
               health.healthScore >= 60 ? "bg-primary" :
-              health.healthScore >= 40 ? "bg-amber-500" : "bg-red-500"
+              health.healthScore >= 40 ? "bg-[#D4AF37]" : "bg-red-500"
             )}
             style={{ width: `${health.healthScore}%` }}
           />
@@ -71,7 +71,7 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
             <DollarSign className="h-4 w-4" />
             <span className="text-xs font-medium uppercase tracking-wide">MRR</span>
           </div>
-          <p className="text-2xl font-bold font-space-grotesk text-emerald-600 dark:text-emerald-400">
+          <p className="text-2xl font-bold font-space-grotesk text-[#6BBF8A]">
             {formatCurrency(health.mrr)}
           </p>
         </div>
@@ -83,8 +83,8 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
           </div>
           <p className={cn(
             "text-2xl font-bold font-space-grotesk",
-            health.runway >= 12 ? "text-emerald-600 dark:text-emerald-400" :
-            health.runway >= 6 ? "text-amber-600 dark:text-amber-400" :
+            health.runway >= 12 ? "text-[#6BBF8A]" :
+            health.runway >= 6 ? "text-[#D4AF37]" :
             "text-red-600 dark:text-red-400"
           )}>
             {health.runway >= 999 ? "Profitable" : `${health.runway} months`}
@@ -117,7 +117,7 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
             {health.growthRate >= 0 ? (
-              <TrendingUp className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+              <TrendingUp className="h-4 w-4 text-[#6BBF8A]" />
             ) : (
               <TrendingDown className="h-4 w-4 text-red-600 dark:text-red-400" />
             )}
@@ -125,7 +125,7 @@ export function FinancialDetail({ health }: FinancialDetailProps) {
           </div>
           <p className={cn(
             "text-xl font-bold font-space-grotesk",
-            health.growthRate >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"
+            health.growthRate >= 0 ? "text-[#6BBF8A]" : "text-red-600 dark:text-red-400"
           )}>
             {health.growthRate >= 0 ? "+" : ""}{health.growthRate}%
           </p>

@@ -127,7 +127,7 @@ export const inlineAnimations = {
     ],
   },
 
-  // Simple rocket
+  // Simple rocket - white color for visibility on orange background
   simpleRocket: {
     v: "5.7.4",
     fr: 30,
@@ -160,7 +160,7 @@ export const inlineAnimations = {
           },
           {
             ty: "fl",
-            c: { a: 0, k: [0.788, 0.718, 0.42, 1] },
+            c: { a: 0, k: [1, 1, 1, 1] }, // White color
             o: { a: 0, k: 100 },
           },
         ],

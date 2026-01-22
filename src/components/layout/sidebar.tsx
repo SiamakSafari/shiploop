@@ -17,14 +17,14 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useUIStore, useAppStore } from "@/stores";
-import { RocketAnimation, FireAnimation } from "@/components/lottie";
+import { FireAnimation } from "@/components/lottie";
 
 const navItems = [
-  { href: "/", icon: LayoutDashboard, label: "Home", shortcut: "G H" },
-  { href: "/projects", icon: FolderKanban, label: "Projects", shortcut: "G P" },
-  { href: "/revenue", icon: DollarSign, label: "Revenue", shortcut: "G R" },
-  { href: "/launch", icon: Rocket, label: "Launch", shortcut: "G L" },
-  { href: "/engage", icon: MessageSquare, label: "Engage", shortcut: "G E" },
+  { href: "/dashboard", icon: LayoutDashboard, label: "Home", shortcut: "G H" },
+  { href: "/dashboard/projects", icon: FolderKanban, label: "Projects", shortcut: "G P" },
+  { href: "/dashboard/revenue", icon: DollarSign, label: "Revenue", shortcut: "G R" },
+  { href: "/dashboard/launch", icon: Rocket, label: "Launch", shortcut: "G L" },
+  { href: "/dashboard/engage", icon: MessageSquare, label: "Engage", shortcut: "G E" },
 ];
 
 export function Sidebar() {
@@ -40,16 +40,19 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 flex h-screen flex-col bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300",
+        "fixed left-0 top-0 z-40 flex h-screen flex-col bg-background/80 backdrop-blur-xl border-r border-border/50 transition-all duration-300",
         sidebarCollapsed ? "w-16" : "w-64"
       )}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center justify-between border-b border-gray-200 dark:border-gray-800 px-4">
+      <div className="flex h-16 items-center justify-between border-b border-border/50 px-4">
         {!sidebarCollapsed && (
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-md transition-transform group-hover:scale-105">
-              {mounted ? <RocketAnimation size="sm" /> : <Rocket className="h-5 w-5 text-white" />}
+          <Link href="/dashboard" className="flex items-center gap-2 group">
+            <div className="relative">
+              <div className="absolute inset-0 bg-primary/20 rounded-xl blur-lg group-hover:bg-primary/30 transition-colors" />
+              <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-md transition-transform group-hover:scale-105">
+                <Rocket className="h-5 w-5 text-primary-foreground" />
+              </div>
             </div>
             <span className="text-xl font-bold text-primary">ShipLoop</span>
           </Link>
@@ -73,7 +76,7 @@ export function Sidebar() {
       {user && (
         <div
           className={cn(
-            "border-b border-gray-200 dark:border-gray-800 p-4",
+            "border-b border-border/50 p-4",
             sidebarCollapsed && "px-2"
           )}
         >
@@ -87,7 +90,7 @@ export function Sidebar() {
               )}
             </div>
           ) : (
-            <div className="rounded-xl bg-white dark:bg-gray-800 p-3 border border-gray-200 dark:border-gray-700 shadow-sm">
+            <div className="rounded-xl bg-card/80 backdrop-blur-sm p-3 border border-border/50 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 font-medium">
@@ -123,8 +126,8 @@ export function Sidebar() {
               className={cn(
                 "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
                 isActive
-                  ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-50 shadow-sm border border-gray-200 dark:border-gray-700"
-                  : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-800",
+                  ? "bg-primary/10 text-foreground shadow-sm border border-primary/20"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                 sidebarCollapsed && "justify-center px-2"
               )}
             >
@@ -145,11 +148,11 @@ export function Sidebar() {
       </nav>
 
       {/* Settings */}
-      <div className="border-t border-gray-200 dark:border-gray-800 p-3">
+      <div className="border-t border-border/50 p-3">
         <Link
-          href="/settings"
+          href="/dashboard/settings"
           className={cn(
-            "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-gray-600 dark:text-gray-400 transition-all duration-200 hover:text-gray-900 dark:hover:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-800",
+            "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-muted-foreground transition-all duration-200 hover:text-foreground hover:bg-muted/50",
             sidebarCollapsed && "justify-center px-2"
           )}
         >

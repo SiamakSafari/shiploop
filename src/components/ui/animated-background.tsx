@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 interface FloatingOrbProps {
   className?: string;
   size?: "sm" | "md" | "lg" | "xl";
-  color?: "gold" | "purple" | "blue" | "green";
+  color?: "orange" | "blue" | "teal" | "green";
   delay?: number;
   duration?: number;
   position?: { top?: string; left?: string; right?: string; bottom?: string };
@@ -20,16 +20,16 @@ const sizeClasses = {
 };
 
 const colorClasses = {
-  gold: "bg-gradient-to-br from-amber-400/20 to-yellow-600/10",
-  purple: "bg-gradient-to-br from-purple-400/20 to-pink-600/10",
-  blue: "bg-gradient-to-br from-blue-400/20 to-cyan-600/10",
-  green: "bg-gradient-to-br from-emerald-400/20 to-teal-600/10",
+  orange: "bg-gradient-to-br from-[#E8945A]/20 to-[#E8945A]/10",
+  blue: "bg-gradient-to-br from-[#7CB4C4]/20 to-[#7CB4C4]/10",
+  teal: "bg-gradient-to-br from-[#4AABA8]/20 to-[#4AABA8]/10",
+  green: "bg-gradient-to-br from-[#6BBF8A]/20 to-[#6BBF8A]/10",
 };
 
 export function FloatingOrb({
   className,
   size = "md",
-  color = "gold",
+  color = "orange",
   delay = 0,
   duration = 8,
   position,
@@ -73,14 +73,14 @@ export function AnimatedBackground({
           <>
             <FloatingOrb
               size="xl"
-              color="gold"
+              color="orange"
               position={{ top: "-10%", right: "-5%" }}
               delay={0}
               duration={10}
             />
             <FloatingOrb
               size="lg"
-              color="gold"
+              color="blue"
               position={{ bottom: "10%", left: "-10%" }}
               delay={2}
               duration={12}
@@ -89,14 +89,14 @@ export function AnimatedBackground({
               <>
                 <FloatingOrb
                   size="md"
-                  color="purple"
+                  color="teal"
                   position={{ top: "40%", right: "10%" }}
                   delay={4}
                   duration={8}
                 />
                 <FloatingOrb
                   size="sm"
-                  color="blue"
+                  color="green"
                   position={{ bottom: "30%", left: "20%" }}
                   delay={1}
                   duration={9}
@@ -202,7 +202,7 @@ export function FloatingParticles({ count = 20 }: { count?: number }) {
   );
 }
 
-// Gradient text component
+// Gradient text component - SwingAI Lottie palette
 export function GradientText({
   children,
   className,
@@ -215,7 +215,7 @@ export function GradientText({
   return (
     <span
       className={cn(
-        "bg-clip-text text-transparent bg-gradient-to-r from-primary via-amber-500 to-primary bg-[length:200%_auto]",
+        "bg-clip-text text-transparent bg-gradient-to-r from-[#E8945A] via-[#7CB4C4] to-[#4AABA8] bg-[length:200%_auto]",
         animate && "animate-gradient-shift",
         className
       )}
@@ -225,21 +225,21 @@ export function GradientText({
   );
 }
 
-// Glow effect wrapper
+// Glow effect wrapper - SwingAI Lottie palette
 export function GlowWrapper({
   children,
   className,
-  color = "gold",
+  color = "orange",
 }: {
   children: React.ReactNode;
   className?: string;
-  color?: "gold" | "blue" | "green" | "purple";
+  color?: "orange" | "blue" | "teal" | "green";
 }) {
   const glowColors = {
-    gold: "shadow-[0_0_60px_-15px_rgba(201,166,107,0.5)]",
-    blue: "shadow-[0_0_60px_-15px_rgba(59,130,246,0.5)]",
-    green: "shadow-[0_0_60px_-15px_rgba(34,197,94,0.5)]",
-    purple: "shadow-[0_0_60px_-15px_rgba(168,85,247,0.5)]",
+    orange: "shadow-[0_0_60px_-15px_rgba(232,148,90,0.5)]",
+    blue: "shadow-[0_0_60px_-15px_rgba(124,180,196,0.5)]",
+    teal: "shadow-[0_0_60px_-15px_rgba(74,171,168,0.5)]",
+    green: "shadow-[0_0_60px_-15px_rgba(107,191,138,0.5)]",
   };
 
   return (
