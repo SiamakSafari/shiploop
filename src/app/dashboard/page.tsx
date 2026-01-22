@@ -80,24 +80,15 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Main content grid */}
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* Left column - Ship Score, Streak, and Leaderboard */}
-        <div className="space-y-6 lg:col-span-2">
-          <ShipScoreCard />
-          <StreakCounter />
-
-          {/* Leaderboard Widget */}
-          <LeaderboardWidget
-            entries={mockLeaderboard}
-            currentUserEntry={currentUserEntry}
-          />
-        </div>
-
-        {/* Right column - Activity */}
-        <div className="space-y-6">
-          <ActivityFeed />
-        </div>
+      {/* Main content grid - 2 column layout */}
+      <div className="grid gap-6 md:grid-cols-2">
+        <ShipScoreCard />
+        <ActivityFeed />
+        <StreakCounter />
+        <LeaderboardWidget
+          entries={mockLeaderboard}
+          currentUserEntry={currentUserEntry}
+        />
       </div>
     </div>
   );

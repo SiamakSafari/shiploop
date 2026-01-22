@@ -2365,6 +2365,27 @@ Reverted the landing page hero section from the Lottie-heavy animated design bac
 - [ ] Test production build with `NEXT_PUBLIC_DEV_BYPASS=false`
 - [ ] Implement real Supabase auth flow
 
+### Dashboard Visual Polish
+
+Made two CSS refinements to improve the dashboard's visual appearance:
+
+**1. Enhanced Glass Card Effect**
+- Increased `--glass-bg` opacity from 0.04 to 0.12 (both light and dark modes)
+- Cards now have a more prominent frosted glass appearance
+- File: `src/app/globals.css` (lines 159, 247)
+
+**2. Reduced Background Grid Opacity**
+- Light mode: reduced from 0.08 to 0.04
+- Dark mode: reduced from 0.10 to 0.05
+- Background grid is now more subtle, letting content stand out
+- File: `src/app/globals.css` (lines 1140-1151)
+
+### What I Learned (Additional)
+
+5. **Subtle opacity matters** - Small changes to background opacity (0.04 vs 0.08) make a significant visual difference. The grid was competing with card content before; now it's a subtle texture.
+
+6. **Glass morphism balance** - The 0.04 opacity was too subtle for the frosted glass effect. Tripling it to 0.12 while keeping the 20px blur creates the right visual weight.
+
 ---
 
 *ShipLoop - Build. Ship. Grow. Track. Repeat.*
