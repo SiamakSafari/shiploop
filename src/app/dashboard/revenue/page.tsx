@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { DollarSign, Users, TrendingUp, BarChart3, FlaskConical, Plus, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
+import { useState, useEffect } from "react";
+import { DollarSign, Users, TrendingUp, BarChart3, FlaskConical, Plus, Sparkles, ChevronDown, ChevronUp, Wallet, Activity } from "lucide-react";
 import { StatCard } from "@/components/dashboard";
 import {
   RevenueChart,
@@ -11,7 +11,15 @@ import {
 } from "@/components/analytics";
 import { HealthScoreCard, FinancialDetail } from "@/components/financial";
 import { ExperimentCard, ExperimentDetail } from "@/components/pricing";
-import { useFinancialStore, useProjectsStore, usePricingStore } from "@/stores";
+import {
+  CashFlowChart,
+  ForecastCard,
+  IncomeSourceCard,
+  ExpenseCard,
+  PulseAlerts,
+  PulseOverview,
+} from "@/components/pulse";
+import { useFinancialStore, useProjectsStore, usePricingStore, usePulseStore } from "@/stores";
 import { mockAnalytics } from "@/data";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -53,11 +61,33 @@ export default function RevenuePage() {
     deleteExperiment,
   } = usePricingStore();
 
+  // Pulse store
+  const {
+    currentBalance,
+    incomeSources,
+    expenses,
+    forecasts,
+    alerts,
+    lowCashThreshold,
+    targetSavings,
+    removeIncomeSource,
+    removeExpense,
+    dismissAlert,
+    recalculateForecasts,
+  } = usePulseStore();
+
   const [financialOpen, setFinancialOpen] = useState(true);
   const [pricingOpen, setPricingOpen] = useState(true);
+  const [pulseOpen, setPulseOpen] = useState(true);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
   const [newRecordProject, setNewRecordProject] = useState<string>("");
   const [experimentFilter, setExperimentFilter] = useState("all");
+  const [pulseTab, setPulseTab] = useState<"forecast" | "income" | "expenses">("forecast");
+
+  // Recalculate forecasts on mount
+  useEffect(() => {
+    recalculateForecasts();
+  }, [recalculateForecasts]);
 
   const selectedRecord = healthRecords.find((r) => r.id === selectedRecordId);
   const selectedExperiment = experiments.find((e) => e.id === selectedExperimentId);
@@ -69,6 +99,22 @@ export default function RevenuePage() {
   const avgRunway = healthRecords.length > 0
     ? Math.round(healthRecords.filter(r => r.runway < 999).reduce((sum, r) => sum + r.runway, 0) / healthRecords.filter(r => r.runway < 999).length) || 0
     : 0;
+
+  // Pulse calculations
+  const monthlyIncome = incomeSources.reduce((sum, s) => {
+    if (s.type === "recurring" && s.frequency === "monthly") return sum + s.amount;
+    if (s.type === "recurring" && s.frequency === "weekly") return sum + s.amount * 4;
+    if (s.type === "variable") return sum + (s.amount * s.confidence / 100);
+    return sum;
+  }, 0);
+  
+  const monthlyExpenses = expenses.reduce((sum, e) => {
+    if (e.frequency === "monthly") return sum + e.amount;
+    return sum;
+  }, 0);
+
+  const netCashFlow = monthlyIncome - monthlyExpenses;
+  const runway = netCashFlow > 0 ? 999 : Math.floor(currentBalance / Math.abs(netCashFlow));
 
   // Filter experiments
   const filteredExperiments = experimentFilter === "all"
@@ -105,7 +151,7 @@ export default function RevenuePage() {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-50">Revenue</h1>
         </div>
         <p className="text-gray-500 dark:text-gray-400 text-lg">
-          Track your revenue, financial health, and pricing experiments.
+          Track your revenue, cash flow, and pricing experiments.
         </p>
       </div>
 
@@ -128,11 +174,11 @@ export default function RevenuePage() {
           accentColor="gray1"
         />
         <StatCard
-          title="Avg Runway"
-          value={avgRunway}
-          icon={BarChart3}
-          format="number"
-          trend={0}
+          title="Cash Balance"
+          value={currentBalance}
+          icon={Wallet}
+          format="currency"
+          trend={netCashFlow > 0 ? 5 : -5}
           accentColor="dark"
         />
         <StatCard
@@ -149,6 +195,122 @@ export default function RevenuePage() {
       <div className="grid gap-6 lg:grid-cols-2">
         <RevenueChart data={revenue.timeline} />
         <RevenueBreakdown data={revenue.byProduct} />
+      </div>
+
+      {/* Section: Pulse - Cash Flow Forecast (NEW) */}
+      <div className="glass rounded-2xl overflow-hidden">
+        <div
+          className="w-full flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
+        >
+          <button
+            onClick={() => setPulseOpen(!pulseOpen)}
+            className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50 bg-transparent border-none cursor-pointer"
+          >
+            <Activity className="h-4 w-4 text-emerald-500" />
+            Pulse - Cash Flow Forecast
+            {pulseOpen ? (
+              <ChevronUp className="h-5 w-5 text-gray-500 ml-2" />
+            ) : (
+              <ChevronDown className="h-5 w-5 text-gray-500 ml-2" />
+            )}
+          </button>
+          <div className="flex items-center gap-2 text-sm">
+            {netCashFlow >= 0 ? (
+              <span className="px-2 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 font-medium">
+                +${Math.round(netCashFlow).toLocaleString()}/mo
+              </span>
+            ) : (
+              <span className="px-2 py-1 rounded-lg bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 font-medium">
+                -${Math.abs(Math.round(netCashFlow)).toLocaleString()}/mo
+              </span>
+            )}
+          </div>
+        </div>
+        {pulseOpen && (
+          <div className="p-4 space-y-6">
+            {/* Alerts */}
+            <PulseAlerts alerts={alerts} onDismiss={dismissAlert} />
+
+            {/* Overview cards */}
+            <PulseOverview
+              currentBalance={currentBalance}
+              monthlyIncome={Math.round(monthlyIncome)}
+              monthlyExpenses={Math.round(monthlyExpenses)}
+              runway={runway > 100 ? 99 : runway}
+              targetSavings={targetSavings}
+            />
+
+            {/* Chart */}
+            <CashFlowChart forecasts={forecasts} lowCashThreshold={lowCashThreshold} />
+
+            {/* Tabs for Income/Expenses/Forecasts */}
+            <Tabs value={pulseTab} onValueChange={(v) => setPulseTab(v as typeof pulseTab)}>
+              <TabsList className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <TabsTrigger value="forecast" className="text-gray-500 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-50">
+                  Forecast
+                </TabsTrigger>
+                <TabsTrigger value="income" className="text-gray-500 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-50">
+                  Income ({incomeSources.length})
+                </TabsTrigger>
+                <TabsTrigger value="expenses" className="text-gray-500 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-50">
+                  Expenses ({expenses.length})
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+
+            {pulseTab === "forecast" && (
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {forecasts.map((forecast, index) => (
+                  <ForecastCard
+                    key={forecast.month}
+                    forecast={forecast}
+                    isFirst={index === 0}
+                  />
+                ))}
+              </div>
+            )}
+
+            {pulseTab === "income" && (
+              <div className="space-y-3">
+                {incomeSources.length > 0 ? (
+                  incomeSources.map((source) => (
+                    <IncomeSourceCard
+                      key={source.id}
+                      source={source}
+                      onDelete={() => removeIncomeSource(source.id)}
+                    />
+                  ))
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-8">
+                    <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                      No income sources added yet.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {pulseTab === "expenses" && (
+              <div className="space-y-3">
+                {expenses.length > 0 ? (
+                  expenses.map((expense) => (
+                    <ExpenseCard
+                      key={expense.id}
+                      expense={expense}
+                      onDelete={() => removeExpense(expense.id)}
+                    />
+                  ))
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-8">
+                    <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                      No expenses tracked yet.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Traffic and attribution */}
