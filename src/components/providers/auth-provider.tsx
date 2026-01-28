@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
-import { User, Session } from "@supabase/supabase-js";
+import { User, Session, AuthChangeEvent } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import type { Profile } from "@/types/database.types";
 
@@ -62,9 +62,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setSession({ user: mockUser } as Session);
       setProfile({
         id: "dev-user-123",
+        username: "devuser",
+        name: "Dev User",
         email: "dev@test.com",
-        full_name: "Dev User",
         avatar_url: null,
+        theme: "dark",
+        notifications_enabled: true,
+        public_profile: false,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       } as Profile);
@@ -95,7 +99,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, currentSession) => {
+      async (_event: AuthChangeEvent, currentSession: Session | null) => {
         setSession(currentSession);
         setUser(currentSession?.user ?? null);
 

@@ -1,8 +1,21 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import type { Database } from "@/types/database.types";
+import { createMockClient } from "./mock-client";
+
+// Check if Supabase is configured
+const isSupabaseConfigured = () => {
+  return !!(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+};
 
 export async function createClient() {
+  if (!isSupabaseConfigured()) {
+    return createMockClient() as any;
+  }
+
   const cookieStore = await cookies();
 
   return createServerClient<Database>(

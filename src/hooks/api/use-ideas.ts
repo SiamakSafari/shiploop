@@ -65,7 +65,7 @@ export function useCreateIdea() {
 
       // Calculate overall score
       const overall = Math.round(
-        (idea.demand + (100 - idea.competition) + idea.feasibility) / 3
+        ((idea.demand ?? 0) + (100 - (idea.competition ?? 0)) + (idea.feasibility ?? 0)) / 3
       );
 
       const { data, error } = await supabase
