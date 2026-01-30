@@ -2,6 +2,7 @@
 
 import { Sidebar, Header, CommandPalette, MobileNav } from "@/components/layout";
 import { WelcomeModal } from "@/components/onboarding";
+import { DemoBanner } from "@/components/ui/demo-banner";
 import { useUIStore, useOnboardingStore } from "@/stores";
 import { cn } from "@/lib/utils";
 
@@ -40,8 +41,9 @@ export default function DashboardLayout({
           sidebarCollapsed ? "md:pl-16" : "md:pl-64"
         )}
       >
+        <DemoBanner />
         <Header />
-        <main className="flex-1 p-4 md:p-6">{children}</main>
+        <main className="flex-1 p-3 md:p-5">{children}</main>
       </div>
     </div>
   );

@@ -66,13 +66,24 @@ export async function POST(request: NextRequest) {
       .from("waitlist")
       .select("*", { count: "exact", head: true });
 
+    const position = count || 1;
+
     // Log for visibility
-    console.log(`[Waitlist] New signup: ${normalizedEmail} (Total: ${count})`);
+    console.log(`[Waitlist] New signup: ${normalizedEmail} (Total: ${position})`);
+
+    // Send welcome email (fire and forget - don't block response)
+    fetch(`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/email/welcome`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: normalizedEmail, position }),
+    }).catch((err) => {
+      console.error("[Waitlist] Failed to trigger welcome email:", err);
+    });
 
     return NextResponse.json(
       {
         message: "Welcome to the waitlist!",
-        position: count || 1,
+        position,
       },
       { status: 201 }
     );

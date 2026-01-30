@@ -66,28 +66,28 @@
      LIGHT MODE - SwingAI Lottie Palette
      ============================================ */
 
-  /* Backgrounds - Softer blue-gray, not pure white */
-  --background: #D8E0E8;
+  /* Backgrounds - Lighter base for card separation */
+  --background: #E8ECF0;
   --foreground: #1A1F2E;
 
-  /* Card colors - Slightly elevated from background */
-  --card: #E4EAF0;
+  /* Card colors - Near-white for clear elevation */
+  --card: #F6F8FA;
   --card-foreground: #1A1F2E;
 
   /* UI colors */
-  --popover: #E8EEF4;
+  --popover: #F6F8FA;
   --popover-foreground: #1A1F2E;
   --primary: #D4783A; /* Orange (darker for light mode contrast) */
   --primary-foreground: #FFFFFF;
-  --secondary: #CCD6E0;
+  --secondary: #D8E0EA;
   --secondary-foreground: #1A1F2E;
-  --muted: #CCD6E0;
-  --muted-foreground: #4A5568;
+  --muted: #D8E0EA;
+  --muted-foreground: #3D4756;
   --accent: #5A9AAA; /* Light blue (darker for contrast) */
   --accent-foreground: #FFFFFF;
   --destructive: #DC2626;
-  --border: #D0DAE4;
-  --input: #DCE4EC;
+  --border: #C8D0DA;
+  --input: #D4DCE6;
   --ring: #D4783A;
 
   /* Animation timing */
@@ -106,13 +106,13 @@
   --chart-5: #B8860B;
 
   /* Sidebar - Light Mode */
-  --sidebar: #F2F6FA;
+  --sidebar: #F6F8FA;
   --sidebar-foreground: #1A1F2E;
   --sidebar-primary: #D4783A;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #DCE4EC;
+  --sidebar-accent: #EDF0F5;
   --sidebar-accent-foreground: #1A1F2E;
-  --sidebar-border: #D0DAE4;
+  --sidebar-border: #D0D8E2;
   --sidebar-ring: #D4783A;
 
   /* SwingAI Lottie Theme Colors */
@@ -122,16 +122,16 @@
   --accent-green: #5AAF7A;
   --accent-gold: #B8860B;
 
-  /* Background Levels - Softer tones */
-  --bg-primary: #D8E0E8;
-  --bg-secondary: #CCD6E0;
-  --bg-tertiary: #C0CCD8;
-  --bg-elevated: #E4EAF0;
+  /* Background Levels */
+  --bg-primary: #E8ECF0;
+  --bg-secondary: #DEE4EA;
+  --bg-tertiary: #D4DCE4;
+  --bg-elevated: #F2F5F8;
 
   /* Text Levels */
   --text-primary: #1A1F2E;
-  --text-secondary: #3A4254;
-  --text-tertiary: #5A6478;
+  --text-secondary: #2D3648;
+  --text-tertiary: #4A5568;
 
   /* Functional Colors */
   --color-success: #5AAF7A;
@@ -152,13 +152,13 @@
   --shadow-hover: 0 12px 24px rgba(26, 31, 46, 0.14), 0 6px 12px rgba(26, 31, 46, 0.08);
 
   /* Interactive States */
-  --hover: #DCE4EC;
-  --active: #D0DAE4;
+  --hover: #EDF0F4;
+  --active: #DDE4EC;
 
   /* Glass Morphism - Light Mode */
-  --glass-bg: rgba(90, 154, 170, 0.12);
-  --glass-border: rgba(90, 154, 170, 0.12);
-  --glass-hover: rgba(90, 154, 170, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.80);
 
   /* Shadows & Glows - Light Mode */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -1012,6 +1012,11 @@
   .bento-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.bento-grid-compact {
+  gap: 1rem;
+  grid-auto-rows: minmax(80px, auto);
 }
 
 /* Card sizes for bento */

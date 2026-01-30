@@ -17,7 +17,7 @@ export function LeaderboardWidget({ entries, currentUserEntry }: LeaderboardWidg
 
   return (
     <div className="glass hover-lift rounded-2xl overflow-hidden">
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex items-center justify-between p-3 border-b border-border">
         <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900 dark:text-gray-50">
           <TrophyAnimation size="sm" />
           Top Shippers
@@ -27,7 +27,7 @@ export function LeaderboardWidget({ entries, currentUserEntry }: LeaderboardWidg
         </span>
       </div>
 
-      <div className="p-4 space-y-2">
+      <div className="p-3 space-y-1.5 max-w-md">
         {/* Top 5 */}
         {top5.map((entry) => {
           const ChangeIcon =
@@ -40,7 +40,7 @@ export function LeaderboardWidget({ entries, currentUserEntry }: LeaderboardWidg
             entry.change === 0
               ? "text-gray-400 dark:text-gray-500"
               : entry.change > 0
-              ? "text-[#6BBF8A]"
+              ? "text-emerald-400"
               : "text-red-500";
 
           return (
@@ -56,9 +56,9 @@ export function LeaderboardWidget({ entries, currentUserEntry }: LeaderboardWidg
               <div className="w-6 text-center">
                 <span className={cn(
                   "text-sm font-bold",
-                  entry.rank === 1 && "text-[#D4AF37]",
+                  entry.rank === 1 && "text-yellow-500",
                   entry.rank === 2 && "text-gray-400",
-                  entry.rank === 3 && "text-[#E8945A]"
+                  entry.rank === 3 && "text-orange-400"
                 )}>
                   {entry.rank}
                 </span>
@@ -142,7 +142,7 @@ export function LeaderboardWidget({ entries, currentUserEntry }: LeaderboardWidg
                 currentUserEntry.change === 0
                   ? "text-gray-400 dark:text-gray-500"
                   : currentUserEntry.change > 0
-                  ? "text-[#6BBF8A]"
+                  ? "text-emerald-400"
                   : "text-red-500"
               )}>
                 {currentUserEntry.change === 0 ? (

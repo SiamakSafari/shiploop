@@ -28,7 +28,7 @@ const activityIcons: Record<ActivityType, { icon: typeof GitCommit; color: strin
   idea_validated: { icon: Lightbulb, color: "text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800", glow: "" },
 };
 
-export function ActivityFeed() {
+export function ActivityFeed({ className }: { className?: string }) {
   const activity = useAppStore((state) => state.activity);
   const [mounted, setMounted] = useState(false);
 
@@ -37,15 +37,16 @@ export function ActivityFeed() {
   }, []);
 
   return (
-    <div className="glass hover-lift h-full rounded-2xl overflow-hidden">
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+    <div className={cn("glass hover-lift rounded-2xl overflow-hidden flex flex-col max-h-[540px]", className)}>
+      <div className="p-4 border-b border-border shrink-0">
         <Heading level={4} className="flex items-center gap-2 text-gray-900 dark:text-gray-50">
           <Activity className="h-5 w-5 text-primary animate-pulse" />
           Recent Activity
         </Heading>
       </div>
-      <ScrollArea className="max-h-[400px] p-5">
-        <div className="space-y-3">
+      <div className="flex-1 min-h-0 overflow-hidden">
+        <ScrollArea className="h-full">
+          <div className="space-y-2 p-4">
           {activity.slice(0, 10).map((item, index) => {
             const { icon: Icon, color, glow } = activityIcons[item.type];
             const isImportant = item.type === 'launch' || item.type === 'milestone' || item.type === 'revenue';
@@ -54,21 +55,20 @@ export function ActivityFeed() {
               <div
                 key={item.id}
                 className={cn(
-                  "relative flex gap-3 animate-slide-up rounded-xl bg-gray-50 dark:bg-gray-800/50 p-3 transition-all hover:bg-gray-100 dark:hover:bg-gray-700 group border border-gray-200 dark:border-gray-700",
-                  "hover:scale-[1.02] hover:shadow-md active:scale-[0.98]",
+                  "relative flex gap-3 animate-slide-up rounded-xl bg-gray-50 dark:bg-gray-800/50 p-3 transition-all hover:bg-gray-100 dark:hover:bg-gray-700 group border border-border",
                   glow
                 )}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 {/* Important activity badge */}
                 {isImportant && (
-                  <div className="absolute -top-1 -right-1">
+                  <div className="absolute top-1.5 right-1.5">
                     <Sparkles className="h-3 w-3 text-primary animate-pulse" />
                   </div>
                 )}
 
                 <div className="relative">
-                  <div className={cn("mt-0.5 rounded-lg p-2.5 shadow-sm transition-transform group-hover:scale-110 group-hover:rotate-3 border border-gray-200 dark:border-gray-700", color)}>
+                  <div className={cn("mt-0.5 rounded-lg p-2.5 shadow-sm transition-transform group-hover:scale-110 border border-border", color)}>
                     <Icon className="h-4 w-4" />
                   </div>
                 </div>
@@ -95,8 +95,9 @@ export function ActivityFeed() {
               </div>
             );
           })}
-        </div>
-      </ScrollArea>
+          </div>
+        </ScrollArea>
+      </div>
     </div>
   );
 }
@@ -104,14 +105,14 @@ export function ActivityFeed() {
 export function ActivityFeedSkeleton() {
   return (
     <div className="glass h-full rounded-2xl overflow-hidden">
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="p-4 border-b border-border">
         <Skeleton variant="shimmer" className="h-5 w-32" />
       </div>
-      <div className="p-5 space-y-3">
+      <div className="p-4 space-y-2">
         {[1, 2, 3, 4, 5].map((i) => (
           <div
             key={i}
-            className="flex gap-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 p-3 border border-gray-200 dark:border-gray-700"
+            className="flex gap-3 rounded-xl bg-gray-50 dark:bg-gray-800/50 p-3 border border-border"
           >
             <Skeleton variant="shimmer" className="h-9 w-9 rounded-lg shrink-0" />
             <div className="flex-1 space-y-2">

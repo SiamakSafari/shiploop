@@ -62,9 +62,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setSession({ user: mockUser } as Session);
       setProfile({
         id: "dev-user-123",
+        username: "devuser",
+        name: "Dev User",
         email: "dev@test.com",
-        full_name: "Dev User",
         avatar_url: null,
+        theme: "system",
+        notifications_enabled: true,
+        public_profile: true,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       } as Profile);

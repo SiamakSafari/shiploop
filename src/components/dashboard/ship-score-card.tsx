@@ -1,23 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Flame, TrendingUp, Trophy, Sparkles } from "lucide-react";
 import { useAppStore } from "@/stores";
 import { cn, getTierColor } from "@/lib/utils";
 import { Heading, Caption, Micro, NumberDisplay } from "@/components/ui/typography";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TrophyAnimation, FireAnimation } from "@/components/lottie";
+import { useConfetti, SCORE_MILESTONES, shouldCelebrateMilestone } from "@/hooks/use-confetti";
+import { toast } from "sonner";
 
 function ShipScoreCardSkeleton() {
   return (
-    <div className="glass rounded-2xl p-6">
+    <div className="glass rounded-2xl p-4">
       {/* Header skeleton */}
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-3 flex items-center justify-between">
         <Skeleton variant="shimmer" className="h-6 w-28" />
         <Skeleton variant="shimmer" className="h-8 w-20 rounded-full" />
       </div>
 
-      <div className="flex items-center gap-8">
+      <div className="flex items-center gap-5">
         {/* Circular progress skeleton */}
         <Skeleton variant="shimmer" className="h-36 w-36 rounded-full" />
 
@@ -36,7 +38,7 @@ function ShipScoreCardSkeleton() {
       </div>
 
       {/* Bottom stats skeleton */}
-      <div className="mt-6 flex items-center justify-between rounded-xl bg-gray-50 dark:bg-gray-800/50 p-4 border border-gray-200 dark:border-gray-700">
+      <div className="mt-4 flex items-center justify-between rounded-xl bg-gray-50 dark:bg-gray-800/50 p-3 border border-border">
         <div className="flex items-center gap-3">
           <Skeleton variant="shimmer" className="h-6 w-6 rounded" />
           <div>
@@ -56,10 +58,38 @@ function ShipScoreCardSkeleton() {
 export function ShipScoreCard() {
   const user = useAppStore((state) => state.user);
   const [mounted, setMounted] = useState(false);
+  const { celebrate, stars } = useConfetti();
+  const previousScoreRef = useRef<number | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Check for score milestones and celebrate
+  useEffect(() => {
+    if (!user) return;
+
+    const currentScore = user.shipScore.total;
+
+    if (previousScoreRef.current !== null) {
+      const milestone = shouldCelebrateMilestone(
+        currentScore,
+        previousScoreRef.current,
+        SCORE_MILESTONES
+      );
+
+      if (milestone) {
+        // Trigger celebration
+        celebrate();
+        stars();
+        toast.success(`Ship Score Milestone!`, {
+          description: `Congratulations! You've reached ${milestone} Ship Score!`,
+        });
+      }
+    }
+
+    previousScoreRef.current = currentScore;
+  }, [user?.shipScore.total, celebrate, stars]);
 
   if (!user) return <ShipScoreCardSkeleton />;
 
@@ -69,9 +99,9 @@ export function ShipScoreCard() {
   const offset = circumference - progress;
 
   return (
-    <div className="glass hover-lift relative overflow-hidden rounded-2xl p-6">
+    <div className="glass hover-lift relative overflow-hidden rounded-2xl p-4">
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Sparkles className="h-5 w-5 text-primary animate-pulse" />
           <Heading level={3} className="text-primary">Ship Score</Heading>
@@ -84,7 +114,7 @@ export function ShipScoreCard() {
         </Caption>
       </div>
 
-      <div className="relative flex items-center gap-8">
+      <div className="relative flex items-center gap-5">
         {/* Circular progress */}
         <div className="relative">
           <svg className="h-36 w-36 -rotate-90 transform">
@@ -163,7 +193,7 @@ export function ShipScoreCard() {
       </div>
 
       {/* Bottom stats */}
-      <div className="mt-6 flex items-center justify-between rounded-xl bg-gray-50 dark:bg-gray-800/50 p-4 border border-gray-200 dark:border-gray-700">
+      <div className="mt-4 flex items-center justify-between rounded-xl bg-gray-50 dark:bg-gray-800/50 p-3 border border-border">
         {/* Streak */}
         <div className="flex items-center gap-3">
           {shipScore.streak.isOnFire ? (
@@ -215,7 +245,7 @@ function ScoreBar({
           {value}/{max}
         </Micro>
       </div>
-      <div className="relative h-2.5 overflow-hidden rounded-full bg-[#2E3546] dark:bg-[#2E3546] border border-[#383F52]">
+      <div className="relative h-2.5 overflow-hidden rounded-full bg-muted border border-border">
         {/* SwingAI gradient bar */}
         <div
           className="relative h-full rounded-full transition-all duration-700 ease-out overflow-hidden"

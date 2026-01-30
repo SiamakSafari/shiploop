@@ -126,7 +126,7 @@ export function AnimatedBackground({
 }
 
 // Cursor spotlight effect hook
-export function useSpotlight(ref: React.RefObject<HTMLElement>) {
+export function useSpotlight(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     const element = ref.current;
     if (!element) return;

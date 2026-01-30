@@ -12,3 +12,4 @@ export { LeaderboardPreview } from "./leaderboard-preview";
 export { WaitlistSection } from "./waitlist-section";
 export { FAQSection } from "./faq-section";
 export { FinalCTA } from "./final-cta";
+export { VideoDemo } from "./video-demo";

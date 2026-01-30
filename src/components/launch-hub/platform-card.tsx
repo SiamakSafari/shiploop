@@ -48,7 +48,7 @@ export function PlatformCard({ platform, onClick, isSelected }: PlatformCardProp
       )}
       onClick={onClick}
     >
-      <CardContent className="p-4">
+      <CardContent className="p-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Icon name={platformIcons[platform.platform]} size={24} className="text-primary" />
@@ -68,8 +68,8 @@ export function PlatformCard({ platform, onClick, isSelected }: PlatformCardProp
             <ChevronRight className="h-4 w-4 text-muted-foreground" />
           </div>
         </div>
-        <div className="mt-3">
-          <Progress value={platform.progress} className="h-1.5" />
+        <div className="mt-2">
+          <Progress value={platform.progress} className="h-1" />
         </div>
       </CardContent>
     </Card>

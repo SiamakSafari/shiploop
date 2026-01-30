@@ -96,7 +96,7 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Page header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-2">
@@ -116,7 +116,7 @@ export default function ProjectsPage() {
 
       {/* Section tabs */}
       <Tabs value={activeSection} onValueChange={setActiveSection}>
-        <TabsList className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+        <TabsList className="bg-gray-100 dark:bg-gray-800 border border-border">
           <TabsTrigger
             value="projects"
             className="text-gray-500 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-50 data-[state=active]:shadow-sm gap-2"
@@ -144,7 +144,7 @@ export default function ProjectsPage() {
         <TabsContent value="projects" className="space-y-6 mt-6">
           {/* Status filters */}
           <Tabs value={projectFilter} onValueChange={setProjectFilter}>
-            <TabsList className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+            <TabsList className="bg-gray-100 dark:bg-gray-800 border border-border">
               {projectStatusFilters.map((status) => (
                 <TabsTrigger
                   key={status.value}
@@ -161,7 +161,7 @@ export default function ProjectsPage() {
 
           {/* Projects grid */}
           {filteredProjects.length > 0 ? (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {filteredProjects.map((project) => (
                 <ProjectCard
                   key={project.id}
@@ -240,7 +240,7 @@ export default function ProjectsPage() {
             <div>
               {selectedIdea ? (
                 <div className="glass hover-lift sticky top-20 rounded-2xl overflow-hidden">
-                  <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                  <div className="p-4 border-b border-border">
                     <h3 className="text-base font-semibold text-gray-900 dark:text-gray-50">{selectedIdea.title}</h3>
                   </div>
                   <div className="p-4 space-y-4">
@@ -249,7 +249,7 @@ export default function ProjectsPage() {
                     </p>
                     <ValidationScores scores={selectedIdea.scores} />
                     {selectedIdea.notes && (
-                      <div className="rounded-xl bg-gray-50 dark:bg-gray-800/50 p-3 border border-gray-200 dark:border-gray-700">
+                      <div className="rounded-xl bg-gray-50 dark:bg-gray-800/50 p-3 border border-border">
                         <p className="text-xs font-medium text-gray-400 dark:text-gray-500">
                           Notes
                         </p>
@@ -284,7 +284,7 @@ export default function ProjectsPage() {
           {/* Goal filters */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <Tabs value={goalFilter} onValueChange={setGoalFilter}>
-              <TabsList className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+              <TabsList className="bg-gray-100 dark:bg-gray-800 border border-border">
                 {goalStatusFilters.map((status) => (
                   <TabsTrigger
                     key={status.value}
@@ -305,7 +305,7 @@ export default function ProjectsPage() {
           </div>
 
           {/* Goals content */}
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-[1fr_2fr]">
             {/* Goals list */}
             <div className="space-y-4">
               <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50">
@@ -378,9 +378,9 @@ function StatBox({
   color: string;
 }) {
   return (
-    <div className="glass rounded-xl p-4">
-      <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
-      <p className={cn("text-2xl font-bold font-space-grotesk", color)}>
+    <div className="glass rounded-xl p-3">
+      <p className="text-xs text-gray-500 dark:text-gray-400">{label}</p>
+      <p className={cn("text-xl font-bold font-space-grotesk", color)}>
         {value}
       </p>
     </div>

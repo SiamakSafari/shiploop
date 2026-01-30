@@ -10,6 +10,7 @@ import {
   WaitlistSection,
   FAQSection,
   FinalCTA,
+  VideoDemo,
 } from "@/components/landing";
 
 export default function LandingPage() {
@@ -26,6 +27,9 @@ export default function LandingPage() {
 
         {/* Features Grid - Bento style */}
         <FeaturesGrid />
+
+        {/* Video Demo */}
+        <VideoDemo />
 
         {/* How It Works - 3 steps */}
         <HowItWorks />

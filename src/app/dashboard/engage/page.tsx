@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MessageSquare, Megaphone, Plus, Sparkles, Filter } from "lucide-react";
+import { toast } from "sonner";
 import { FeedbackCard, FeedbackDetail } from "@/components/feedback";
 import { PostCard, PostDetail } from "@/components/build-public";
 import { useFeedbackStore, useBuildPublicStore } from "@/stores";
@@ -112,8 +113,54 @@ export default function EngagePage() {
   const sources: FeedbackSource[] = ["email", "twitter", "chat", "survey", "review", "support"];
   const platforms: PostPlatform[] = ["twitter", "linkedin", "indiehackers", "reddit", "blog"];
 
+  // Toast-wrapped handlers for Feedback
+  const handleUpdateFeedbackStatus = (feedbackId: string, status: string) => {
+    updateFeedbackStatus(feedbackId, status as "new" | "actionable" | "reviewed" | "resolved");
+    toast.success("Status Updated", {
+      description: `Feedback marked as ${status}`,
+    });
+  };
+
+  const handleCategorizeFeedback = (feedbackId: string, category: string) => {
+    categorize(feedbackId, category as "feature_request" | "bug_report" | "praise" | "question" | "complaint");
+    toast.success("Categorized", {
+      description: `Feedback categorized as ${category.replace("_", " ")}`,
+    });
+  };
+
+  const handleDeleteFeedback = (feedbackId: string) => {
+    deleteFeedback(feedbackId);
+    selectFeedback(null);
+    toast("Feedback Deleted", {
+      description: "The feedback item has been removed",
+    });
+  };
+
+  // Toast-wrapped handlers for Posts
+  const handleSchedulePost = (postId: string, date: Date) => {
+    schedulePost(postId, date);
+    toast.success("Post Scheduled", {
+      description: `Post scheduled for ${date.toLocaleDateString()}`,
+    });
+  };
+
+  const handlePublishPost = (postId: string) => {
+    markPublished(postId);
+    toast.success("Post Published!", {
+      description: "Your content is now live",
+    });
+  };
+
+  const handleDeletePost = (postId: string) => {
+    deletePost(postId);
+    selectPost(null);
+    toast("Post Deleted", {
+      description: "The post has been removed",
+    });
+  };
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Page header */}
       <div className="space-y-2">
         <div className="flex items-center gap-2">
@@ -127,7 +174,7 @@ export default function EngagePage() {
 
       {/* Main tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+        <TabsList className="bg-gray-100 dark:bg-gray-800 border border-border">
           <TabsTrigger
             value="feedback"
             className="text-gray-500 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-50 data-[state=active]:shadow-sm gap-2"
@@ -164,7 +211,7 @@ export default function EngagePage() {
             </div>
             <div className="flex-1 flex flex-col sm:flex-row gap-4">
               <Tabs value={feedbackFilter} onValueChange={setFeedbackFilter} className="flex-1">
-                <TabsList className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <TabsList className="bg-gray-100 dark:bg-gray-800 border border-border">
                   {feedbackStatusFilters.map((status) => (
                     <TabsTrigger
                       key={status.value}
@@ -178,11 +225,11 @@ export default function EngagePage() {
               </Tabs>
 
               <Select value={sourceFilter} onValueChange={setSourceFilter}>
-                <SelectTrigger className="w-[180px] border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
+                <SelectTrigger className="w-[180px] border-border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
                   <Filter className="h-4 w-4 mr-2" />
                   <SelectValue placeholder="All Sources" />
                 </SelectTrigger>
-                <SelectContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+                <SelectContent className="bg-white dark:bg-gray-800 border-border">
                   <SelectItem value="all" className="text-gray-900 dark:text-gray-50">
                     All Sources
                   </SelectItem>
@@ -204,7 +251,7 @@ export default function EngagePage() {
           </div>
 
           {/* Content */}
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-[1fr_2fr] items-start">
             <div className="space-y-4">
               <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50">
                 <Sparkles className="h-4 w-4 text-primary" />
@@ -242,13 +289,10 @@ export default function EngagePage() {
               {selectedFeedback ? (
                 <FeedbackDetail
                   feedback={selectedFeedback}
-                  onUpdateStatus={(status) => updateFeedbackStatus(selectedFeedback.id, status)}
-                  onCategorize={(category) => categorize(selectedFeedback.id, category)}
+                  onUpdateStatus={(status) => handleUpdateFeedbackStatus(selectedFeedback.id, status)}
+                  onCategorize={(category) => handleCategorizeFeedback(selectedFeedback.id, category)}
                   onSetNotes={(notes) => setNotes(selectedFeedback.id, notes)}
-                  onDelete={() => {
-                    deleteFeedback(selectedFeedback.id);
-                    selectFeedback(null);
-                  }}
+                  onDelete={() => handleDeleteFeedback(selectedFeedback.id)}
                 />
               ) : (
                 <div className="glass rounded-2xl">
@@ -283,7 +327,7 @@ export default function EngagePage() {
             </div>
             <div className="flex-1 flex flex-col sm:flex-row gap-4">
               <Tabs value={postFilter} onValueChange={setPostFilter} className="flex-1">
-                <TabsList className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                <TabsList className="bg-gray-100 dark:bg-gray-800 border border-border">
                   {postStatusFilters.map((status) => (
                     <TabsTrigger
                       key={status.value}
@@ -297,11 +341,11 @@ export default function EngagePage() {
               </Tabs>
 
               <Select value={platformFilter} onValueChange={setPlatformFilter}>
-                <SelectTrigger className="w-[180px] border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
+                <SelectTrigger className="w-[180px] border-border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
                   <Filter className="h-4 w-4 mr-2" />
                   <SelectValue placeholder="All Platforms" />
                 </SelectTrigger>
-                <SelectContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+                <SelectContent className="bg-white dark:bg-gray-800 border-border">
                   <SelectItem value="all" className="text-gray-900 dark:text-gray-50">
                     All Platforms
                   </SelectItem>
@@ -323,7 +367,7 @@ export default function EngagePage() {
           </div>
 
           {/* Content */}
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-[1fr_2fr] items-start">
             <div className="space-y-4">
               <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-50">
                 <Sparkles className="h-4 w-4 text-primary" />
@@ -362,12 +406,9 @@ export default function EngagePage() {
                 <PostDetail
                   post={selectedPost}
                   onUpdate={(updates) => updatePost(selectedPost.id, updates)}
-                  onSchedule={(date) => schedulePost(selectedPost.id, date)}
-                  onPublish={() => markPublished(selectedPost.id)}
-                  onDelete={() => {
-                    deletePost(selectedPost.id);
-                    selectPost(null);
-                  }}
+                  onSchedule={(date) => handleSchedulePost(selectedPost.id, date)}
+                  onPublish={() => handlePublishPost(selectedPost.id)}
+                  onDelete={() => handleDeletePost(selectedPost.id)}
                 />
               ) : (
                 <div className="glass rounded-2xl">
@@ -396,9 +437,9 @@ function StatBox({
   color: string;
 }) {
   return (
-    <div className="glass rounded-xl p-4">
-      <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
-      <p className={cn("text-2xl font-bold font-space-grotesk", color)}>
+    <div className="glass rounded-xl p-3">
+      <p className="text-xs text-gray-500 dark:text-gray-400">{label}</p>
+      <p className={cn("text-xl font-bold font-space-grotesk", color)}>
         {value}
       </p>
     </div>

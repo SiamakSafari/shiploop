@@ -8,6 +8,17 @@ import {
   Link as LinkIcon,
   Trash2,
   Send,
+  Rocket,
+  Target,
+  Cpu,
+  Newspaper,
+  Bot,
+  Brain,
+  RefreshCw,
+  Cloud,
+  Clapperboard,
+  FlaskConical,
+  type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -15,6 +26,19 @@ import {
   DIRECTORIES,
   SubmissionStatus,
 } from "@/types";
+
+const iconMap: Record<string, LucideIcon> = {
+  rocket: Rocket,
+  target: Target,
+  cpu: Cpu,
+  newspaper: Newspaper,
+  bot: Bot,
+  brain: Brain,
+  "refresh-cw": RefreshCw,
+  cloud: Cloud,
+  clapperboard: Clapperboard,
+  "flask-conical": FlaskConical,
+};
 import { Caption, Micro, Heading } from "@/components/ui/typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -62,8 +86,8 @@ export function SubmissionDetail({
       {/* Header */}
       <div className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-xl">
-            {directoryInfo.icon}
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800">
+            {(() => { const Icon = iconMap[directoryInfo.icon]; return Icon ? <Icon className="h-5 w-5 text-primary" /> : <span className="text-xl">{directoryInfo.icon}</span>; })()}
           </div>
           <div className="flex-1">
             <Heading level={4} className="text-gray-900 dark:text-gray-50">

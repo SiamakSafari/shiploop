@@ -9,14 +9,25 @@ import {
 } from "@/lib/coach";
 import { getCoachMessage, getCoachEmoji } from "@/lib/coach";
 
+interface UserMessage {
+  id: string;
+  content: string;
+  timestamp: Date;
+  response?: string;
+  isLoading?: boolean;
+}
+
 interface CoachState {
   // Settings
   selectedPersonality: CoachPersonality;
   isEnabled: boolean;
   showNotifications: boolean;
+  soundEnabled: boolean;
+  soundVolume: number;
 
   // Messages
   messages: CoachMessage[];
+  userMessages: UserMessage[];
   unreadCount: number;
 
   // UI State
@@ -27,6 +38,8 @@ interface CoachState {
   setPersonality: (personality: CoachPersonality) => void;
   setEnabled: (enabled: boolean) => void;
   setShowNotifications: (show: boolean) => void;
+  setSoundEnabled: (enabled: boolean) => void;
+  setSoundVolume: (volume: number) => void;
   toggleChat: () => void;
   minimizeChat: () => void;
   maximizeChat: () => void;
@@ -34,6 +47,9 @@ interface CoachState {
 
   // Message actions
   addMessage: (trigger: MessageTrigger, context: CoachContext) => CoachMessage;
+  addUserMessage: (content: string) => string;
+  setUserMessageResponse: (messageId: string, response: string) => void;
+  setUserMessageLoading: (messageId: string, loading: boolean) => void;
   markAsRead: (messageId: string) => void;
   markAllAsRead: () => void;
   clearMessages: () => void;
@@ -46,9 +62,12 @@ export const useCoachStore = create<CoachState>()(
       selectedPersonality: "hype-beast",
       isEnabled: true,
       showNotifications: true,
+      soundEnabled: true,
+      soundVolume: 0.5,
 
       // Messages
       messages: [],
+      userMessages: [],
       unreadCount: 0,
 
       // UI State
@@ -59,6 +78,8 @@ export const useCoachStore = create<CoachState>()(
       setPersonality: (personality) => set({ selectedPersonality: personality }),
       setEnabled: (enabled) => set({ isEnabled: enabled }),
       setShowNotifications: (show) => set({ showNotifications: show }),
+      setSoundEnabled: (enabled) => set({ soundEnabled: enabled }),
+      setSoundVolume: (volume) => set({ soundVolume: volume }),
 
       // UI actions
       toggleChat: () =>
@@ -99,6 +120,37 @@ export const useCoachStore = create<CoachState>()(
         return newMessage;
       },
 
+      // User message actions (for Ask Coach feature)
+      addUserMessage: (content) => {
+        const id = `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const newMessage: UserMessage = {
+          id,
+          content,
+          timestamp: new Date(),
+          isLoading: true,
+        };
+
+        set((state) => ({
+          userMessages: [newMessage, ...state.userMessages].slice(0, 50),
+        }));
+
+        return id;
+      },
+
+      setUserMessageResponse: (messageId, response) =>
+        set((state) => ({
+          userMessages: state.userMessages.map((m) =>
+            m.id === messageId ? { ...m, response, isLoading: false } : m
+          ),
+        })),
+
+      setUserMessageLoading: (messageId, loading) =>
+        set((state) => ({
+          userMessages: state.userMessages.map((m) =>
+            m.id === messageId ? { ...m, isLoading: loading } : m
+          ),
+        })),
+
       markAsRead: (messageId) =>
         set((state) => ({
           messages: state.messages.map((m) =>
@@ -113,7 +165,7 @@ export const useCoachStore = create<CoachState>()(
           unreadCount: 0,
         })),
 
-      clearMessages: () => set({ messages: [], unreadCount: 0 }),
+      clearMessages: () => set({ messages: [], userMessages: [], unreadCount: 0 }),
     }),
     {
       name: "shiploop-coach",
@@ -121,7 +173,10 @@ export const useCoachStore = create<CoachState>()(
         selectedPersonality: state.selectedPersonality,
         isEnabled: state.isEnabled,
         showNotifications: state.showNotifications,
+        soundEnabled: state.soundEnabled,
+        soundVolume: state.soundVolume,
         messages: state.messages.slice(0, 20), // Only persist last 20 messages
+        userMessages: state.userMessages.slice(0, 10), // Only persist last 10 user messages
       }),
     }
   )

@@ -10,10 +10,10 @@ interface RevenueBreakdownProps {
 }
 
 const COLORS = [
-  "#171717", // near black
-  "#404040", // dark gray
-  "#737373", // medium gray
-  "#a3a3a3", // light gray
+  "#E8945A", // brand orange
+  "#4AABA8", // accent cyan
+  "#7CB4C4", // accent blue
+  "#D4764E", // warm terracotta
 ];
 
 export function RevenueBreakdown({ data }: RevenueBreakdownProps) {

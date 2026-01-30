@@ -54,7 +54,16 @@
       "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\User\\\\Desktop\\\\Coding\\\\shiploop''; npm install 2>&1\")",
       "Bash(tasklist:*)",
       "Bash(taskkill:*)",
-      "Bash(powershell.exe -Command:*)"
+      "Bash(powershell.exe -Command:*)",
+      "Bash(npx next --version)",
+      "Bash(xcopy:*)",
+      "Bash(start cmd /k \"npm run dev\")",
+      "Bash(ping:*)",
+      "Bash(git checkout:*)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__navigate_page",
+      "Bash(npx.cmd next build:*)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__evaluate_script"
     ]
   }
 }

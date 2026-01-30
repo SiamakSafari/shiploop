@@ -1,6 +1,6 @@
 "use client";
 
-import { DollarSign, Users, Zap, Trophy, Sparkles } from "lucide-react";
+import { DollarSign, Users, Trophy, Sparkles } from "lucide-react";
 import {
   ShipScoreCard,
   StatCard,
@@ -18,14 +18,6 @@ export default function DashboardPage() {
   // Calculate aggregate stats
   const totalMRR = projects.reduce((sum, p) => sum + p.metrics.mrr, 0);
   const totalUsers = projects.reduce((sum, p) => sum + p.metrics.users, 0);
-  const avgVelocity =
-    projects.length > 0
-      ? Math.round(
-          projects.reduce((sum, p) => sum + p.metrics.velocity, 0) /
-            projects.length
-        )
-      : 0;
-
   // Get current user's leaderboard entry
   const currentUserEntry = mockLeaderboard.find((e) => e.isCurrentUser);
 
@@ -45,7 +37,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats row - Bento grid style */}
-      <div className="bento-grid">
+      <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-6">
         <StatCard
           title="Total MRR"
           value={totalMRR}
@@ -63,14 +55,6 @@ export default function DashboardPage() {
           accentColor="gray1"
         />
         <StatCard
-          title="Ship Velocity"
-          value={avgVelocity}
-          icon={Zap}
-          format="number"
-          trend={12.5}
-          accentColor="dark"
-        />
-        <StatCard
           title="Global Rank"
           value={user?.rank.position || 0}
           icon={Trophy}
@@ -78,12 +62,20 @@ export default function DashboardPage() {
           trend={user?.rank.percentile ? -(100 - user.rank.percentile) / 10 : 0}
           accentColor="gray2"
         />
+        <StatCard
+          title="Ship Score"
+          value={user?.shipScore.total || 0}
+          icon={Sparkles}
+          format="number"
+          trend={user?.shipScore.total ? (user.shipScore.total / 10) : 0}
+          accentColor="dark"
+        />
       </div>
 
-      {/* Main content grid - 2 column layout */}
-      <div className="grid gap-6 md:grid-cols-2">
+      {/* Main content grid */}
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 items-start">
         <ShipScoreCard />
-        <ActivityFeed />
+        <ActivityFeed className="xl:row-span-2" />
         <StreakCounter />
         <LeaderboardWidget
           entries={mockLeaderboard}

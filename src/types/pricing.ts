@@ -29,10 +29,15 @@ export interface PricingExperiment {
   updatedAt: Date;
 }
 
-export const EXPERIMENT_STATUS_CONFIG: Record<ExperimentStatus, { icon: string; label: string; color: string }> = {
-  draft: { icon: "file-text", label: "Draft", color: "text-slate-600 dark:text-slate-400" },
-  running: { icon: "refresh-cw", label: "Running", color: "text-emerald-600 dark:text-emerald-400" },
-  paused: { icon: "pause", label: "Paused", color: "text-amber-600 dark:text-amber-400" },
-  completed: { icon: "check-circle", label: "Completed", color: "text-blue-600 dark:text-blue-400" },
-  winner_declared: { icon: "trophy", label: "Winner Declared", color: "text-primary" },
+export interface ExperimentStatusConfig {
+  label: string;
+  color: string;
+}
+
+export const EXPERIMENT_STATUS_CONFIG: Record<ExperimentStatus, ExperimentStatusConfig> = {
+  draft: { label: "Draft", color: "text-slate-600 dark:text-slate-400" },
+  running: { label: "Running", color: "text-emerald-600 dark:text-emerald-400" },
+  paused: { label: "Paused", color: "text-amber-600 dark:text-amber-400" },
+  completed: { label: "Completed", color: "text-blue-600 dark:text-blue-400" },
+  winner_declared: { label: "Winner Declared", color: "text-primary" },
 };

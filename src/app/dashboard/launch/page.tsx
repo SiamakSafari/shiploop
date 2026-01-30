@@ -1,7 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { Rocket, Globe, Plus, Sparkles } from "lucide-react";
+import {
+  Rocket,
+  Globe,
+  Plus,
+  Sparkles,
+  Target,
+  Cpu,
+  Newspaper,
+  Bot,
+  Brain,
+  RefreshCw,
+  Cloud,
+  Clapperboard,
+  FlaskConical,
+  type LucideIcon,
+} from "lucide-react";
+import { toast } from "sonner";
 import {
   CountdownTimer,
   PlatformCard,
@@ -26,6 +42,19 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useProjectsStore, useDirectoriesStore } from "@/stores";
 import { LaunchPlatform, DIRECTORIES, DirectoryName } from "@/types";
 import { cn } from "@/lib/utils";
+
+const iconMap: Record<string, LucideIcon> = {
+  rocket: Rocket,
+  target: Target,
+  cpu: Cpu,
+  newspaper: Newspaper,
+  bot: Bot,
+  brain: Brain,
+  "refresh-cw": RefreshCw,
+  cloud: Cloud,
+  clapperboard: Clapperboard,
+  "flask-conical": FlaskConical,
+};
 
 const statusFilters: { value: string; label: string }[] = [
   { value: "all", label: "All" },
@@ -96,6 +125,9 @@ export default function LaunchPage() {
   const handleToggleItem = (platform: LaunchPlatform, itemId: string) => {
     if (selectedProjectId) {
       updateChecklistItem(selectedProjectId, platform, itemId);
+      toast.success("Checklist Updated", {
+        description: "Your launch progress has been saved",
+      });
     }
   };
 
@@ -116,6 +148,24 @@ export default function LaunchPage() {
     setAddDialogOpen(false);
     setNewSubmissionProject("");
     setNewSubmissionDirectory("");
+    toast.success("Directory Added", {
+      description: `${newSubmissionDirectory} added to your tracker`,
+    });
+  };
+
+  const handleUpdateStatus = (submissionId: string, status: string) => {
+    updateStatus(submissionId, status as "not_started" | "preparing" | "submitted" | "in_review" | "live" | "rejected");
+    toast.success("Status Updated", {
+      description: `Submission status changed to ${status.replace("_", " ")}`,
+    });
+  };
+
+  const handleDeleteSubmission = (submissionId: string) => {
+    deleteSubmission(submissionId);
+    selectSubmission(null);
+    toast("Submission Removed", {
+      description: "Directory submission has been deleted",
+    });
   };
 
   if (launchableProjects.length === 0) {
@@ -133,7 +183,7 @@ export default function LaunchPage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Page header with project selector */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-2">
@@ -146,10 +196,10 @@ export default function LaunchPage() {
           </p>
         </div>
         <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
-          <SelectTrigger className="w-[200px] border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
+          <SelectTrigger className="w-[200px] border-border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
             <SelectValue placeholder="Select project" />
           </SelectTrigger>
-          <SelectContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          <SelectContent className="bg-white dark:bg-gray-800 border-border">
             {launchableProjects.map((project) => (
               <SelectItem key={project.id} value={project.id} className="text-gray-900 dark:text-gray-50 hover:bg-gray-100 dark:hover:bg-gray-700">
                 {project.name}
@@ -193,9 +243,9 @@ export default function LaunchPage() {
             <Sparkles className="h-4 w-4 text-primary" />
             Platform Checklists
           </h2>
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-[1fr_2fr] items-start">
             {/* Platform list */}
-            <div className="space-y-3">
+            <div className="space-y-2">
               {selectedProject.launchPlatforms.map((platform) => (
                 <PlatformCard
                   key={platform.platform}
@@ -220,7 +270,7 @@ export default function LaunchPage() {
                   }
                 />
               ) : (
-                <div className="flex h-full items-center justify-center rounded-2xl glass border border-dashed border-gray-300 dark:border-gray-600 p-8">
+                <div className="flex min-h-[200px] items-center justify-center rounded-2xl glass border border-dashed border-gray-300 dark:border-gray-600 p-8">
                   <p className="text-center text-gray-500 dark:text-gray-400">
                     Select a platform to view its checklist
                   </p>
@@ -251,7 +301,7 @@ export default function LaunchPage() {
                   Add Directory
                 </button>
               </DialogTrigger>
-              <DialogContent className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700">
+              <DialogContent className="bg-white dark:bg-gray-900 border-border">
                 <DialogHeader>
                   <DialogTitle className="text-gray-900 dark:text-gray-50">
                     Add Directory Submission
@@ -266,10 +316,10 @@ export default function LaunchPage() {
                       value={newSubmissionProject}
                       onValueChange={setNewSubmissionProject}
                     >
-                      <SelectTrigger className="border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
+                      <SelectTrigger className="border-border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
                         <SelectValue placeholder="Select a project" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+                      <SelectContent className="bg-white dark:bg-gray-800 border-border">
                         {projects.map((project) => (
                           <SelectItem
                             key={project.id}
@@ -292,10 +342,10 @@ export default function LaunchPage() {
                         value={newSubmissionDirectory}
                         onValueChange={(v) => setNewSubmissionDirectory(v as DirectoryName)}
                       >
-                        <SelectTrigger className="border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
+                        <SelectTrigger className="border-border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
                           <SelectValue placeholder="Select a directory" />
                         </SelectTrigger>
-                        <SelectContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+                        <SelectContent className="bg-white dark:bg-gray-800 border-border">
                           {getAvailableDirectories(newSubmissionProject).map((dir) => (
                             <SelectItem
                               key={dir.name}
@@ -303,7 +353,7 @@ export default function LaunchPage() {
                               className="text-gray-900 dark:text-gray-50"
                             >
                               <span className="flex items-center gap-2">
-                                <span>{dir.icon}</span>
+                                {(() => { const Icon = iconMap[dir.icon]; return Icon ? <Icon className="h-4 w-4 text-primary" /> : <span>{dir.icon}</span>; })()}
                                 <span>{dir.displayName}</span>
                               </span>
                             </SelectItem>
@@ -328,7 +378,7 @@ export default function LaunchPage() {
 
         {/* Directory filters */}
         <Tabs value={directoryFilter} onValueChange={setDirectoryFilter}>
-          <TabsList className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+          <TabsList className="bg-gray-100 dark:bg-gray-800 border border-border">
             {statusFilters.map((status) => (
               <TabsTrigger
                 key={status.value}
@@ -344,8 +394,8 @@ export default function LaunchPage() {
         </Tabs>
 
         {/* Directory content */}
-        <div className="grid gap-6 lg:grid-cols-2">
-          <div className="space-y-3">
+        <div className="grid gap-6 lg:grid-cols-[1fr_2fr] items-start">
+          <div className="space-y-2">
             {filteredSubmissions.length > 0 ? (
               filteredSubmissions.map((submission) => (
                 <DirectoryCard
@@ -380,7 +430,7 @@ export default function LaunchPage() {
                   toggleRequirement(selectedSubmission.id, reqId)
                 }
                 onUpdateStatus={(status) =>
-                  updateStatus(selectedSubmission.id, status)
+                  handleUpdateStatus(selectedSubmission.id, status)
                 }
                 onSetSubmissionUrl={(url) =>
                   setSubmissionUrl(selectedSubmission.id, url)
@@ -388,10 +438,7 @@ export default function LaunchPage() {
                 onSetListingUrl={(url) =>
                   setListingUrl(selectedSubmission.id, url)
                 }
-                onDelete={() => {
-                  deleteSubmission(selectedSubmission.id);
-                  selectSubmission(null);
-                }}
+                onDelete={() => handleDeleteSubmission(selectedSubmission.id)}
               />
             ) : (
               <div className="glass rounded-2xl">

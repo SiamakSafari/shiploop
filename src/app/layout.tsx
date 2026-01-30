@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { AuthProvider } from "@/components/providers/auth-provider";
+import { AnalyticsProvider } from "@/components/providers/analytics-provider";
 import { Toaster } from "sonner";
 import "./globals.css";
 
@@ -73,9 +74,12 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
@@ -97,6 +101,7 @@ export default function RootLayout({
         >
           <QueryProvider>
             <AuthProvider>
+              <AnalyticsProvider>
               {/* Global background */}
               <div className="fixed inset-0 bg-background -z-50" />
               <div className="fixed inset-0 bg-gradient-to-br from-background via-background to-muted/30 -z-40" />
@@ -105,6 +110,7 @@ export default function RootLayout({
               <div className="fixed inset-0 pattern-grid -z-30" />
 
               {children}
+              </AnalyticsProvider>
               <Toaster
                 position="bottom-right"
                 toastOptions={{

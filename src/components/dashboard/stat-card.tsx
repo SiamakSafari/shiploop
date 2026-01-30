@@ -50,14 +50,14 @@ export function StatCard({
 }: StatCardProps) {
   if (isLoading) {
     return (
-      <div className={cn("glass rounded-xl p-5", className)}>
-        <div className="flex items-start justify-between">
-          <div className="space-y-2">
+      <div className={cn("glass rounded-xl p-3", className)}>
+        <div className="flex items-start gap-4">
+          <div className="flex-1 min-w-0 space-y-2">
             <Skeleton variant="shimmer" className="h-4 w-20" />
             <Skeleton variant="shimmer" className="h-8 w-24" />
             <Skeleton variant="shimmer" className="h-4 w-16" />
           </div>
-          <Skeleton variant="shimmer" className="h-12 w-12 rounded-xl" />
+          <Skeleton variant="shimmer" className="h-12 w-12 rounded-xl shrink-0" />
         </div>
       </div>
     );
@@ -92,7 +92,7 @@ export function StatCard({
   return (
     <div
       className={cn(
-        "glass hover-lift relative overflow-hidden rounded-xl p-5 group transition-all duration-250",
+        "glass hover-lift relative overflow-hidden rounded-xl p-3 group transition-all duration-250",
         statType ? statCardColors[statType].tint : accent.border,
         className
       )}
@@ -100,8 +100,8 @@ export function StatCard({
         '--glow-color': statCardColors[statType].glow,
       } as React.CSSProperties : undefined}
     >
-      <div className="flex items-start justify-between">
-        <div className="space-y-2">
+      <div className="flex items-start gap-4">
+        <div className="flex-1 min-w-0 space-y-2">
           <Caption className="text-gray-600 dark:text-gray-400">{title}</Caption>
           <NumberDisplay variant="medium" className="text-gray-900 dark:text-gray-50 stat-number">{formattedValue}</NumberDisplay>
           {trend !== undefined && (
@@ -111,7 +111,7 @@ export function StatCard({
             </Caption>
           )}
         </div>
-        <div className="flex flex-col items-center">
+        <div className="shrink-0 flex flex-col items-center">
           <div
             className={cn(
               "rounded-xl p-3 bg-gray-50 dark:bg-gray-800 transition-all duration-250 group-hover:scale-110 group-hover:rotate-3",

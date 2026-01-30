@@ -2388,4 +2388,62 @@ Made two CSS refinements to improve the dashboard's visual appearance:
 
 ---
 
+## January 28, 2026 - Dashboard Layout Audit: Eliminate Wasted Space
+
+### Problem
+
+At 1920px wide, every dashboard page had significant wasted whitespace inside components. The root causes:
+
+1. **`justify-between` on stat cards** — Labels and icons spread to opposite edges of wide cards, creating a big gap in the middle
+2. **`h-full` on empty state panels** — In `[1fr_2fr]` grid layouts, empty detail panels stretched to match the left column height, creating massive empty rectangles
+3. **Missing `items-start` on grids** — Left list and right detail columns stretched to equal height even when content didn't need it
+4. **Project cards grid capped at 3 columns** — At 1920px, 3 cards at ~530px each had too much internal whitespace per card
+
+### Changes Made
+
+#### Shared: Stat Card (`src/components/dashboard/stat-card.tsx`)
+- Replaced `justify-between` with `gap-4` in both the rendered card and loading skeleton
+- Added `flex-1 min-w-0` on the text content div so it doesn't push the icon away
+- Added `shrink-0` on the icon div so it stays fixed-size
+- This fixes stat cards on **Home** and **Revenue** pages (shared component)
+
+#### Home: Leaderboard (`src/components/leaderboard/leaderboard-widget.tsx`)
+- Added `max-w-md` to the inner list container so rows stay compact when the parent card is wide
+
+#### Projects (`src/app/dashboard/projects/page.tsx`)
+- Changed project cards grid from `md:grid-cols-2 lg:grid-cols-3` to `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4` — fits 4 cards on wide screens
+
+#### Projects: Project Card (`src/components/projects/project-card.tsx`)
+- Changed metrics row (MRR / Users / Velocity) from `justify-between` to `gap-4`
+- Removed `text-right` alignment so metrics cluster together naturally
+
+#### Revenue (`src/app/dashboard/revenue/page.tsx`)
+- Added `items-start` to Financial Health grid (`lg:grid-cols-[1fr_2fr]`)
+- Added `items-start` to Pricing Experiments grid
+- Replaced `h-full` with `min-h-[200px]` on both empty state panels (financial detail + experiment detail)
+
+#### Launch (`src/app/dashboard/launch/page.tsx`)
+- Added `items-start` to Platform Checklists grid
+- Added `items-start` to Directory Submissions grid
+- Replaced `h-full` with `min-h-[200px]` on platform checklist empty state
+
+#### Engage (`src/app/dashboard/engage/page.tsx`)
+- Added `items-start` to Feedback content grid
+- Added `items-start` to Build in Public content grid
+
+### Status
+
+Partial improvement. The layout is tighter but there's still room for a better approach to handling wide-screen component alignment across all pages. Needs a follow-up pass with a more holistic strategy.
+
+### Files Modified
+- `src/components/dashboard/stat-card.tsx`
+- `src/components/leaderboard/leaderboard-widget.tsx`
+- `src/app/dashboard/projects/page.tsx`
+- `src/components/projects/project-card.tsx`
+- `src/app/dashboard/revenue/page.tsx`
+- `src/app/dashboard/launch/page.tsx`
+- `src/app/dashboard/engage/page.tsx`
+
+---
+
 *ShipLoop - Build. Ship. Grow. Track. Repeat.*

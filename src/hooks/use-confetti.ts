@@ -145,3 +145,25 @@ export function useConfetti() {
     stars,
   };
 }
+
+// Milestone thresholds for automatic celebrations
+export const SCORE_MILESTONES = [25, 50, 75, 100];
+export const STREAK_MILESTONES = [7, 14, 30, 60, 100];
+export const REVENUE_MILESTONES = [100, 1000, 5000, 10000, 50000, 100000];
+
+/**
+ * Check if a milestone was just crossed
+ * Returns the milestone value if crossed, null otherwise
+ */
+export function shouldCelebrateMilestone(
+  currentValue: number,
+  previousValue: number,
+  milestones: number[]
+): number | null {
+  for (const milestone of milestones) {
+    if (previousValue < milestone && currentValue >= milestone) {
+      return milestone;
+    }
+  }
+  return null;
+}

@@ -113,18 +113,18 @@ export function ProjectCard({ project, onDelete, onPause }: ProjectCardProps) {
         </div>
 
         {/* Metrics */}
-        <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center gap-4 text-sm">
           <div className="space-y-0.5">
             <p className="text-muted-foreground">MRR</p>
             <p className={cn("font-bold", project.metrics.mrr > 0 && "text-[#6BBF8A]")}>
               {formatCurrency(project.metrics.mrr)}
             </p>
           </div>
-          <div className="space-y-0.5 text-right">
+          <div className="space-y-0.5">
             <p className="text-muted-foreground">Users</p>
             <p className="font-bold">{project.metrics.users}</p>
           </div>
-          <div className="space-y-0.5 text-right">
+          <div className="space-y-0.5">
             <p className="text-muted-foreground">Velocity</p>
             <p className="font-bold">{project.metrics.velocity}/wk</p>
           </div>

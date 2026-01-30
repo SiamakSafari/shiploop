@@ -1,8 +1,17 @@
 "use client";
 
-import { Play, Pause, Trophy, Trash2, Users, CreditCard, TrendingUp } from "lucide-react";
+import { Play, Pause, Trophy, Trash2, Users, CreditCard, TrendingUp, FileText, RefreshCw, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { PricingExperiment, EXPERIMENT_STATUS_CONFIG, PriceVariant } from "@/types";
+import { PricingExperiment, ExperimentStatus, EXPERIMENT_STATUS_CONFIG, PriceVariant } from "@/types";
+import { LucideIcon } from "lucide-react";
+
+const STATUS_ICONS: Record<ExperimentStatus, LucideIcon> = {
+  draft: FileText,
+  running: RefreshCw,
+  paused: Pause,
+  completed: CheckCircle,
+  winner_declared: Trophy,
+};
 
 interface ExperimentDetailProps {
   experiment: PricingExperiment;
@@ -81,7 +90,8 @@ export function ExperimentDetail({
               statusConfig.color.includes("primary") && "bg-gray-50 dark:bg-gray-900/30",
               statusConfig.color
             )}>
-              {statusConfig.icon} {statusConfig.label}
+              {(() => { const I = STATUS_ICONS[experiment.status]; return <I className="h-4 w-4" />; })()}
+              {statusConfig.label}
             </span>
             <button
               onClick={onDelete}

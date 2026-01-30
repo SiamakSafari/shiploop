@@ -1,9 +1,18 @@
 "use client";
 
-import { ChevronRight, Calendar, Trophy, TrendingUp } from "lucide-react";
+import { ChevronRight, Calendar, Trophy, TrendingUp, FileText, RefreshCw, Pause, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { PricingExperiment, EXPERIMENT_STATUS_CONFIG } from "@/types";
+import { PricingExperiment, ExperimentStatus, EXPERIMENT_STATUS_CONFIG } from "@/types";
 import { Caption, Micro } from "@/components/ui/typography";
+import { LucideIcon } from "lucide-react";
+
+const STATUS_ICONS: Record<ExperimentStatus, LucideIcon> = {
+  draft: FileText,
+  running: RefreshCw,
+  paused: Pause,
+  completed: CheckCircle,
+  winner_declared: Trophy,
+};
 
 interface ExperimentCardProps {
   experiment: PricingExperiment;
@@ -62,16 +71,21 @@ export function ExperimentCard({ experiment, onClick, isSelected }: ExperimentCa
     >
       <div className="flex items-start gap-3">
         {/* Status Icon */}
-        <div className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-xl text-xl shrink-0",
-          experiment.status === "running" && "bg-emerald-50 dark:bg-emerald-900/30",
-          experiment.status === "winner_declared" && "bg-gray-50 dark:bg-gray-900/30",
-          experiment.status === "draft" && "bg-gray-100 dark:bg-gray-800",
-          experiment.status === "paused" && "bg-amber-50 dark:bg-amber-900/30",
-          experiment.status === "completed" && "bg-blue-50 dark:bg-blue-900/30"
-        )}>
-          {statusConfig.icon}
-        </div>
+        {(() => {
+          const StatusIcon = STATUS_ICONS[experiment.status];
+          return (
+            <div className={cn(
+              "flex h-10 w-10 items-center justify-center rounded-xl shrink-0",
+              experiment.status === "running" && "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400",
+              experiment.status === "winner_declared" && "bg-primary/10 text-primary",
+              experiment.status === "draft" && "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400",
+              experiment.status === "paused" && "bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400",
+              experiment.status === "completed" && "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+            )}>
+              <StatusIcon className="h-5 w-5" />
+            </div>
+          );
+        })()}
 
         {/* Content */}
         <div className="flex-1 min-w-0">

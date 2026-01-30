@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { DollarSign, Users, TrendingUp, BarChart3, FlaskConical, Plus, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
+import { toast } from "sonner";
 import { StatCard } from "@/components/dashboard";
 import {
   RevenueChart,
@@ -94,10 +95,42 @@ export default function RevenuePage() {
     addRecord(newRecordProject, project.name);
     setAddDialogOpen(false);
     setNewRecordProject("");
+    toast.success("Project Added", {
+      description: `Now tracking financial health for ${project.name}`,
+    });
+  };
+
+  const handleStartExperiment = (experimentId: string) => {
+    startExperiment(experimentId);
+    toast.success("Experiment Started", {
+      description: "Your pricing experiment is now live",
+    });
+  };
+
+  const handlePauseExperiment = (experimentId: string) => {
+    pauseExperiment(experimentId);
+    toast("Experiment Paused", {
+      description: "You can resume this experiment anytime",
+    });
+  };
+
+  const handleDeclareWinner = (experimentId: string, variantId: string) => {
+    declareWinner(experimentId, variantId);
+    toast.success("Winner Declared!", {
+      description: "The winning variant has been selected",
+    });
+  };
+
+  const handleDeleteExperiment = (experimentId: string) => {
+    deleteExperiment(experimentId);
+    selectExperiment(null);
+    toast("Experiment Deleted", {
+      description: "The experiment has been removed",
+    });
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Page header */}
       <div className="space-y-2">
         <div className="flex items-center gap-2">
@@ -162,7 +195,7 @@ export default function RevenuePage() {
       {/* Section C: Financial Health (Expandable) */}
       <div className="glass rounded-2xl overflow-hidden">
         <div
-          className="w-full flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
+          className="w-full flex items-center justify-between p-4 border-b border-border hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
         >
           <button
             onClick={() => setFinancialOpen(!financialOpen)}
@@ -186,7 +219,7 @@ export default function RevenuePage() {
                   Add Project
                 </button>
               </DialogTrigger>
-              <DialogContent className="bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700">
+              <DialogContent className="bg-white dark:bg-gray-900 border-border">
                 <DialogHeader>
                   <DialogTitle className="text-gray-900 dark:text-gray-50">
                     Track Project Financials
@@ -201,10 +234,10 @@ export default function RevenuePage() {
                       value={newRecordProject}
                       onValueChange={setNewRecordProject}
                     >
-                      <SelectTrigger className="border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
+                      <SelectTrigger className="border-border bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
                         <SelectValue placeholder="Select a project" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+                      <SelectContent className="bg-white dark:bg-gray-800 border-border">
                         {getAvailableProjects().map((project) => (
                           <SelectItem
                             key={project.id}
@@ -232,7 +265,7 @@ export default function RevenuePage() {
         {financialOpen && (
           <div className="p-4">
             {healthRecords.length > 0 ? (
-              <div className="grid gap-4 lg:grid-cols-2">
+              <div className="grid gap-4 lg:grid-cols-[1fr_2fr] items-start">
                 <div className="space-y-3">
                   {healthRecords.map((record) => (
                     <HealthScoreCard
@@ -247,7 +280,7 @@ export default function RevenuePage() {
                   {selectedRecord ? (
                     <FinancialDetail health={selectedRecord} />
                   ) : (
-                    <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-gray-300 dark:border-gray-600 p-8">
+                    <div className="flex min-h-[200px] items-center justify-center rounded-xl border border-dashed border-gray-300 dark:border-gray-600 p-8">
                       <p className="text-center text-sm text-gray-500 dark:text-gray-400">
                         Select a project to view financial details
                       </p>
@@ -269,7 +302,7 @@ export default function RevenuePage() {
       {/* Section D: Pricing Experiments (Expandable) */}
       <div className="glass rounded-2xl overflow-hidden">
         <div
-          className="w-full flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
+          className="w-full flex items-center justify-between p-4 border-b border-border hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
         >
           <button
             onClick={() => setPricingOpen(!pricingOpen)}
@@ -296,7 +329,7 @@ export default function RevenuePage() {
           <div className="p-4 space-y-4">
             {/* Experiment filters */}
             <Tabs value={experimentFilter} onValueChange={setExperimentFilter}>
-              <TabsList className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+              <TabsList className="bg-gray-100 dark:bg-gray-800 border border-border">
                 <TabsTrigger value="all" className="text-gray-500 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-50">All</TabsTrigger>
                 <TabsTrigger value="running" className="text-gray-500 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-50">Running</TabsTrigger>
                 <TabsTrigger value="draft" className="text-gray-500 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-gray-50">Draft</TabsTrigger>
@@ -305,7 +338,7 @@ export default function RevenuePage() {
             </Tabs>
 
             {filteredExperiments.length > 0 ? (
-              <div className="grid gap-4 lg:grid-cols-2">
+              <div className="grid gap-4 lg:grid-cols-[1fr_2fr] items-start">
                 <div className="space-y-3">
                   {filteredExperiments.map((experiment) => (
                     <ExperimentCard
@@ -320,16 +353,13 @@ export default function RevenuePage() {
                   {selectedExperiment ? (
                     <ExperimentDetail
                       experiment={selectedExperiment}
-                      onStart={() => startExperiment(selectedExperiment.id)}
-                      onPause={() => pauseExperiment(selectedExperiment.id)}
-                      onDeclareWinner={(variantId) => declareWinner(selectedExperiment.id, variantId)}
-                      onDelete={() => {
-                        deleteExperiment(selectedExperiment.id);
-                        selectExperiment(null);
-                      }}
+                      onStart={() => handleStartExperiment(selectedExperiment.id)}
+                      onPause={() => handlePauseExperiment(selectedExperiment.id)}
+                      onDeclareWinner={(variantId) => handleDeclareWinner(selectedExperiment.id, variantId)}
+                      onDelete={() => handleDeleteExperiment(selectedExperiment.id)}
                     />
                   ) : (
-                    <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-gray-300 dark:border-gray-600 p-8">
+                    <div className="flex min-h-[200px] items-center justify-center rounded-xl border border-dashed border-gray-300 dark:border-gray-600 p-8">
                       <p className="text-center text-sm text-gray-500 dark:text-gray-400">
                         Select an experiment to view details
                       </p>

@@ -3,7 +3,7 @@
 import Lottie, { LottieComponentProps } from "lottie-react";
 import { cn } from "@/lib/utils";
 
-interface LottieAnimationProps extends Omit<LottieComponentProps, "animationData"> {
+interface LottieAnimationProps extends Omit<LottieComponentProps, "animationData" | "size"> {
   animationData: object;
   className?: string;
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "full";
